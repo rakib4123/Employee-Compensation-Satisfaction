@@ -142,6 +142,14 @@ class PredictProfileTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Predicted Satisfaction")
 
+    def test_post_with_zero_proposed_salary_shows_satisfaction(self):
+        response = self.client.post(
+            reverse("compensation:predict_profile"),
+            self.valid_payload(proposed_salary=0),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Predicted Satisfaction")
+
     def test_invalid_profile_shows_errors(self):
         response = self.client.post(reverse("compensation:predict_profile"), {"job_role": "Software Engineer"})
         self.assertEqual(response.status_code, 200)

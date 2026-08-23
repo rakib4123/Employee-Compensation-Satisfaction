@@ -27,7 +27,7 @@
     <div class="relative h-2 rounded-full bg-slate-100 dark:bg-slate-700 mb-4">
       <div class="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-slate-400" style="left: {{ card.market_position_pct }}%"></div>
     </div>
-    {% if card.actual_salary %}
+    {% if card.actual_salary is not None %}
     <div class="flex justify-between text-sm">
       <span class="text-slate-500">{{ salary_label }}</span>
       <span>৳{{ card.actual_salary }}</span>
@@ -50,7 +50,7 @@
   </div>
 </div>
 
-{% if card.satisfaction_probability %}
+{% if card.satisfaction_probability is not None %}
 <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6 mb-6">
   <h2 class="font-semibold mb-4">Predicted Satisfaction</h2>
   <div class="flex items-center gap-3 mb-4">
