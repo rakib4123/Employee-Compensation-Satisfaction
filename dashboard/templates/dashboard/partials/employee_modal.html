@@ -1,0 +1,42 @@
+<div x-show="showModal" x-cloak
+     class="fixed inset-0 bg-black/40 flex items-center justify-center z-40 print:hidden"
+     @keydown.escape.window="showModal && closeModal()">
+  <div x-ref="modalPanel"
+       @click.outside="closeModal()"
+       class="w-full max-w-md bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6">
+    <h2 class="text-lg font-semibold mb-4">Add Employee</h2>
+    <template x-if="formError">
+      <p class="text-red-500 text-sm mb-3" x-text="formError"></p>
+    </template>
+    <form @submit.prevent="addEmployee({
+            name: $refs.name.value,
+            designation: $refs.designation.value,
+            department: $refs.department.value,
+            experience_years: $refs.experience.value,
+            salary: $refs.salary.value,
+          })">
+      <div class="space-y-3 mb-5">
+        <input x-ref="name" type="text" placeholder="Full name"
+               class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <input x-ref="designation" type="text" placeholder="Designation"
+               class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <input x-ref="department" type="text" placeholder="Department"
+               class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <input x-ref="experience" type="number" min="0" placeholder="Years of experience"
+               class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <input x-ref="salary" type="number" min="0" placeholder="Salary"
+               class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      </div>
+      <div class="flex justify-end gap-2">
+        <button type="button" @click="closeModal()"
+                class="rounded-lg px-4 py-1.5 text-sm border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+          Cancel
+        </button>
+        <button type="submit"
+                class="rounded-lg bg-indigo-600 hover:bg-indigo-500 active:scale-[0.98] transition text-white text-sm font-medium px-4 py-1.5">
+          Add
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
