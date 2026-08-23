@@ -1,5 +1,6 @@
 @import "tailwindcss" source(none);
 @source "../../../templates";
+@source "../../../../compensation/templates";
 @custom-variant dark (&:where(.dark, .dark *));
 
 [x-cloak] {
