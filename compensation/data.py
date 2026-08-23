@@ -239,7 +239,7 @@ def predict_profile(profile):
         "proposed_salary": profile.get("proposed_salary"),
     }
 
-    if profile.get("proposed_salary"):
+    if profile.get("proposed_salary") is not None:
         clf_row = row_df.copy()
         clf_row["actual_salary"] = profile["proposed_salary"]
         clf_row["expected_salary"] = predicted_salary

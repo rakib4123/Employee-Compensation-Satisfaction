@@ -83,7 +83,7 @@ def predict_profile(request):
         form = PredictProfileForm(request.POST)
         if form.is_valid():
             result = data.predict_profile(form.cleaned_data)
-            if result.get("proposed_salary"):
+            if result.get("proposed_salary") is not None:
                 result["actual_salary"] = result["proposed_salary"]
     else:
         form = PredictProfileForm()
