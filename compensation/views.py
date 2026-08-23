@@ -42,7 +42,7 @@ def audit_dashboard(request):
     headcount = len(roster)
     avg_gap_pct = round(sum(r["gap_pct"] for r in roster) / headcount, 1) if headcount else 0
     underpaid_count = sum(1 for r in roster if r["gap_pct"] < -10)
-    at_risk_count = sum(1 for r in roster if r["risk_level"] == "high")
+    at_risk_count = sum(1 for r in roster if r["satisfaction_probability"] < 0.5)
 
     base_params = request.GET.copy()
     base_params.pop("page", None)

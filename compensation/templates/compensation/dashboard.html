@@ -1,4 +1,5 @@
 {% extends "dashboard/base.html" %}
+{% load humanize %}
 {% block title %}Compensation Insights — BusCom{% endblock %}
 {% block content %}
 <div x-data x-init="$nextTick(() => staggerRows($refs.tbody))">
@@ -67,7 +68,7 @@
           <th class="py-2">Department</th>
           <th class="py-2 text-right">Actual</th>
           <th class="py-2 text-right">Predicted Fair</th>
-          <th class="py-2 text-right">Gap</th>
+          <th class="py-2 pr-4 text-right">Gap</th>
           <th class="py-2">Satisfaction</th>
         </tr>
       </thead>
@@ -81,8 +82,8 @@
           </td>
           <td class="py-2">{{ employee.job_role }}</td>
           <td class="py-2">{{ employee.department }}</td>
-          <td class="py-2 text-right">৳{{ employee.actual_salary }}</td>
-          <td class="py-2 text-right">৳{{ employee.predicted_salary }}</td>
+          <td class="py-2 text-right">৳{{ employee.actual_salary|intcomma }}</td>
+          <td class="py-2 text-right">৳{{ employee.predicted_salary|intcomma }}</td>
           <td class="py-2 text-right {% if employee.gap_pct < 0 %}text-red-500{% else %}text-emerald-600{% endif %}">{{ employee.gap_pct }}%</td>
           <td class="py-2">
             {% if employee.risk_level == "low" %}
