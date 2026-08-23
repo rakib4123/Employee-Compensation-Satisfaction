@@ -191,3 +191,25 @@ def get_roster():
 
 def get_employee(employee_id):
     return next((row for row in get_roster() if row["employee_id"] == employee_id), None)
+
+
+def get_employee_detail(employee_id):
+    employee = get_employee(employee_id)
+    if employee is None:
+        return None
+    regression_pipeline, classification_pipeline = _get_pipelines()
+    row_df = pd.DataFrame([employee])
+
+    regression_factors = top_factors(regression_pipeline, row_df[CATEGORICAL_FEATURES + NUMERIC_FEATURES])
+
+    clf_row = row_df.copy()
+    clf_row["expected_salary"] = employee["predicted_salary"]
+    classification_factors = top_factors(
+        classification_pipeline, clf_row[CATEGORICAL_FEATURES + NUMERIC_FEATURES + CLASSIFICATION_EXTRA_NUMERIC]
+    )
+
+    return {
+        **employee,
+        "regression_top_factors": regression_factors,
+        "classification_top_factors": classification_factors,
+    }

@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from compensation import data
 from compensation.data import compute_scorecard
 
 
@@ -77,3 +78,26 @@ class AuditDashboardContentTests(TestCase):
     def test_pagination_defaults_to_25_per_page(self):
         response = self.client.get(reverse("compensation:audit_dashboard"))
         self.assertEqual(len(response.context["page_obj"]), 25)
+
+
+class EmployeeDetailTests(TestCase):
+    def setUp(self):
+        self.client.login(username="hr_admin", password="buscom-hr-2026")
+
+    def test_shows_employee_profile_and_prediction(self):
+        target = data.get_roster()[0]
+        response = self.client.get(reverse("compensation:employee_detail", args=[target["employee_id"]]))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, target["name"])
+        self.assertContains(response, "Predicted Fair Salary")
+
+    def test_unknown_employee_returns_404(self):
+        response = self.client.get(reverse("compensation:employee_detail", args=[999999]))
+        self.assertEqual(response.status_code, 404)
+
+    def test_employee_role_is_redirected(self):
+        self.client.logout()
+        self.client.login(username="amara_okafor", password="buscom-emp-2026")
+        target = data.get_roster()[0]
+        response = self.client.get(reverse("compensation:employee_detail", args=[target["employee_id"]]))
+        self.assertEqual(response.status_code, 302)
