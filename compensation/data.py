@@ -103,6 +103,17 @@ def satisfaction_label(level):
     return SATISFACTION_LABELS[level]
 
 
+SCORECARD_DESCRIPTIONS = {
+    "experience": "2 points per year of experience, capped at 20 (10+ years)",
+    "education": "PhD = 20, MSc = 15, BSc = 10, Diploma = 5, High School = 0",
+    "publications": "5 points per publication, capped at 20 (4+ publications)",
+    "projects": "2 points per project led, capped at 10 (5+ projects)",
+    "training": "Training/professional development score out of 10",
+    "skills": "Current skill-level score out of 10",
+    "boss_assessment": "Most recent manager performance rating out of 10",
+}
+
+
 def compute_scorecard(row):
     categories = [
         {"key": "experience", "label": "Experience", "score": experience_score(row["experience_years"]), "max": 20},
@@ -113,6 +124,8 @@ def compute_scorecard(row):
         {"key": "skills", "label": "Skills", "score": row["skills_score"], "max": 10},
         {"key": "boss_assessment", "label": "Boss assessment", "score": row["boss_assessment_score"], "max": 10},
     ]
+    for category in categories:
+        category["description"] = SCORECARD_DESCRIPTIONS[category["key"]]
     total = sum(category["score"] for category in categories)
     return {"categories": categories, "total": total, "max_total": 100}
 

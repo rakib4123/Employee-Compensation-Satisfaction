@@ -1,43 +1,66 @@
-{% load static %}
+{% load static cache_bust %}
 <!DOCTYPE html>
 <html lang="en"
-      x-data="{ dark: localStorage.getItem('theme') === 'dark' }"
-      x-init="$watch('dark', v => localStorage.setItem('theme', v ? 'dark' : 'light'))"
-      :class="{ 'dark': dark }">
+      x-data="{ dark: document.documentElement.classList.contains('dark') }"
+      x-init="$watch('dark', val => { localStorage.setItem('theme', val ? 'dark' : 'light'); if(val) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark'); })">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}BusCom{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'dashboard/css/output.css' %}">
+  <title>{% block title %}DRIKON TECH{% endblock %}</title>
+  <script>
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static_v 'dashboard/css/output.css' %}">
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="{% static 'dashboard/js/motion.js' %}"></script>
-  <script src="{% static 'dashboard/js/app.js' %}"></script>
+  <script src="{% static_v 'dashboard/js/motion.js' %}"></script>
+  <script src="{% static_v 'dashboard/js/app.js' %}"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+  <style>
+    body { font-family: 'Outfit', sans-serif; }
+    html.dark { color-scheme: dark; }
+  </style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen">
-  {% if user.is_authenticated %}
-  <div class="flex h-screen overflow-hidden">
-    {% include "dashboard/partials/sidebar.html" %}
-    <div class="flex-1 flex flex-col overflow-hidden">
-      {% include "dashboard/partials/topbar.html" %}
-      <main class="flex-1 overflow-y-auto p-6" x-data x-init="fadeInPage($el)">
-        {% block content %}{% endblock %}
-      </main>
-    </div>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen relative font-sans">
+  <!-- Aurora Mesh Background -->
+  <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden" x-data x-init="animateAurora($el)">
+    <div class="absolute w-[60vw] h-[60vh] rounded-full bg-fuchsia-400/40 dark:bg-fuchsia-700/30 blur-[130px] opacity-70 aurora-blob mix-blend-multiply dark:mix-blend-screen"></div>
+    <div class="absolute w-[50vw] h-[50vh] rounded-full bg-cyan-400/40 dark:bg-cyan-700/30 blur-[140px] opacity-60 aurora-blob mix-blend-multiply dark:mix-blend-screen"></div>
+    <div class="absolute w-[55vw] h-[55vh] rounded-full bg-indigo-400/40 dark:bg-indigo-700/30 blur-[150px] opacity-70 aurora-blob mix-blend-multiply dark:mix-blend-screen"></div>
+    <div class="absolute w-[45vw] h-[45vh] rounded-full bg-violet-400/40 dark:bg-violet-700/30 blur-[130px] opacity-60 aurora-blob mix-blend-multiply dark:mix-blend-screen"></div>
   </div>
-  <div x-data="toast()" @toast.window="add($event.detail.message)"
-       class="fixed top-4 right-4 space-y-2 z-50 print:hidden">
-    <template x-for="t in items" :key="t.id">
-      <div :data-toast-id="t.id"
-           class="rounded-lg bg-slate-900 text-white text-sm px-4 py-2 shadow-lg">
-        <span x-text="t.message"></span>
+
+  <div class="relative z-10 w-full min-h-screen flex flex-col">
+    {% if user.is_authenticated %}
+    <div class="flex h-screen overflow-hidden">
+      {% include "dashboard/partials/sidebar.html" %}
+      <div class="flex-1 flex flex-col overflow-hidden">
+        {% include "dashboard/partials/topbar.html" %}
+        <main class="flex-1 overflow-y-auto p-6" x-data x-init="fadeInPage($el)">
+          {% block content %}{% endblock %}
+        </main>
       </div>
-    </template>
+    </div>
+    <div x-data="toast()" @toast.window="add($event.detail.message)"
+         class="fixed top-4 right-4 space-y-2 z-50 print:hidden">
+      <template x-for="t in items" :key="t.id">
+        <div :data-toast-id="t.id"
+             class="rounded-lg bg-slate-900 text-white text-sm px-4 py-2 shadow-lg glass">
+          <span x-text="t.message"></span>
+        </div>
+      </template>
+    </div>
+    {% else %}
+    <main class="flex items-center justify-center min-h-screen p-6">
+      {% block guest_content %}{% endblock %}
+    </main>
+    {% endif %}
   </div>
-  {% else %}
-  <main class="flex items-center justify-center min-h-screen p-6">
-    {% block guest_content %}{% endblock %}
-  </main>
-  {% endif %}
 </body>
 </html>

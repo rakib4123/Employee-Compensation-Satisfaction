@@ -1,8 +1,8 @@
 {% extends "dashboard/base.html" %}
-{% block title %}Predict for a Profile — Compensation — BusCom{% endblock %}
+{% block title %}Predict for a Profile — Compensation — DRIKON TECH{% endblock %}
 {% block content %}
 <div class="max-w-4xl mx-auto" x-data x-init="fadeInPage($el)">
-  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6 mb-6">
+  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6 mb-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
     <h1 class="font-semibold mb-4">Predict for a Profile</h1>
     {% if form.errors %}
     <p class="text-red-500 text-sm mb-3">Please correct the errors below.</p>
@@ -10,11 +10,22 @@
     <form method="post" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
       {% csrf_token %}
       {% for field in form %}
+      {% if field.name == "training_score" or field.name == "skills_score" or field.name == "boss_assessment_score" %}
+      <div>
+        <label class="flex items-center justify-between text-sm text-slate-500 mb-1">
+          <span>{{ field.label }}</span>
+          <span id="id_{{ field.name }}_display" class="font-medium text-slate-700 dark:text-slate-300">{{ field.value|default:5 }}</span>
+        </label>
+        {{ field }}
+        {% if field.errors %}<p class="text-red-500 text-xs mt-1">{{ field.errors.0 }}</p>{% endif %}
+      </div>
+      {% else %}
       <div>
         <label class="block text-sm text-slate-500 mb-1">{{ field.label }}</label>
         {{ field }}
         {% if field.errors %}<p class="text-red-500 text-xs mt-1">{{ field.errors.0 }}</p>{% endif %}
       </div>
+      {% endif %}
       {% endfor %}
       <div class="sm:col-span-2 flex justify-end">
         <button type="submit"

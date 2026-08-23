@@ -65,3 +65,10 @@ def employee_self_service(request):
         "employee": employee,
         "payslips": payslips,
     })
+
+
+@login_required
+def user_profile(request):
+    return render(request, "dashboard/profile.html", {
+        "user": request.user,
+    })

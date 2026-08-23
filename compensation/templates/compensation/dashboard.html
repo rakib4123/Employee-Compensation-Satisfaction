@@ -1,30 +1,65 @@
 {% extends "dashboard/base.html" %}
 {% load humanize %}
-{% block title %}Compensation Insights — BusCom{% endblock %}
+{% block title %}Compensation Insights — DRIKON TECH{% endblock %}
 {% block content %}
 <div x-data x-init="$nextTick(() => staggerRows($refs.tbody))">
-  <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8">
-    <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-5" x-data x-init="animateCountUp($el.querySelector('.stat-value'), {{ headcount }})">
-      <p class="text-sm text-slate-500">Headcount</p>
-      <p class="stat-value text-3xl font-semibold mt-1">0</p>
-    </div>
-    <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-5" x-data x-init="animateCountUp($el.querySelector('.stat-value'), {{ avg_gap_pct }}, { decimals: 1 })">
-      <p class="text-sm text-slate-500">Average Pay Gap</p>
-      <p class="mt-1"><span class="stat-value text-3xl font-semibold">0</span><span class="text-3xl font-semibold">%</span></p>
-    </div>
-    <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-5" x-data x-init="animateCountUp($el.querySelector('.stat-value'), {{ underpaid_count }})">
-      <p class="text-sm text-slate-500">Underpaid (&gt;10% below fair)</p>
-      <p class="stat-value text-3xl font-semibold mt-1">0</p>
-    </div>
-    <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-5" x-data x-init="animateCountUp($el.querySelector('.stat-value'), {{ at_risk_count }})">
-      <p class="text-sm text-slate-500">Satisfaction Risk</p>
-      <p class="stat-value text-3xl font-semibold mt-1">0</p>
-    </div>
+  <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8" x-data x-init="$nextTick(() => staggerCards($el))">
+    <a href="{% url 'compensation:audit_dashboard' %}" class="block rounded-3xl bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl border border-white/40 border-t-white/80 dark:border-slate-700/40 dark:border-t-slate-500/50 shadow-2xl p-6 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-indigo-500/10 hover:bg-white/50 dark:hover:bg-slate-800/50 relative z-10" x-data x-init="animateCountUp($el.querySelector('.stat-value'), {{ headcount }})">
+      <div class="flex items-center justify-between mb-3">
+        <p class="text-sm uppercase tracking-wider font-semibold text-slate-500">Headcount</p>
+        <span class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-300 flex items-center justify-center">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <circle cx="9" cy="8" r="3"/>
+            <path stroke-linecap="round" d="M3 20c0-3.314 2.686-6 6-6s6 2.686 6 6"/>
+            <circle cx="17" cy="8.5" r="2.25"/>
+            <path stroke-linecap="round" d="M15.5 14.75c2.4.35 4.25 2.35 4.25 5.25"/>
+          </svg>
+        </span>
+      </div>
+      <p class="stat-value text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-fuchsia-600 dark:from-indigo-400 dark:to-fuchsia-400 tracking-tight">0</p>
+    </a>
+    <a href="?sort=gap_pct" class="block rounded-3xl bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl border border-white/40 border-t-white/80 dark:border-slate-700/40 dark:border-t-slate-500/50 shadow-2xl p-6 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-sky-500/10 hover:bg-white/50 dark:hover:bg-slate-800/50 relative z-10" x-data x-init="animateCountUp($el.querySelector('.stat-value'), {{ avg_gap_pct }}, { decimals: 1 })">
+      <div class="flex items-center justify-between mb-3">
+        <p class="text-sm uppercase tracking-wider font-semibold text-slate-500">Average Pay Gap</p>
+        <span class="w-8 h-8 rounded-lg bg-sky-50 dark:bg-sky-900/40 text-sky-600 dark:text-sky-300 flex items-center justify-center">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l6-6 4 4 6-8M20 6h-4v4"/>
+          </svg>
+        </span>
+      </div>
+      <p class="mt-1 flex items-baseline gap-1"><span class="stat-value text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-blue-600 dark:from-sky-400 dark:to-blue-500 tracking-tight">0</span><span class="text-2xl font-bold text-sky-600 dark:text-sky-400">%</span></p>
+    </a>
+    <a href="?gap=underpaid" class="block rounded-3xl bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl border border-white/40 border-t-white/80 dark:border-slate-700/40 dark:border-t-slate-500/50 shadow-2xl p-6 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-amber-500/10 hover:bg-white/50 dark:hover:bg-slate-800/50 relative z-10" x-data x-init="animateCountUp($el.querySelector('.stat-value'), {{ underpaid_count }})">
+      <div class="flex items-center justify-between mb-3">
+        <p class="text-sm uppercase tracking-wider font-semibold text-slate-500">Underpaid <span class="lowercase text-xs opacity-70">(&gt;10%)</span></p>
+        <span class="w-8 h-8 rounded-lg bg-amber-50 dark:bg-amber-900/40 text-amber-600 dark:text-amber-300 flex items-center justify-center">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a1.5 1.5 0 0 0 1.3 2.25h17.76a1.5 1.5 0 0 0 1.3-2.25L13.71 3.86a1.5 1.5 0 0 0-2.42 0Z"/>
+          </svg>
+        </span>
+      </div>
+      <p class="stat-value text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-orange-500 dark:from-amber-400 dark:to-orange-400 tracking-tight">0</p>
+    </a>
+    <a href="?risk=high" class="block rounded-3xl bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl border border-white/40 border-t-white/80 dark:border-slate-700/40 dark:border-t-slate-500/50 shadow-2xl p-6 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-red-500/10 hover:bg-white/50 dark:hover:bg-slate-800/50 relative z-10" x-data x-init="animateCountUp($el.querySelector('.stat-value'), {{ at_risk_count }})">
+      <div class="flex items-center justify-between mb-3">
+        <p class="text-sm uppercase tracking-wider font-semibold text-slate-500">Satisfaction Risk</p>
+        <span class="w-8 h-8 rounded-lg bg-red-50 dark:bg-red-900/40 text-red-600 dark:text-red-300 flex items-center justify-center">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="8.25"/>
+            <path stroke-linecap="round" d="M8.25 15c1.05-1.15 2.35-1.75 3.75-1.75s2.7.6 3.75 1.75"/>
+            <circle cx="9" cy="9.75" r="0.9" fill="currentColor" stroke="none"/>
+            <circle cx="15" cy="9.75" r="0.9" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+      </div>
+      <p class="stat-value text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-rose-600 dark:from-red-400 dark:to-rose-400 tracking-tight">0</p>
+    </a>
   </div>
 
-  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-5">
+  <div class="rounded-3xl bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl border border-white/40 border-t-white/80 dark:border-slate-700/40 dark:border-t-slate-500/50 shadow-2xl p-6 relative z-10">
     <form method="get" class="flex flex-wrap items-center gap-3 mb-4">
       <input type="text" name="q" value="{{ query }}" placeholder="Search name or role..."
+             @input.debounce.400ms="$el.form.submit()"
              class="w-64 rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
       <select name="department" onchange="this.form.submit()"
               class="rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
@@ -40,17 +75,18 @@
         <option value="medium" {% if risk == "medium" %}selected{% endif %}>Uncertain</option>
         <option value="high" {% if risk == "high" %}selected{% endif %}>At risk</option>
       </select>
-      <select name="sort" onchange="this.form.submit()"
-              class="rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-        <option value="name" {% if sort == "name" %}selected{% endif %}>Sort: Name</option>
-        <option value="gap_pct" {% if sort == "gap_pct" %}selected{% endif %}>Sort: Pay gap</option>
-        <option value="predicted_salary" {% if sort == "predicted_salary" %}selected{% endif %}>Sort: Predicted salary</option>
-        <option value="satisfaction_probability" {% if sort == "satisfaction_probability" %}selected{% endif %}>Sort: Satisfaction</option>
-      </select>
+      {% if gap == "underpaid" %}<input type="hidden" name="gap" value="underpaid">{% endif %}
+      {% if sort != "name" %}<input type="hidden" name="sort" value="{{ sort }}">{% endif %}
       <button type="submit"
               class="rounded-lg bg-indigo-600 hover:bg-indigo-500 active:scale-[0.98] transition text-white text-sm font-medium px-4 py-1.5">
         Filter
       </button>
+      {% if gap == "underpaid" %}
+      <a href="?{{ base_query_no_gap }}" class="inline-flex items-center gap-1.5 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300 text-xs px-2.5 py-1 hover:bg-amber-200 dark:hover:bg-amber-800 transition">
+        Underpaid only
+        <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+      </a>
+      {% endif %}
       <a href="{% url 'compensation:predict_profile' %}"
          class="ml-auto rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-1.5 text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">
         Predict for a profile
@@ -63,18 +99,48 @@
     <table class="w-full text-sm">
       <thead>
         <tr class="text-left text-slate-500 border-b border-slate-200 dark:border-slate-700">
-          <th class="py-2">Name</th>
+          <th class="py-2">
+            <a href="?{{ base_query_no_sort }}&sort={% if sort_field == 'name' and not sort_reverse %}-name{% else %}name{% endif %}"
+               class="inline-flex items-center gap-1 hover:text-slate-900 dark:hover:text-white transition-colors">
+              Name
+              {% if sort_field == "name" %}{% if sort_reverse %}<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>{% else %}<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>{% endif %}{% endif %}
+            </a>
+          </th>
           <th class="py-2">Role</th>
           <th class="py-2">Department</th>
-          <th class="py-2 text-right">Actual</th>
-          <th class="py-2 text-right">Predicted Fair</th>
-          <th class="py-2 pr-4 text-right">Gap</th>
-          <th class="py-2">Satisfaction</th>
+          <th class="py-2 text-right">
+            <a href="?{{ base_query_no_sort }}&sort={% if sort_field == 'actual_salary' and not sort_reverse %}-actual_salary{% else %}actual_salary{% endif %}"
+               class="inline-flex items-center gap-1 hover:text-slate-900 dark:hover:text-white transition-colors">
+              Actual
+              {% if sort_field == "actual_salary" %}{% if sort_reverse %}<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>{% else %}<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>{% endif %}{% endif %}
+            </a>
+          </th>
+          <th class="py-2 text-right">
+            <a href="?{{ base_query_no_sort }}&sort={% if sort_field == 'predicted_salary' and not sort_reverse %}-predicted_salary{% else %}predicted_salary{% endif %}"
+               class="inline-flex items-center gap-1 hover:text-slate-900 dark:hover:text-white transition-colors">
+              Predicted Fair
+              {% if sort_field == "predicted_salary" %}{% if sort_reverse %}<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>{% else %}<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>{% endif %}{% endif %}
+            </a>
+          </th>
+          <th class="py-2 pr-4 text-right">
+            <a href="?{{ base_query_no_sort }}&sort={% if sort_field == 'gap_pct' and not sort_reverse %}-gap_pct{% else %}gap_pct{% endif %}"
+               class="inline-flex items-center gap-1 hover:text-slate-900 dark:hover:text-white transition-colors">
+              Gap
+              {% if sort_field == "gap_pct" %}{% if sort_reverse %}<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>{% else %}<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>{% endif %}{% endif %}
+            </a>
+          </th>
+          <th class="py-2">
+            <a href="?{{ base_query_no_sort }}&sort={% if sort_field == 'satisfaction_probability' and not sort_reverse %}-satisfaction_probability{% else %}satisfaction_probability{% endif %}"
+               class="inline-flex items-center gap-1 hover:text-slate-900 dark:hover:text-white transition-colors">
+              Satisfaction
+              {% if sort_field == "satisfaction_probability" %}{% if sort_reverse %}<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>{% else %}<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>{% endif %}{% endif %}
+            </a>
+          </th>
         </tr>
       </thead>
       <tbody x-ref="tbody">
         {% for employee in page_obj %}
-        <tr class="border-b border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition cursor-pointer"
+        <tr class="group border-b border-slate-200/40 dark:border-slate-700/40 hover:bg-white/60 dark:hover:bg-slate-800/60 transition-colors cursor-pointer"
             onclick="window.location='{% url 'compensation:employee_detail' employee.employee_id %}'">
           <td class="py-2 flex items-center gap-2">
             <span class="w-7 h-7 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 text-xs flex items-center justify-center font-medium">{{ employee.initials }}</span>
@@ -87,11 +153,11 @@
           <td class="py-2 text-right {% if employee.gap_pct < 0 %}text-red-500{% else %}text-emerald-600{% endif %}">{{ employee.gap_pct }}%</td>
           <td class="py-2">
             {% if employee.risk_level == "low" %}
-            <span class="rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300 text-xs px-2 py-0.5">Likely satisfied</span>
+            <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300 text-xs px-2 py-0.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Likely satisfied</span>
             {% elif employee.risk_level == "medium" %}
-            <span class="rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300 text-xs px-2 py-0.5">Uncertain</span>
+            <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300 text-xs px-2 py-0.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>Uncertain</span>
             {% else %}
-            <span class="rounded-full bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300 text-xs px-2 py-0.5">At risk</span>
+            <span class="inline-flex items-center gap-1.5 rounded-full bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300 text-xs px-2 py-0.5"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>At risk</span>
             {% endif %}
           </td>
         </tr>

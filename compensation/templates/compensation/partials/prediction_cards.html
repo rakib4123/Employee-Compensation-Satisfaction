@@ -1,16 +1,19 @@
 {% load humanize %}
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6" x-data x-init="$nextTick(() => { animateBarsIn($el); animateMarkersIn($el); })">
+  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
     <h2 class="font-semibold mb-4">Compensation Scorecard</h2>
     <div class="space-y-2 text-sm">
       {% for category in card.scorecard.categories %}
-      <div>
+      <div title="{{ category.description }}" class="cursor-help">
         <div class="flex justify-between mb-1">
-          <span class="text-slate-500">{{ category.label }}</span>
+          <span class="text-slate-500 inline-flex items-center gap-1">
+            {{ category.label }}
+            <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 11v5.25M12 8.25h.01"/></svg>
+          </span>
           <span>{{ category.score }} / {{ category.max }}</span>
         </div>
         <div class="h-1.5 rounded-full bg-slate-100 dark:bg-slate-700">
-          <div class="h-1.5 rounded-full bg-indigo-500" style="width: {% widthratio category.score category.max 100 %}%"></div>
+          <div class="h-1.5 rounded-full bg-indigo-500" style="width:0%" data-bar-target="{% widthratio category.score category.max 100 %}"></div>
         </div>
       </div>
       {% endfor %}
@@ -21,12 +24,12 @@
     </div>
   </div>
 
-  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6">
+  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
     <h2 class="font-semibold mb-4">Predicted Fair Salary</h2>
     <p class="text-3xl font-semibold mb-1">৳{{ card.predicted_salary|intcomma }}</p>
     <p class="text-sm text-slate-500 mb-4">Market band: ৳{{ card.market_min_salary|intcomma }} – ৳{{ card.market_max_salary|intcomma }}</p>
     <div class="relative h-2 rounded-full bg-slate-100 dark:bg-slate-700 mb-4">
-      <div class="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-slate-400" style="left: {{ card.market_position_pct }}%"></div>
+      <div class="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-indigo-500 ring-2 ring-white dark:ring-slate-800 shadow" style="left:0%; opacity:0" data-marker-target="{{ card.market_position_pct }}"></div>
     </div>
     {% if card.actual_salary is not None %}
     <div class="flex justify-between text-sm">
@@ -52,15 +55,16 @@
 </div>
 
 {% if card.satisfaction_probability is not None %}
-<div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6 mb-6">
+<div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6 mb-6 border-t-4 {% if card.risk_level == "low" %}border-emerald-400{% elif card.risk_level == "medium" %}border-amber-400{% else %}border-red-400{% endif %} transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+     x-data x-init="fadeInPage($el)">
   <h2 class="font-semibold mb-4">Predicted Satisfaction</h2>
   <div class="flex items-center gap-3 mb-4">
     {% if card.risk_level == "low" %}
-    <span class="rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300 text-xs px-2 py-0.5">Likely satisfied</span>
+    <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300 text-xs px-2 py-0.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Likely satisfied</span>
     {% elif card.risk_level == "medium" %}
-    <span class="rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300 text-xs px-2 py-0.5">Uncertain</span>
+    <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300 text-xs px-2 py-0.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>Uncertain</span>
     {% else %}
-    <span class="rounded-full bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300 text-xs px-2 py-0.5">At risk</span>
+    <span class="inline-flex items-center gap-1.5 rounded-full bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300 text-xs px-2 py-0.5"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>At risk</span>
     {% endif %}
     <span class="text-sm text-slate-500">{{ card.predicted_satisfaction }} ({{ card.satisfaction_probability }} probability)</span>
   </div>

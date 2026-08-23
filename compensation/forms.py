@@ -8,9 +8,16 @@ LANGUAGE_CHOICES = [(level, level) for level in LANGUAGE_LEVELS]
 
 INPUT_CLASS = (
     "w-full rounded-lg border border-slate-300 dark:border-slate-600 "
-    "bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 "
+    "bg-transparent dark:bg-slate-900 px-3 py-2 text-sm focus:outline-none focus:ring-2 "
     "focus:ring-indigo-500"
 )
+
+SLIDER_FIELDS = {"training_score", "skills_score", "boss_assessment_score"}
+SLIDER_CLASS = "w-full accent-indigo-600 cursor-pointer"
+
+
+def _slider_widget():
+    return forms.NumberInput(attrs={"type": "range", "min": 0, "max": 10, "step": 1, "class": SLIDER_CLASS})
 
 
 class PredictProfileForm(forms.Form):
@@ -20,13 +27,16 @@ class PredictProfileForm(forms.Form):
     education_level = forms.ChoiceField(choices=EDUCATION_CHOICES)
     publications_count = forms.IntegerField(min_value=0, max_value=20)
     projects_led_count = forms.IntegerField(min_value=0, max_value=20)
-    training_score = forms.IntegerField(min_value=0, max_value=10)
-    skills_score = forms.IntegerField(min_value=0, max_value=10)
-    boss_assessment_score = forms.IntegerField(min_value=0, max_value=10)
+    training_score = forms.IntegerField(min_value=0, max_value=10, initial=5, widget=_slider_widget())
+    skills_score = forms.IntegerField(min_value=0, max_value=10, initial=5, widget=_slider_widget())
+    boss_assessment_score = forms.IntegerField(min_value=0, max_value=10, initial=5, widget=_slider_widget())
     language_proficiency = forms.ChoiceField(choices=LANGUAGE_CHOICES)
     proposed_salary = forms.IntegerField(min_value=0, required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs["class"] = INPUT_CLASS
+        for name, field in self.fields.items():
+            if name in SLIDER_FIELDS:
+                field.widget.attrs["oninput"] = f"document.getElementById('id_{name}_display').textContent = this.value"
+            else:
+                field.widget.attrs["class"] = INPUT_CLASS

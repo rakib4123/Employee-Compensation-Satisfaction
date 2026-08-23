@@ -10,4 +10,5 @@ urlpatterns = [
     path("dashboard/", views.hr_dashboard, name="hr_dashboard"),
     path("me/payslips/<int:payslip_id>/", views.payslip_detail, name="payslip_detail"),
     path("me/", views.employee_self_service, name="employee_self_service"),
+    path("profile/", views.user_profile, name="user_profile"),
 ]
