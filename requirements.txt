@@ -1,3 +1,10 @@
 asgiref==3.12.1
 Django==5.2.17
 sqlparse==0.5.5
+
+# ML prototype (salary prediction / compensation satisfaction)
+pandas==3.0.5
+numpy==2.5.2
+scikit-learn==1.9.0
+matplotlib==3.11.1
+shap==0.52.0
