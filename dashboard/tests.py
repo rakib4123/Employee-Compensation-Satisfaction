@@ -47,3 +47,21 @@ class UserRoleTests(TestCase):
         self.assertEqual(hr.role, User.Role.HR)
         self.assertEqual(employee.role, User.Role.EMPLOYEE)
         self.assertEqual(employee.email, "amara.okafor@buscom.test")
+
+
+class HrDashboardTests(TestCase):
+    def test_requires_login(self):
+        response = self.client.get("/dashboard/")
+        self.assertEqual(response.status_code, 302)
+
+    def test_hr_user_can_view_dashboard(self):
+        self.client.login(username="hr_admin", password="buscom-hr-2026")
+        response = self.client.get("/dashboard/")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "dashboard/hr_dashboard.html")
+        self.assertContains(response, "Amara Okafor")
+
+    def test_employee_user_is_redirected_away_from_dashboard(self):
+        self.client.login(username="amara_okafor", password="buscom-emp-2026")
+        response = self.client.get("/dashboard/")
+        self.assertEqual(response.status_code, 302)
