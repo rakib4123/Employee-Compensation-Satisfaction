@@ -50,3 +50,30 @@ class AuditDashboardAccessTests(TestCase):
         self.client.login(username="amara_okafor", password="buscom-emp-2026")
         response = self.client.get(reverse("compensation:audit_dashboard"))
         self.assertEqual(response.status_code, 302)
+
+
+class AuditDashboardContentTests(TestCase):
+    def setUp(self):
+        self.client.login(username="hr_admin", password="buscom-hr-2026")
+
+    def test_shows_stat_cards_and_table(self):
+        response = self.client.get(reverse("compensation:audit_dashboard"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Headcount")
+        self.assertContains(response, "Average Pay Gap")
+
+    def test_search_with_no_matches_shows_empty_state(self):
+        response = self.client.get(reverse("compensation:audit_dashboard"), {"q": "zzzznonexistent"})
+        self.assertContains(response, "No employees match these filters.")
+
+    def test_department_filter_narrows_results(self):
+        listing = self.client.get(reverse("compensation:audit_dashboard"))
+        first_department = listing.context["departments"][0]
+        filtered = self.client.get(reverse("compensation:audit_dashboard"), {"department": first_department})
+        self.assertEqual(filtered.status_code, 200)
+        for employee in filtered.context["page_obj"]:
+            self.assertEqual(employee["department"], first_department)
+
+    def test_pagination_defaults_to_25_per_page(self):
+        response = self.client.get(reverse("compensation:audit_dashboard"))
+        self.assertEqual(len(response.context["page_obj"]), 25)

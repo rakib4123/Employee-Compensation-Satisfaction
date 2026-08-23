@@ -1,5 +1,112 @@
 {% extends "dashboard/base.html" %}
 {% block title %}Compensation Insights — BusCom{% endblock %}
 {% block content %}
-<p class="text-slate-500">Compensation Insights coming soon.</p>
+<div x-data x-init="$nextTick(() => staggerRows($refs.tbody))">
+  <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8">
+    <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-5" x-data x-init="animateCountUp($el.querySelector('.stat-value'), {{ headcount }})">
+      <p class="text-sm text-slate-500">Headcount</p>
+      <p class="stat-value text-3xl font-semibold mt-1">0</p>
+    </div>
+    <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-5" x-data x-init="animateCountUp($el.querySelector('.stat-value'), {{ avg_gap_pct }}, { decimals: 1 })">
+      <p class="text-sm text-slate-500">Average Pay Gap</p>
+      <p class="mt-1"><span class="stat-value text-3xl font-semibold">0</span><span class="text-3xl font-semibold">%</span></p>
+    </div>
+    <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-5" x-data x-init="animateCountUp($el.querySelector('.stat-value'), {{ underpaid_count }})">
+      <p class="text-sm text-slate-500">Underpaid (&gt;10% below fair)</p>
+      <p class="stat-value text-3xl font-semibold mt-1">0</p>
+    </div>
+    <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-5" x-data x-init="animateCountUp($el.querySelector('.stat-value'), {{ at_risk_count }})">
+      <p class="text-sm text-slate-500">Satisfaction Risk</p>
+      <p class="stat-value text-3xl font-semibold mt-1">0</p>
+    </div>
+  </div>
+
+  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-5">
+    <form method="get" class="flex flex-wrap items-center gap-3 mb-4">
+      <input type="text" name="q" value="{{ query }}" placeholder="Search name or role..."
+             class="w-64 rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      <select name="department" onchange="this.form.submit()"
+              class="rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <option value="all" {% if department == "all" %}selected{% endif %}>All departments</option>
+        {% for dept in departments %}
+        <option value="{{ dept }}" {% if department == dept %}selected{% endif %}>{{ dept }}</option>
+        {% endfor %}
+      </select>
+      <select name="risk" onchange="this.form.submit()"
+              class="rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <option value="all" {% if risk == "all" %}selected{% endif %}>All risk levels</option>
+        <option value="low" {% if risk == "low" %}selected{% endif %}>Likely satisfied</option>
+        <option value="medium" {% if risk == "medium" %}selected{% endif %}>Uncertain</option>
+        <option value="high" {% if risk == "high" %}selected{% endif %}>At risk</option>
+      </select>
+      <select name="sort" onchange="this.form.submit()"
+              class="rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <option value="name" {% if sort == "name" %}selected{% endif %}>Sort: Name</option>
+        <option value="gap_pct" {% if sort == "gap_pct" %}selected{% endif %}>Sort: Pay gap</option>
+        <option value="predicted_salary" {% if sort == "predicted_salary" %}selected{% endif %}>Sort: Predicted salary</option>
+        <option value="satisfaction_probability" {% if sort == "satisfaction_probability" %}selected{% endif %}>Sort: Satisfaction</option>
+      </select>
+      <button type="submit"
+              class="rounded-lg bg-indigo-600 hover:bg-indigo-500 active:scale-[0.98] transition text-white text-sm font-medium px-4 py-1.5">
+        Filter
+      </button>
+    </form>
+
+    {% if page_obj.paginator.count == 0 %}
+    <p class="text-slate-500 text-sm py-8 text-center">No employees match these filters.</p>
+    {% else %}
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="text-left text-slate-500 border-b border-slate-200 dark:border-slate-700">
+          <th class="py-2">Name</th>
+          <th class="py-2">Role</th>
+          <th class="py-2">Department</th>
+          <th class="py-2 text-right">Actual</th>
+          <th class="py-2 text-right">Predicted Fair</th>
+          <th class="py-2 text-right">Gap</th>
+          <th class="py-2">Satisfaction</th>
+        </tr>
+      </thead>
+      <tbody x-ref="tbody">
+        {% for employee in page_obj %}
+        <tr class="border-b border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition">
+          <td class="py-2 flex items-center gap-2">
+            <span class="w-7 h-7 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 text-xs flex items-center justify-center font-medium">{{ employee.initials }}</span>
+            <span>{{ employee.name }}</span>
+          </td>
+          <td class="py-2">{{ employee.job_role }}</td>
+          <td class="py-2">{{ employee.department }}</td>
+          <td class="py-2 text-right">৳{{ employee.actual_salary }}</td>
+          <td class="py-2 text-right">৳{{ employee.predicted_salary }}</td>
+          <td class="py-2 text-right {% if employee.gap_pct < 0 %}text-red-500{% else %}text-emerald-600{% endif %}">{{ employee.gap_pct }}%</td>
+          <td class="py-2">
+            {% if employee.risk_level == "low" %}
+            <span class="rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300 text-xs px-2 py-0.5">Likely satisfied</span>
+            {% elif employee.risk_level == "medium" %}
+            <span class="rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300 text-xs px-2 py-0.5">Uncertain</span>
+            {% else %}
+            <span class="rounded-full bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300 text-xs px-2 py-0.5">At risk</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="flex items-center justify-between mt-4 text-sm text-slate-500">
+      <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} &middot; {{ page_obj.paginator.count }} employees</span>
+      <div class="flex gap-2">
+        {% if page_obj.has_previous %}
+        <a href="?{{ base_query }}&page={{ page_obj.previous_page_number }}"
+           class="rounded-lg border border-slate-300 dark:border-slate-600 px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 transition">Previous</a>
+        {% endif %}
+        {% if page_obj.has_next %}
+        <a href="?{{ base_query }}&page={{ page_obj.next_page_number }}"
+           class="rounded-lg border border-slate-300 dark:border-slate-600 px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 transition">Next</a>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}
