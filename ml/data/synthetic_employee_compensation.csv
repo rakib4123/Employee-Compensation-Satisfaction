@@ -1,0 +1,1001 @@
+employee_id,name,initials,age,job_role,department,experience_years,education_level,publications_count,projects_led_count,training_score,skills_score,boss_assessment_score,language_proficiency,experience_score,education_score,publication_score,project_score,compensation_score,market_min_salary,market_max_salary,expected_salary,actual_salary,compensation_ratio,satisfaction_label
+1,Farhana Islam,FI,26,Customer Support Executive,Customer Support,4,BSc,2,4,7,7,5,Advanced,8,10,10,8,55,18000,45000,32500,32000,0.98,Dissatisfied
+2,Sultana Ahmed,SA,26,HR Executive,Human Resources,3,MSc,0,4,4,5,3,Basic,6,15,0,8,41,25000,70000,42500,46500,1.09,Satisfied
+3,Mim Rahman,MR,31,Accountant,Finance,4,MSc,0,3,9,6,9,Intermediate,8,15,0,6,53,25000,65000,44500,52500,1.18,Satisfied
+4,Nusrat Ahmed,NA,28,Accountant,Finance,4,Diploma,0,3,5,6,7,Intermediate,8,5,0,6,37,25000,65000,40500,40500,1.0,Satisfied
+5,Nusrat Rahman,NR,34,Data Analyst,Engineering,7,BSc,0,3,5,4,5,Intermediate,14,10,0,6,44,30000,90000,55000,55500,1.01,Dissatisfied
+6,Shakil Uddin,SU,26,Graphic Designer,Design,3,BSc,2,3,3,8,6,Intermediate,6,10,10,6,49,22000,60000,42500,46000,1.08,Dissatisfied
+7,Imran Begum,IB,30,Sales Executive,Sales,3,BSc,0,2,7,6,7,Advanced,6,10,0,4,40,20000,60000,37000,40000,1.08,Satisfied
+8,Nusrat Akter,NA,34,Senior Software Engineer,Engineering,11,BSc,0,2,7,4,3,Basic,20,10,0,4,48,70000,180000,123000,105500,0.86,Satisfied
+9,Rahim Rahman,RR,29,QA Engineer,Engineering,3,MSc,0,2,9,8,7,Intermediate,6,15,0,4,49,28000,85000,60000,48500,0.81,Satisfied
+10,Abir Khan,AK,36,HR Executive,Human Resources,11,BSc,5,5,8,9,4,Intermediate,20,10,20,10,81,25000,70000,62000,61500,0.99,Satisfied
+11,Tania Rahman,TR,34,Project Manager,Operations,10,Diploma,1,3,7,8,6,Fluent,20,5,5,6,57,80000,200000,146000,145000,0.99,Dissatisfied
+12,Mahmud Rahman,MR,32,Senior Software Engineer,Engineering,6,MSc,0,0,4,3,4,Fluent,12,15,0,0,38,70000,180000,113500,130500,1.15,Satisfied
+13,Farhana Uddin,FU,29,Data Analyst,Engineering,4,BSc,0,3,1,2,4,Advanced,8,10,0,6,31,30000,90000,51500,52000,1.01,Satisfied
+14,Imran Uddin,IU,37,Software Engineer,Engineering,10,MSc,0,1,6,7,8,Advanced,20,15,0,2,58,35000,120000,86000,105500,1.23,Satisfied
+15,Sadia Khan,SK,27,Software Engineer,Engineering,3,BSc,4,4,7,8,7,Intermediate,6,10,20,8,66,35000,120000,89000,108000,1.21,Dissatisfied
+16,Shakil Ahmed,SA,34,Project Manager,Operations,6,BSc,0,4,3,9,3,Advanced,12,10,0,8,45,80000,200000,139500,129500,0.93,Satisfied
+17,Sultana Rahman,SR,37,Project Manager,Operations,11,BSc,0,5,6,5,6,Advanced,20,10,0,10,57,80000,200000,139500,157000,1.13,Satisfied
+18,Tanvir Khan,TK,33,Graphic Designer,Design,6,BSc,1,1,8,4,5,Intermediate,12,10,5,2,46,22000,60000,39500,40000,1.01,Satisfied
+19,Rafiq Begum,RB,35,Accountant,Finance,10,BSc,0,2,1,9,5,Advanced,20,10,0,4,49,25000,65000,44000,42500,0.97,Satisfied
+20,Faisal Uddin,FU,32,Sales Executive,Sales,6,BSc,4,2,3,8,5,Intermediate,12,10,20,4,62,20000,60000,44500,43000,0.97,Satisfied
+21,Kamal Hossain,KH,28,Customer Support Executive,Customer Support,3,BSc,1,0,10,7,8,Advanced,6,10,5,0,46,18000,45000,30000,22500,0.75,Dissatisfied
+22,Shakil Khan,SK,26,Finance Manager,Finance,1,BSc,1,1,5,4,7,Intermediate,2,10,5,2,35,70000,180000,107000,126000,1.18,Satisfied
+23,Sultana Chowdhury,SC,25,Business Analyst,Strategy,2,BSc,6,1,5,3,4,Intermediate,4,10,20,2,48,40000,110000,67500,59000,0.87,Satisfied
+24,Sadia Chowdhury,SC,31,Senior Software Engineer,Engineering,6,BSc,5,2,8,9,8,Intermediate,12,10,20,4,71,70000,180000,141500,156000,1.1,Satisfied
+25,Sultana Begum,SB,30,Senior Software Engineer,Engineering,5,Diploma,1,1,2,5,5,Intermediate,10,5,5,2,34,70000,180000,109500,116000,1.06,Satisfied
+26,Kamal Ahmed,KA,28,Software Engineer,Engineering,5,BSc,0,1,4,4,2,Intermediate,10,10,0,2,32,35000,120000,64500,65000,1.01,Satisfied
+27,Mim Chowdhury,MC,32,Project Manager,Operations,6,BSc,1,3,5,6,6,Intermediate,12,10,5,6,50,80000,200000,131000,133500,1.02,Dissatisfied
+28,Jahid Sarker,JS,36,HR Executive,Human Resources,13,MSc,0,0,4,8,6,Fluent,20,15,0,0,53,25000,70000,46500,48000,1.03,Satisfied
+29,Rafiq Sarker,RS,29,Project Manager,Operations,7,BSc,5,0,4,7,5,Intermediate,14,10,20,0,60,80000,200000,155000,152500,0.98,Dissatisfied
+30,Farhana Akter,FA,29,Project Manager,Operations,3,MSc,0,0,0,3,2,Advanced,6,15,0,0,26,80000,200000,100500,88000,0.88,Dissatisfied
+31,Sultana Rahman,SR,26,Sales Executive,Sales,3,BSc,0,1,3,2,2,Basic,6,10,0,2,25,20000,60000,31000,32000,1.03,Satisfied
+32,Shakil Islam,SI,31,Senior Software Engineer,Engineering,3,BSc,0,4,7,5,8,Intermediate,6,10,0,8,44,70000,180000,117000,123000,1.05,Satisfied
+33,Sultana Begum,SB,33,HR Executive,Human Resources,7,MSc,0,1,1,0,1,Intermediate,14,15,0,2,33,25000,70000,39500,40000,1.01,Satisfied
+34,Imran Chowdhury,IC,34,Finance Manager,Finance,10,PhD,2,4,10,7,7,Fluent,20,20,10,8,82,70000,180000,156500,185000,1.18,Satisfied
+35,Ruma Begum,RB,28,QA Engineer,Engineering,5,MSc,1,3,1,3,2,Fluent,10,15,5,6,42,28000,85000,49000,51000,1.04,Satisfied
+36,Sabrina Khan,SK,36,Finance Manager,Finance,12,MSc,0,4,5,3,8,Basic,20,15,0,8,59,70000,180000,145500,142000,0.98,Satisfied
+37,Faisal Rahman,FR,34,Sales Executive,Sales,11,MSc,4,5,3,6,1,Advanced,20,15,20,10,75,20000,60000,50500,46000,0.91,Dissatisfied
+38,Tania Rahman,TR,30,QA Engineer,Engineering,7,BSc,1,0,6,8,4,Advanced,14,10,5,0,47,28000,85000,54500,57000,1.05,Dissatisfied
+39,Tania Akter,TA,33,Finance Manager,Finance,11,BSc,0,1,2,4,4,Intermediate,20,10,0,2,42,70000,180000,119500,130500,1.09,Satisfied
+40,Mahmud Ahmed,MA,31,Marketing Executive,Marketing,4,PhD,3,2,0,9,5,Advanced,8,20,15,4,61,25000,70000,50500,52500,1.04,Dissatisfied
+41,Nusrat Chowdhury,NC,31,Graphic Designer,Design,5,BSc,0,1,4,4,8,Basic,10,10,0,2,38,22000,60000,40500,38500,0.95,Dissatisfied
+42,Kamal Uddin,KU,26,HR Manager,Human Resources,2,BSc,0,2,7,5,8,Advanced,4,10,0,4,38,60000,150000,91000,78500,0.86,Dissatisfied
+43,Ayesha Khan,AK,25,Senior Software Engineer,Engineering,3,High School,0,1,6,6,8,Advanced,6,0,0,2,28,70000,180000,92500,75000,0.81,Dissatisfied
+44,Nabila Akter,NA,28,Finance Manager,Finance,5,MSc,2,2,7,4,9,Intermediate,10,15,10,4,59,70000,180000,139500,155000,1.11,Satisfied
+45,Sabrina Akter,SA,26,Marketing Executive,Marketing,3,BSc,3,3,4,7,5,Basic,6,10,15,6,53,25000,70000,48000,49500,1.03,Dissatisfied
+46,Faisal Uddin,FU,35,QA Engineer,Engineering,12,BSc,4,2,8,5,7,Advanced,20,10,20,4,74,28000,85000,72000,75000,1.04,Dissatisfied
+47,Sabrina Ahmed,SA,40,Accountant,Finance,14,BSc,2,0,5,7,5,Intermediate,20,10,10,0,57,25000,65000,50000,53500,1.07,Dissatisfied
+48,Nabila Hossain,NH,32,Project Manager,Operations,11,BSc,0,0,6,8,5,Fluent,20,10,0,0,49,80000,200000,131500,90500,0.69,Dissatisfied
+49,Nabila Rahman,NR,30,Marketing Executive,Marketing,6,BSc,3,2,7,4,5,Advanced,12,10,15,4,57,25000,70000,48000,40500,0.84,Satisfied
+50,Shakil Chowdhury,SC,25,Operations Manager,Operations,4,Diploma,1,2,7,5,5,Advanced,8,5,5,4,39,60000,150000,91500,93500,1.02,Satisfied
+51,Tania Islam,TI,28,Project Manager,Operations,2,BSc,2,2,4,6,6,Basic,4,10,10,4,44,80000,200000,146000,186500,1.28,Satisfied
+52,Shakil Chowdhury,SC,28,HR Manager,Human Resources,2,BSc,0,2,2,5,6,Intermediate,4,10,0,4,31,60000,150000,86000,94500,1.1,Satisfied
+53,Kamal Islam,KI,29,HR Manager,Human Resources,3,BSc,4,0,6,7,8,Fluent,6,10,20,0,57,60000,150000,110000,127500,1.16,Dissatisfied
+54,Imran Akter,IA,25,Senior Software Engineer,Engineering,3,BSc,3,3,3,6,7,Intermediate,6,10,15,6,53,70000,180000,128500,135500,1.05,Satisfied
+55,Shakil Sarker,SS,26,Software Engineer,Engineering,4,BSc,0,2,3,8,1,Intermediate,8,10,0,4,34,35000,120000,65000,51000,0.78,Dissatisfied
+56,Rafiq Uddin,RU,27,Project Manager,Operations,3,BSc,1,2,4,3,5,Advanced,6,10,5,4,37,80000,200000,124000,147500,1.19,Satisfied
+57,Tania Hossain,TH,28,HR Manager,Human Resources,2,Diploma,0,3,6,3,9,Basic,4,5,0,6,33,60000,150000,88000,77000,0.88,Satisfied
+58,Ayesha Hossain,AH,28,QA Engineer,Engineering,4,MSc,0,0,7,6,7,Intermediate,8,15,0,0,43,28000,85000,48000,50500,1.05,Dissatisfied
+59,Mim Begum,MB,31,Marketing Executive,Marketing,4,MSc,0,5,8,4,4,Intermediate,8,15,0,10,49,25000,70000,47500,55000,1.16,Dissatisfied
+60,Nusrat Begum,NB,27,Business Analyst,Strategy,4,BSc,4,1,7,5,8,Intermediate,8,10,20,2,60,40000,110000,85000,84500,0.99,Satisfied
+61,Farhana Ahmed,FA,25,Graphic Designer,Design,3,Diploma,1,4,6,3,4,Advanced,6,5,5,8,37,22000,60000,35500,37500,1.06,Satisfied
+62,Tania Begum,TB,28,Senior Software Engineer,Engineering,2,BSc,2,3,10,5,4,Advanced,4,10,10,6,49,70000,180000,131000,113000,0.86,Satisfied
+63,Ruma Islam,RI,28,Project Manager,Operations,4,BSc,0,0,6,4,3,Intermediate,8,10,0,0,31,80000,200000,108500,115000,1.06,Dissatisfied
+64,Faisal Islam,FI,25,HR Executive,Human Resources,3,BSc,0,2,9,8,7,Intermediate,6,10,0,4,44,25000,70000,46000,49500,1.08,Dissatisfied
+65,Rahim Hossain,RH,33,Finance Manager,Finance,8,BSc,0,2,7,4,6,Intermediate,16,10,0,4,47,70000,180000,114500,121500,1.06,Dissatisfied
+66,Tania Khan,TK,28,HR Executive,Human Resources,7,BSc,1,2,1,3,4,Intermediate,14,10,5,4,41,25000,70000,42000,43500,1.04,Satisfied
+67,Rafiq Sarker,RS,31,Data Analyst,Engineering,6,BSc,0,0,7,5,5,Intermediate,12,10,0,0,39,30000,90000,59500,69000,1.16,Satisfied
+68,Faisal Rahman,FR,32,Graphic Designer,Design,7,BSc,0,2,7,6,7,Advanced,14,10,0,4,48,22000,60000,42500,43500,1.02,Satisfied
+69,Sabrina Hossain,SH,32,Marketing Executive,Marketing,10,BSc,2,2,4,5,8,Advanced,20,10,10,4,61,25000,70000,52000,46500,0.89,Satisfied
+70,Jahid Islam,JI,25,Business Analyst,Strategy,2,MSc,0,3,2,4,4,Advanced,4,15,0,6,35,40000,110000,69500,87000,1.25,Satisfied
+71,Tania Sarker,TS,35,HR Manager,Human Resources,10,BSc,0,0,5,5,4,Intermediate,20,10,0,0,44,60000,150000,108000,89500,0.83,Dissatisfied
+72,Rafiq Islam,RI,30,Data Analyst,Engineering,5,MSc,2,1,4,3,3,Intermediate,10,15,10,2,47,30000,90000,59500,63000,1.06,Satisfied
+73,Tania Khan,TK,35,QA Engineer,Engineering,12,Diploma,2,1,3,6,5,Basic,20,5,10,2,51,28000,85000,59000,68500,1.16,Dissatisfied
+74,Ruma Chowdhury,RC,23,Sales Executive,Sales,1,MSc,0,2,8,6,3,Advanced,2,15,0,4,38,20000,60000,34000,32500,0.96,Satisfied
+75,Nabila Ahmed,NA,34,Sales Executive,Sales,12,BSc,1,0,1,6,4,Advanced,20,10,5,0,46,20000,60000,40500,35000,0.86,Dissatisfied
+76,Jahid Uddin,JU,32,Finance Manager,Finance,8,BSc,0,3,7,7,6,Advanced,16,10,0,6,52,70000,180000,121000,102000,0.84,Satisfied
+77,Mim Islam,MI,33,Marketing Executive,Marketing,12,PhD,0,1,4,9,7,Advanced,20,20,0,2,62,25000,70000,52500,51500,0.98,Satisfied
+78,Sabrina Ahmed,SA,32,Sales Executive,Sales,4,BSc,2,3,3,3,2,Advanced,8,10,10,6,42,20000,60000,39000,41500,1.06,Dissatisfied
+79,Kamal Khan,KK,27,Business Analyst,Strategy,4,MSc,5,0,6,5,7,Intermediate,8,15,20,0,61,40000,110000,83500,89000,1.07,Satisfied
+80,Imran Islam,II,36,Sales Executive,Sales,13,BSc,4,2,7,2,5,Basic,20,10,20,4,68,20000,60000,46000,43500,0.95,Dissatisfied
+81,Nusrat Khan,NK,32,Graphic Designer,Design,5,Diploma,0,3,3,6,6,Intermediate,10,5,0,6,36,22000,60000,36000,39000,1.08,Dissatisfied
+82,Ayesha Sarker,AS,32,Project Manager,Operations,8,Diploma,4,4,4,5,6,Fluent,16,5,20,8,64,80000,200000,160500,189500,1.18,Satisfied
+83,Nabila Akter,NA,32,Software Engineer,Engineering,7,MSc,2,5,7,4,7,Advanced,14,15,10,10,67,35000,120000,95500,85500,0.9,Dissatisfied
+84,Tanvir Akter,TA,31,Project Manager,Operations,8,BSc,2,0,5,7,7,Advanced,16,10,10,0,55,80000,200000,152000,164000,1.08,Dissatisfied
+85,Faisal Hossain,FH,30,Sales Executive,Sales,5,BSc,2,1,3,9,8,Intermediate,10,10,10,2,52,20000,60000,41000,43500,1.06,Satisfied
+86,Sultana Ahmed,SA,29,Operations Manager,Operations,4,MSc,5,4,5,3,2,Intermediate,8,15,20,8,61,60000,150000,114000,121000,1.06,Satisfied
+87,Imran Chowdhury,IC,38,QA Engineer,Engineering,12,MSc,2,3,3,8,4,Advanced,20,15,10,6,66,28000,85000,66500,62000,0.93,Dissatisfied
+88,Mim Sarker,MS,33,HR Manager,Human Resources,6,MSc,4,5,6,8,6,Intermediate,12,15,20,10,77,60000,150000,126500,115000,0.91,Dissatisfied
+89,Sultana Khan,SK,28,Data Analyst,Engineering,4,BSc,3,1,8,7,7,Advanced,8,10,15,2,57,30000,90000,62500,53500,0.86,Satisfied
+90,Mahmud Uddin,MU,29,QA Engineer,Engineering,5,Diploma,0,5,5,6,5,Advanced,10,5,0,10,41,28000,85000,51500,51500,1.0,Dissatisfied
+91,Ruma Ahmed,RA,27,Operations Manager,Operations,3,MSc,4,3,1,6,5,Fluent,6,15,20,6,59,60000,150000,113500,133000,1.17,Satisfied
+92,Ruma Begum,RB,31,Data Analyst,Engineering,8,MSc,1,1,7,4,3,Fluent,16,15,5,2,52,30000,90000,58000,57000,0.98,Dissatisfied
+93,Sultana Islam,SI,31,Software Engineer,Engineering,6,High School,0,4,8,4,4,Fluent,12,0,0,8,36,35000,120000,68000,80000,1.18,Dissatisfied
+94,Nusrat Rahman,NR,30,Accountant,Finance,4,MSc,0,1,3,7,7,Basic,8,15,0,2,42,25000,65000,43500,49000,1.13,Dissatisfied
+95,Mahmud Islam,MI,34,Data Analyst,Engineering,11,Diploma,1,4,9,5,5,Basic,20,5,5,8,57,30000,90000,70000,69000,0.99,Dissatisfied
+96,Nabila Islam,NI,27,Senior Software Engineer,Engineering,5,BSc,2,3,6,8,4,Intermediate,10,10,10,6,54,70000,180000,133500,140000,1.05,Satisfied
+97,Kamal Hossain,KH,28,Customer Support Executive,Customer Support,5,MSc,5,2,2,3,5,Basic,10,15,20,4,59,18000,45000,31000,34500,1.11,Dissatisfied
+98,Sabrina Akter,SA,33,Marketing Executive,Marketing,6,MSc,0,1,4,7,5,Basic,12,15,0,2,45,25000,70000,43500,49500,1.14,Satisfied
+99,Rahim Begum,RB,33,HR Manager,Human Resources,5,MSc,0,5,4,7,6,Basic,10,15,0,10,52,60000,150000,100500,94000,0.94,Dissatisfied
+100,Sabrina Islam,SI,31,Customer Support Executive,Customer Support,5,BSc,0,3,7,5,6,Fluent,10,10,0,6,44,18000,45000,28500,29000,1.02,Satisfied
+101,Sultana Uddin,SU,34,Software Engineer,Engineering,9,Diploma,1,3,1,7,7,Basic,18,5,5,6,49,35000,120000,76000,87000,1.14,Satisfied
+102,Mahmud Sarker,MS,30,QA Engineer,Engineering,5,BSc,1,2,7,6,4,Advanced,10,10,5,4,46,28000,85000,54000,59000,1.09,Dissatisfied
+103,Farhana Islam,FI,27,Business Analyst,Strategy,4,BSc,4,3,6,5,5,Advanced,8,10,20,6,60,40000,110000,82000,75000,0.91,Dissatisfied
+104,Abir Akter,AA,30,QA Engineer,Engineering,4,BSc,3,2,7,7,6,Intermediate,8,10,15,4,57,28000,85000,60000,61000,1.02,Dissatisfied
+105,Ayesha Sarker,AS,25,Marketing Executive,Marketing,2,MSc,0,1,7,4,1,Advanced,4,15,0,2,33,25000,70000,34500,34500,1.0,Satisfied
+106,Faisal Sarker,FS,32,Software Engineer,Engineering,10,MSc,3,5,4,6,5,Intermediate,20,15,15,10,75,35000,120000,97000,102000,1.05,Dissatisfied
+107,Sabrina Uddin,SU,31,Senior Software Engineer,Engineering,6,BSc,0,4,1,2,6,Intermediate,12,10,0,8,39,70000,180000,114500,101000,0.88,Dissatisfied
+108,Mim Akter,MA,35,Graphic Designer,Design,8,Diploma,2,2,4,5,7,Advanced,16,5,10,4,51,22000,60000,42500,40500,0.95,Dissatisfied
+109,Farhana Hossain,FH,31,Graphic Designer,Design,9,Diploma,0,4,2,6,3,Advanced,18,5,0,8,42,22000,60000,39000,37500,0.96,Dissatisfied
+110,Shakil Ahmed,SA,37,Finance Manager,Finance,12,PhD,3,3,5,4,6,Advanced,20,20,15,6,76,70000,180000,153000,173500,1.13,Satisfied
+111,Ruma Ahmed,RA,28,Operations Manager,Operations,7,MSc,3,2,2,5,2,Intermediate,14,15,15,4,57,60000,150000,113000,120000,1.06,Dissatisfied
+112,Mim Khan,MK,23,Project Manager,Operations,2,MSc,0,3,9,2,6,Advanced,4,15,0,6,42,80000,200000,135000,144500,1.07,Satisfied
+113,Kamal Hossain,KH,36,Project Manager,Operations,14,BSc,0,3,4,8,5,Fluent,20,10,0,6,53,80000,200000,141000,149500,1.06,Satisfied
+114,Rafiq Akter,RA,35,Sales Executive,Sales,7,BSc,5,0,9,3,6,Intermediate,14,10,20,0,62,20000,60000,44000,51500,1.17,Satisfied
+115,Abir Ahmed,AA,30,Operations Manager,Operations,4,BSc,1,1,8,0,4,Advanced,8,10,5,2,37,60000,150000,95000,83000,0.87,Dissatisfied
+116,Sabrina Uddin,SU,25,Marketing Executive,Marketing,3,MSc,4,5,2,7,7,Intermediate,6,15,20,10,67,25000,70000,55500,54000,0.97,Dissatisfied
+117,Nusrat Chowdhury,NC,34,Project Manager,Operations,8,MSc,2,3,3,9,6,Advanced,16,15,10,6,65,80000,200000,174500,181500,1.04,Satisfied
+118,Rafiq Chowdhury,RC,39,Customer Support Executive,Customer Support,13,BSc,1,0,6,1,7,Basic,20,10,5,0,49,18000,45000,33500,27500,0.82,Dissatisfied
+119,Mim Ahmed,MA,32,QA Engineer,Engineering,5,BSc,0,2,7,4,5,Basic,10,10,0,4,40,28000,85000,53500,61500,1.15,Satisfied
+120,Tania Akter,TA,28,Finance Manager,Finance,4,BSc,1,4,8,10,8,Advanced,8,10,5,8,57,70000,180000,128500,138500,1.08,Dissatisfied
+121,Sultana Begum,SB,37,Software Engineer,Engineering,13,BSc,0,1,6,8,8,Fluent,20,10,0,2,54,35000,120000,84500,80000,0.95,Dissatisfied
+122,Rahim Ahmed,RA,25,Finance Manager,Finance,4,MSc,3,0,3,5,5,Advanced,8,15,15,0,51,70000,180000,123000,144500,1.17,Satisfied
+123,Tanvir Ahmed,TA,25,Data Analyst,Engineering,2,BSc,0,1,8,4,4,Fluent,4,10,0,2,32,30000,90000,52500,56500,1.08,Dissatisfied
+124,Rafiq Islam,RI,30,Senior Software Engineer,Engineering,3,BSc,0,4,7,6,8,Advanced,6,10,0,8,45,70000,180000,120500,107000,0.89,Dissatisfied
+125,Ruma Islam,RI,27,Senior Software Engineer,Engineering,4,MSc,4,2,4,7,8,Intermediate,8,15,20,4,66,70000,180000,142000,155500,1.1,Satisfied
+126,Shakil Islam,SI,40,Graphic Designer,Design,14,BSc,6,5,3,8,6,Advanced,20,10,20,10,77,22000,60000,51500,42500,0.83,Dissatisfied
+127,Abir Ahmed,AA,31,Marketing Executive,Marketing,6,BSc,3,5,5,5,5,Advanced,12,10,15,10,62,25000,70000,54000,52500,0.97,Satisfied
+128,Imran Rahman,IR,29,Business Analyst,Strategy,6,BSc,5,2,5,3,5,Advanced,12,10,20,4,59,40000,110000,81000,88500,1.09,Dissatisfied
+129,Imran Hossain,IH,28,Customer Support Executive,Customer Support,0,BSc,6,5,0,3,5,Fluent,0,10,20,10,48,18000,45000,32000,35000,1.09,Satisfied
+130,Rahim Begum,RB,27,Software Engineer,Engineering,3,MSc,0,0,0,8,7,Advanced,6,15,0,0,36,35000,120000,63000,65500,1.04,Dissatisfied
+131,Ayesha Islam,AI,24,HR Manager,Human Resources,3,BSc,4,1,1,7,3,Intermediate,6,10,20,2,49,60000,150000,103500,94000,0.91,Dissatisfied
+132,Ayesha Chowdhury,AC,28,QA Engineer,Engineering,2,BSc,1,0,7,7,3,Intermediate,4,10,5,0,36,28000,85000,48500,44000,0.91,Dissatisfied
+133,Kamal Ahmed,KA,29,Data Analyst,Engineering,5,BSc,0,1,1,4,5,Advanced,10,10,0,2,32,30000,90000,48500,43500,0.9,Dissatisfied
+134,Ruma Chowdhury,RC,31,Senior Software Engineer,Engineering,5,BSc,4,4,8,6,8,Fluent,10,10,20,8,70,70000,180000,141000,118000,0.84,Dissatisfied
+135,Rafiq Rahman,RR,32,Accountant,Finance,6,Diploma,1,5,1,3,5,Basic,12,5,5,10,41,25000,65000,41500,33000,0.8,Dissatisfied
+136,Nabila Khan,NK,30,HR Executive,Human Resources,4,BSc,0,1,4,10,6,Intermediate,8,10,0,2,40,25000,70000,44000,41500,0.94,Dissatisfied
+137,Imran Chowdhury,IC,29,Customer Support Executive,Customer Support,5,BSc,2,0,5,9,9,Intermediate,10,10,10,0,53,18000,45000,33000,28500,0.86,Dissatisfied
+138,Sadia Akter,SA,31,Operations Manager,Operations,10,MSc,0,2,3,4,3,Intermediate,20,15,0,4,49,60000,150000,106000,97500,0.92,Dissatisfied
+139,Rafiq Chowdhury,RC,28,Software Engineer,Engineering,4,BSc,0,1,3,7,6,Advanced,8,10,0,2,36,35000,120000,67000,78000,1.16,Dissatisfied
+140,Shakil Khan,SK,28,Operations Manager,Operations,4,BSc,1,3,2,4,5,Fluent,8,10,5,6,40,60000,150000,93000,76000,0.82,Dissatisfied
+141,Ayesha Akter,AA,28,Data Analyst,Engineering,6,BSc,3,3,5,9,5,Advanced,12,10,15,6,62,30000,90000,67000,77000,1.15,Dissatisfied
+142,Nabila Uddin,NU,38,HR Executive,Human Resources,10,MSc,0,0,3,2,5,Intermediate,20,15,0,0,45,25000,70000,43500,53500,1.23,Satisfied
+143,Mahmud Sarker,MS,26,Marketing Executive,Marketing,2,MSc,2,2,7,2,7,Intermediate,4,15,10,4,49,25000,70000,50500,53000,1.05,Dissatisfied
+144,Rahim Islam,RI,27,Software Engineer,Engineering,5,BSc,0,4,5,0,7,Advanced,10,10,0,8,40,35000,120000,66500,66500,1.0,Dissatisfied
+145,Mim Ahmed,MA,28,HR Executive,Human Resources,2,BSc,0,4,3,7,7,Intermediate,4,10,0,8,39,25000,70000,42000,39500,0.94,Dissatisfied
+146,Mahmud Uddin,MU,30,Data Analyst,Engineering,2,BSc,0,3,6,7,5,Intermediate,4,10,0,6,38,30000,90000,53000,49000,0.92,Dissatisfied
+147,Abir Chowdhury,AC,35,Accountant,Finance,7,BSc,2,0,4,6,5,Intermediate,14,10,10,0,49,25000,65000,46000,58500,1.27,Satisfied
+148,Abir Islam,AI,25,Project Manager,Operations,2,BSc,0,0,8,5,7,Basic,4,10,0,0,34,80000,200000,120500,145500,1.21,Satisfied
+149,Farhana Rahman,FR,29,Business Analyst,Strategy,8,Diploma,2,1,3,5,6,Intermediate,16,5,10,2,47,40000,110000,75000,62000,0.83,Dissatisfied
+150,Sadia Rahman,SR,29,Data Analyst,Engineering,8,MSc,4,2,5,3,7,Intermediate,16,15,20,4,70,30000,90000,72500,66500,0.92,Satisfied
+151,Rahim Islam,RI,37,Customer Support Executive,Customer Support,10,BSc,1,5,6,4,5,Advanced,20,10,5,10,60,18000,45000,30500,26500,0.87,Satisfied
+152,Sadia Uddin,SU,29,Business Analyst,Strategy,5,MSc,1,1,4,6,5,Intermediate,10,15,5,2,47,40000,110000,72500,69000,0.95,Dissatisfied
+153,Sabrina Uddin,SU,36,Software Engineer,Engineering,9,BSc,4,3,7,8,4,Intermediate,18,10,20,6,73,35000,120000,93500,95000,1.02,Dissatisfied
+154,Abir Ahmed,AA,34,HR Manager,Human Resources,9,BSc,2,0,2,5,3,Advanced,18,10,10,0,48,60000,150000,104500,98500,0.94,Dissatisfied
+155,Mahmud Rahman,MR,37,Graphic Designer,Design,11,BSc,1,5,0,4,4,Advanced,20,10,5,10,53,22000,60000,43000,47500,1.1,Satisfied
+156,Rahim Uddin,RU,31,Operations Manager,Operations,4,BSc,0,5,2,2,6,Intermediate,8,10,0,10,38,60000,150000,91000,84500,0.93,Satisfied
+157,Imran Hossain,IH,33,Sales Executive,Sales,6,BSc,3,3,4,8,7,Advanced,12,10,15,6,62,20000,60000,41500,43000,1.04,Dissatisfied
+158,Tanvir Uddin,TU,28,Software Engineer,Engineering,4,BSc,2,3,4,8,7,Fluent,8,10,10,6,53,35000,120000,80000,85500,1.07,Satisfied
+159,Faisal Akter,FA,35,Operations Manager,Operations,7,BSc,1,3,5,7,8,Fluent,14,10,5,6,55,60000,150000,117000,125000,1.07,Satisfied
+160,Tania Chowdhury,TC,35,Finance Manager,Finance,9,MSc,2,2,6,7,5,Advanced,18,15,10,4,65,70000,180000,139000,115000,0.83,Satisfied
+161,Nabila Begum,NB,38,QA Engineer,Engineering,11,MSc,0,4,7,6,5,Advanced,20,15,0,8,61,28000,85000,62500,65500,1.05,Satisfied
+162,Sabrina Uddin,SU,31,Software Engineer,Engineering,7,BSc,0,3,6,4,7,Intermediate,14,10,0,6,47,35000,120000,68000,70500,1.04,Satisfied
+163,Kamal Rahman,KR,29,Sales Executive,Sales,1,MSc,2,0,4,5,6,Intermediate,2,15,10,0,42,20000,60000,37000,29000,0.78,Dissatisfied
+164,Ayesha Hossain,AH,35,HR Executive,Human Resources,7,BSc,5,3,10,7,9,Intermediate,14,10,20,6,76,25000,70000,57000,50500,0.89,Satisfied
+165,Mim Sarker,MS,24,Business Analyst,Strategy,3,BSc,1,0,6,4,2,Intermediate,6,10,5,0,33,40000,110000,60000,55500,0.93,Satisfied
+166,Rafiq Akter,RA,30,HR Manager,Human Resources,5,BSc,2,1,6,8,6,Intermediate,10,10,10,2,52,60000,150000,99500,106500,1.07,Satisfied
+167,Farhana Hossain,FH,30,Project Manager,Operations,7,Diploma,0,3,3,6,5,Intermediate,14,5,0,6,39,80000,200000,131500,119500,0.91,Dissatisfied
+168,Imran Ahmed,IA,30,Accountant,Finance,3,Diploma,0,2,8,8,5,Fluent,6,5,0,4,36,25000,65000,40000,46000,1.15,Dissatisfied
+169,Nusrat Akter,NA,27,Graphic Designer,Design,5,BSc,0,1,8,5,7,Advanced,10,10,0,2,42,22000,60000,38000,44000,1.16,Satisfied
+170,Rafiq Uddin,RU,28,HR Executive,Human Resources,4,BSc,3,1,10,5,7,Advanced,8,10,15,2,57,25000,70000,52000,43500,0.84,Dissatisfied
+171,Rahim Rahman,RR,31,Finance Manager,Finance,7,BSc,2,2,3,8,8,Intermediate,14,10,10,4,57,70000,180000,136500,132000,0.97,Dissatisfied
+172,Ayesha Rahman,AR,30,QA Engineer,Engineering,5,MSc,3,3,8,5,5,Intermediate,10,15,15,6,64,28000,85000,65000,68500,1.05,Dissatisfied
+173,Jahid Khan,JK,24,Business Analyst,Strategy,3,BSc,2,0,9,2,6,Advanced,6,10,10,0,43,40000,110000,66500,68000,1.02,Satisfied
+174,Mim Begum,MB,34,Graphic Designer,Design,9,BSc,4,4,7,6,5,Advanced,18,10,20,8,74,22000,60000,50000,51500,1.03,Satisfied
+175,Mahmud Chowdhury,MC,36,HR Executive,Human Resources,10,BSc,0,3,5,6,4,Advanced,20,10,0,6,51,25000,70000,51000,44000,0.86,Dissatisfied
+176,Faisal Hossain,FH,28,Senior Software Engineer,Engineering,3,BSc,2,3,1,7,5,Advanced,6,10,10,6,45,70000,180000,121500,88000,0.72,Dissatisfied
+177,Jahid Chowdhury,JC,33,Customer Support Executive,Customer Support,12,BSc,1,1,7,8,8,Basic,20,10,5,2,60,18000,45000,36500,49000,1.34,Satisfied
+178,Nabila Khan,NK,31,Accountant,Finance,6,BSc,0,0,3,6,7,Fluent,12,10,0,0,38,25000,65000,38000,32500,0.86,Dissatisfied
+179,Kamal Sarker,KS,33,Finance Manager,Finance,9,BSc,4,4,6,2,4,Advanced,18,10,20,8,68,70000,180000,148000,162500,1.1,Satisfied
+180,Rahim Rahman,RR,36,Sales Executive,Sales,11,BSc,4,1,5,8,5,Advanced,20,10,20,2,70,20000,60000,46500,39500,0.85,Satisfied
+181,Ruma Ahmed,RA,30,Marketing Executive,Marketing,4,BSc,6,5,3,7,3,Intermediate,8,10,20,10,61,25000,70000,56000,54500,0.97,Dissatisfied
+182,Abir Islam,AI,28,Project Manager,Operations,3,BSc,2,1,5,7,4,Intermediate,6,10,10,2,44,80000,200000,139000,147000,1.06,Satisfied
+183,Mim Rahman,MR,28,Customer Support Executive,Customer Support,4,BSc,0,0,4,4,5,Advanced,8,10,0,0,31,18000,45000,25000,25500,1.02,Satisfied
+184,Rahim Chowdhury,RC,30,HR Manager,Human Resources,4,BSc,1,2,6,7,3,Intermediate,8,10,5,4,43,60000,150000,102000,110000,1.08,Satisfied
+185,Imran Hossain,IH,33,Project Manager,Operations,9,BSc,1,4,3,4,1,Intermediate,18,10,5,8,49,80000,200000,132000,110500,0.84,Dissatisfied
+186,Sadia Islam,SI,35,Data Analyst,Engineering,8,Diploma,2,0,7,6,7,Intermediate,16,5,10,0,51,30000,90000,59000,47000,0.8,Dissatisfied
+187,Mim Chowdhury,MC,31,Finance Manager,Finance,7,BSc,0,3,5,4,3,Advanced,14,10,0,6,42,70000,180000,109500,103000,0.94,Dissatisfied
+188,Ayesha Ahmed,AA,28,Finance Manager,Finance,6,BSc,1,1,1,5,5,Advanced,12,10,5,2,40,70000,180000,109500,93500,0.85,Satisfied
+189,Sabrina Khan,SK,31,Accountant,Finance,3,BSc,3,1,2,7,4,Intermediate,6,10,15,2,46,25000,65000,44000,45000,1.02,Satisfied
+190,Faisal Sarker,FS,30,Finance Manager,Finance,4,MSc,0,0,8,8,5,Intermediate,8,15,0,0,44,70000,180000,122500,73000,0.6,Dissatisfied
+191,Nusrat Ahmed,NA,32,Senior Software Engineer,Engineering,10,BSc,0,2,4,1,6,Fluent,20,10,0,4,45,70000,180000,121000,143500,1.19,Satisfied
+192,Tanvir Begum,TB,31,Accountant,Finance,7,MSc,2,3,5,4,5,Basic,14,15,10,6,59,25000,65000,50500,43000,0.85,Dissatisfied
+193,Mim Islam,MI,33,Software Engineer,Engineering,6,BSc,0,4,3,5,7,Intermediate,12,10,0,8,45,35000,120000,72000,67500,0.94,Satisfied
+194,Faisal Akter,FA,33,Software Engineer,Engineering,8,MSc,4,2,3,3,6,Advanced,16,15,20,4,67,35000,120000,88500,91000,1.03,Satisfied
+195,Shakil Uddin,SU,33,HR Manager,Human Resources,5,BSc,0,0,8,7,4,Advanced,10,10,0,0,39,60000,150000,93500,108000,1.16,Satisfied
+196,Jahid Rahman,JR,32,Software Engineer,Engineering,10,Diploma,0,2,1,7,4,Fluent,20,5,0,4,41,35000,120000,70000,79500,1.14,Dissatisfied
+197,Rafiq Begum,RB,32,Graphic Designer,Design,7,BSc,4,4,4,3,5,Intermediate,14,10,20,8,64,22000,60000,46500,40500,0.87,Dissatisfied
+198,Sabrina Uddin,SU,36,Accountant,Finance,8,BSc,1,3,4,6,3,Advanced,16,10,5,6,50,25000,65000,45000,43500,0.97,Dissatisfied
+199,Shakil Ahmed,SA,29,Finance Manager,Finance,5,BSc,6,3,6,9,6,Advanced,10,10,20,6,67,70000,180000,132000,119500,0.91,Satisfied
+200,Nusrat Begum,NB,27,HR Manager,Human Resources,3,Diploma,0,1,3,3,7,Advanced,6,5,0,2,26,60000,150000,84000,92000,1.1,Satisfied
+201,Mahmud Khan,MK,33,Senior Software Engineer,Engineering,9,Diploma,1,5,1,6,3,Advanced,18,5,5,10,48,70000,180000,125000,143500,1.15,Dissatisfied
+202,Faisal Sarker,FS,29,Marketing Executive,Marketing,6,BSc,0,0,6,5,3,Intermediate,12,10,0,0,36,25000,70000,40000,35000,0.88,Satisfied
+203,Rafiq Chowdhury,RC,33,Graphic Designer,Design,5,MSc,2,2,4,4,4,Basic,10,15,10,4,51,22000,60000,42000,39000,0.93,Dissatisfied
+204,Rafiq Rahman,RR,27,Customer Support Executive,Customer Support,2,Diploma,3,0,6,6,6,Advanced,4,5,15,0,42,18000,45000,31000,35500,1.15,Satisfied
+205,Mahmud Uddin,MU,25,Software Engineer,Engineering,3,MSc,2,1,8,7,6,Intermediate,6,15,10,2,54,35000,120000,89000,87500,0.98,Dissatisfied
+206,Rahim Begum,RB,27,Business Analyst,Strategy,6,MSc,5,3,9,6,7,Fluent,12,15,20,6,75,40000,110000,101500,99500,0.98,Dissatisfied
+207,Mim Hossain,MH,37,HR Manager,Human Resources,11,MSc,0,5,7,3,7,Advanced,20,15,0,10,62,60000,150000,120500,111000,0.92,Dissatisfied
+208,Jahid Hossain,JH,38,Accountant,Finance,14,Diploma,4,1,8,6,5,Intermediate,20,5,20,2,66,25000,65000,55000,49500,0.9,Dissatisfied
+209,Shakil Hossain,SH,25,Graphic Designer,Design,3,PhD,6,3,5,7,4,Intermediate,6,20,20,6,68,22000,60000,49000,55000,1.12,Dissatisfied
+210,Shakil Khan,SK,30,QA Engineer,Engineering,8,MSc,4,5,6,3,3,Advanced,16,15,20,10,73,28000,85000,63500,61000,0.96,Dissatisfied
+211,Jahid Rahman,JR,26,Finance Manager,Finance,5,BSc,0,3,5,6,4,Advanced,10,10,0,6,41,70000,180000,120000,126000,1.05,Satisfied
+212,Faisal Rahman,FR,30,Customer Support Executive,Customer Support,6,Diploma,2,0,7,7,5,Advanced,12,5,10,0,46,18000,45000,28500,27000,0.95,Satisfied
+213,Faisal Ahmed,FA,32,Senior Software Engineer,Engineering,6,BSc,1,5,3,8,7,Intermediate,12,10,5,10,55,70000,180000,132500,158000,1.19,Satisfied
+214,Sadia Rahman,SR,24,Operations Manager,Operations,2,BSc,0,2,1,8,5,Advanced,4,10,0,4,32,60000,150000,87500,80500,0.92,Satisfied
+215,Imran Islam,II,26,Project Manager,Operations,4,BSc,3,1,4,7,6,Intermediate,8,10,15,2,52,80000,200000,139000,151000,1.09,Satisfied
+216,Sultana Uddin,SU,26,Senior Software Engineer,Engineering,4,BSc,0,2,4,6,7,Advanced,8,10,0,4,39,70000,180000,111000,126000,1.14,Dissatisfied
+217,Nabila Hossain,NH,33,Marketing Executive,Marketing,6,BSc,1,1,9,2,4,Advanced,12,10,5,2,44,25000,70000,45500,45000,0.99,Satisfied
+218,Ayesha Chowdhury,AC,27,Graphic Designer,Design,2,BSc,3,0,4,7,7,Intermediate,4,10,15,0,47,22000,60000,37500,39500,1.05,Dissatisfied
+219,Faisal Khan,FK,34,Operations Manager,Operations,8,BSc,2,3,1,4,3,Advanced,16,10,10,6,50,60000,150000,105500,111500,1.06,Dissatisfied
+220,Ayesha Ahmed,AA,25,Customer Support Executive,Customer Support,1,BSc,0,2,2,2,7,Advanced,2,10,0,4,27,18000,45000,24500,23000,0.94,Dissatisfied
+221,Jahid Hossain,JH,33,QA Engineer,Engineering,8,BSc,1,0,6,7,5,Intermediate,16,10,5,0,49,28000,85000,60000,65500,1.09,Satisfied
+222,Faisal Rahman,FR,26,HR Executive,Human Resources,3,PhD,2,2,4,8,5,Intermediate,6,20,10,4,57,25000,70000,51000,56000,1.1,Satisfied
+223,Farhana Khan,FK,26,Software Engineer,Engineering,2,BSc,4,3,7,3,6,Basic,4,10,20,6,56,35000,120000,77500,90000,1.16,Satisfied
+224,Ruma Akter,RA,29,QA Engineer,Engineering,3,Diploma,0,3,9,7,6,Basic,6,5,0,6,39,28000,85000,51000,41000,0.8,Dissatisfied
+225,Rafiq Chowdhury,RC,31,Sales Executive,Sales,5,MSc,0,1,7,5,6,Advanced,10,15,0,2,45,20000,60000,37000,30000,0.81,Dissatisfied
+226,Farhana Sarker,FS,30,Marketing Executive,Marketing,5,BSc,0,5,1,4,6,Fluent,10,10,0,10,41,25000,70000,41000,41000,1.0,Satisfied
+227,Imran Begum,IB,31,Sales Executive,Sales,4,BSc,0,4,3,8,2,Fluent,8,10,0,8,39,20000,60000,37500,41000,1.09,Dissatisfied
+228,Abir Uddin,AU,35,Business Analyst,Strategy,13,Diploma,0,3,5,6,3,Advanced,20,5,0,6,45,40000,110000,79000,106000,1.34,Satisfied
+229,Imran Islam,II,31,Senior Software Engineer,Engineering,7,Diploma,2,5,1,8,6,Intermediate,14,5,10,10,54,70000,180000,126000,127000,1.01,Satisfied
+230,Mim Uddin,MU,32,HR Executive,Human Resources,5,BSc,6,3,6,2,8,Basic,10,10,20,6,62,25000,70000,51500,53500,1.04,Dissatisfied
+231,Rafiq Uddin,RU,31,Graphic Designer,Design,6,Diploma,1,0,4,6,5,Intermediate,12,5,5,0,37,22000,60000,35000,32000,0.91,Dissatisfied
+232,Mahmud Hossain,MH,27,Marketing Executive,Marketing,2,BSc,0,0,6,7,7,Advanced,4,10,0,0,34,25000,70000,41500,49000,1.18,Satisfied
+233,Jahid Islam,JI,37,HR Manager,Human Resources,13,Diploma,0,2,3,6,6,Intermediate,20,5,0,4,44,60000,150000,99000,117500,1.19,Satisfied
+234,Sabrina Akter,SA,32,Accountant,Finance,7,BSc,1,2,4,8,4,Advanced,14,10,5,4,49,25000,65000,46000,42500,0.92,Satisfied
+235,Farhana Chowdhury,FC,32,Project Manager,Operations,6,BSc,2,3,2,8,4,Intermediate,12,10,10,6,52,80000,200000,143500,147000,1.02,Satisfied
+236,Tania Akter,TA,33,Marketing Executive,Marketing,7,MSc,2,2,9,8,10,Advanced,14,15,10,4,70,25000,70000,55000,45000,0.82,Dissatisfied
+237,Rafiq Chowdhury,RC,27,Graphic Designer,Design,2,High School,0,4,3,3,6,Intermediate,4,0,0,8,24,22000,60000,32000,32500,1.02,Dissatisfied
+238,Faisal Islam,FI,33,Operations Manager,Operations,5,PhD,0,2,2,4,6,Intermediate,10,20,0,4,46,60000,150000,100000,80500,0.81,Satisfied
+239,Sabrina Ahmed,SA,31,HR Manager,Human Resources,7,BSc,5,0,8,7,5,Advanced,14,10,20,0,64,60000,150000,111500,116000,1.04,Dissatisfied
+240,Tanvir Hossain,TH,31,Software Engineer,Engineering,3,MSc,0,4,7,8,3,Fluent,6,15,0,8,47,35000,120000,70500,67500,0.96,Satisfied
+241,Rafiq Islam,RI,29,Customer Support Executive,Customer Support,3,BSc,4,0,7,5,8,Advanced,6,10,20,0,56,18000,45000,34000,41000,1.21,Satisfied
+242,Kamal Ahmed,KA,40,Senior Software Engineer,Engineering,13,MSc,3,4,7,2,1,Basic,20,15,15,8,68,70000,180000,154500,175500,1.14,Satisfied
+243,Sadia Islam,SI,26,Operations Manager,Operations,5,MSc,0,3,6,7,6,Intermediate,10,15,0,6,50,60000,150000,97000,97000,1.0,Dissatisfied
+244,Ayesha Ahmed,AA,22,Accountant,Finance,0,MSc,1,0,4,8,7,Fluent,0,15,5,0,39,25000,65000,38000,38500,1.01,Dissatisfied
+245,Nusrat Islam,NI,27,Project Manager,Operations,4,BSc,2,4,8,7,5,Advanced,8,10,10,8,56,80000,200000,148000,140500,0.95,Satisfied
+246,Mim Rahman,MR,31,QA Engineer,Engineering,8,Diploma,0,3,3,4,4,Intermediate,16,5,0,6,38,28000,85000,52500,54000,1.03,Satisfied
+247,Farhana Begum,FB,28,Finance Manager,Finance,5,Diploma,2,4,8,6,7,Advanced,10,5,10,8,54,70000,180000,136500,122500,0.9,Satisfied
+248,Mahmud Islam,MI,35,Accountant,Finance,13,BSc,1,2,4,7,5,Fluent,20,10,5,4,55,25000,65000,50000,51000,1.02,Satisfied
+249,Faisal Sarker,FS,31,Customer Support Executive,Customer Support,6,BSc,4,2,7,3,2,Advanced,12,10,20,4,58,18000,45000,35000,39000,1.11,Dissatisfied
+250,Nusrat Uddin,NU,28,Operations Manager,Operations,7,BSc,1,0,3,4,5,Advanced,14,10,5,0,41,60000,150000,91500,73000,0.8,Dissatisfied
+251,Shakil Uddin,SU,26,Project Manager,Operations,5,BSc,1,2,7,4,7,Fluent,10,10,5,4,47,80000,200000,138500,147000,1.06,Satisfied
+252,Rafiq Rahman,RR,30,Data Analyst,Engineering,4,BSc,4,2,8,7,8,Fluent,8,10,20,4,65,30000,90000,67000,60500,0.9,Satisfied
+253,Rahim Begum,RB,34,Marketing Executive,Marketing,7,BSc,0,0,8,7,8,Advanced,14,10,0,0,47,25000,70000,45000,48500,1.08,Satisfied
+254,Rahim Sarker,RS,28,Data Analyst,Engineering,5,MSc,2,3,5,1,5,Fluent,10,15,10,6,52,30000,90000,58500,56000,0.96,Dissatisfied
+255,Ayesha Begum,AB,31,Operations Manager,Operations,4,MSc,1,5,3,4,6,Basic,8,15,5,10,51,60000,150000,107500,114000,1.06,Satisfied
+256,Mim Chowdhury,MC,27,QA Engineer,Engineering,1,BSc,5,5,4,3,3,Basic,2,10,20,10,52,28000,85000,57500,62500,1.09,Satisfied
+257,Sabrina Rahman,SR,34,QA Engineer,Engineering,8,High School,3,1,7,7,3,Fluent,16,0,15,2,50,28000,85000,61000,68500,1.12,Dissatisfied
+258,Rafiq Islam,RI,31,Accountant,Finance,7,MSc,1,3,6,7,7,Advanced,14,15,5,6,60,25000,65000,49500,47000,0.95,Dissatisfied
+259,Ayesha Khan,AK,33,Data Analyst,Engineering,5,MSc,0,1,6,5,3,Advanced,10,15,0,2,41,30000,90000,54500,56500,1.04,Satisfied
+260,Imran Ahmed,IA,26,Data Analyst,Engineering,2,BSc,5,0,7,6,6,Advanced,4,10,20,0,53,30000,90000,63500,57500,0.91,Dissatisfied
+261,Nabila Rahman,NR,28,Sales Executive,Sales,6,MSc,0,4,7,4,4,Advanced,12,15,0,8,50,20000,60000,37000,30500,0.82,Dissatisfied
+262,Sultana Begum,SB,24,Operations Manager,Operations,2,BSc,0,2,7,9,8,Basic,4,10,0,4,42,60000,150000,103500,110000,1.06,Satisfied
+263,Rafiq Khan,RK,29,Customer Support Executive,Customer Support,8,PhD,1,2,6,5,5,Advanced,16,20,5,4,61,18000,45000,35000,35500,1.01,Dissatisfied
+264,Shakil Sarker,SS,31,HR Manager,Human Resources,4,BSc,1,0,7,7,8,Basic,8,10,5,0,45,60000,150000,108500,77000,0.71,Dissatisfied
+265,Jahid Akter,JA,25,Accountant,Finance,2,BSc,1,2,4,4,5,Fluent,4,10,5,4,36,25000,65000,38500,42500,1.1,Dissatisfied
+266,Ruma Ahmed,RA,28,Data Analyst,Engineering,1,BSc,0,2,7,7,5,Intermediate,2,10,0,4,35,30000,90000,49000,49000,1.0,Dissatisfied
+267,Mahmud Chowdhury,MC,36,Graphic Designer,Design,9,BSc,2,5,5,8,7,Basic,18,10,10,10,68,22000,60000,47500,54500,1.15,Satisfied
+268,Ayesha Sarker,AS,25,Marketing Executive,Marketing,2,BSc,3,4,3,4,7,Fluent,4,10,15,8,51,25000,70000,47500,51000,1.07,Satisfied
+269,Faisal Islam,FI,30,Software Engineer,Engineering,3,Diploma,0,2,2,5,4,Basic,6,5,0,4,26,35000,120000,56500,65500,1.16,Satisfied
+270,Nabila Chowdhury,NC,27,HR Manager,Human Resources,2,MSc,0,4,5,6,6,Intermediate,4,15,0,8,44,60000,150000,105500,115500,1.09,Dissatisfied
+271,Farhana Ahmed,FA,24,Data Analyst,Engineering,1,BSc,4,3,7,6,5,Intermediate,2,10,20,6,56,30000,90000,63500,67000,1.06,Dissatisfied
+272,Rafiq Uddin,RU,26,QA Engineer,Engineering,4,High School,1,1,2,3,5,Advanced,8,0,5,2,25,28000,85000,41000,45500,1.11,Satisfied
+273,Faisal Uddin,FU,38,Data Analyst,Engineering,10,BSc,0,2,5,9,5,Advanced,20,10,0,4,53,30000,90000,62500,48000,0.77,Dissatisfied
+274,Rafiq Akter,RA,30,Business Analyst,Strategy,5,MSc,2,1,8,4,9,Advanced,10,15,10,2,58,40000,110000,86500,94000,1.09,Satisfied
+275,Ayesha Rahman,AR,37,Operations Manager,Operations,12,BSc,0,5,1,4,2,Intermediate,20,10,0,10,47,60000,150000,103500,106500,1.03,Satisfied
+276,Shakil Begum,SB,28,Accountant,Finance,3,BSc,0,5,3,8,6,Fluent,6,10,0,10,43,25000,65000,40000,34500,0.86,Dissatisfied
+277,Nusrat Akter,NA,31,HR Executive,Human Resources,6,Diploma,0,4,5,2,2,Advanced,12,5,0,8,34,25000,70000,38000,38500,1.01,Dissatisfied
+278,Ruma Begum,RB,30,Customer Support Executive,Customer Support,5,BSc,4,0,6,8,7,Intermediate,10,10,20,0,61,18000,45000,32000,34000,1.06,Satisfied
+279,Tanvir Chowdhury,TC,27,HR Manager,Human Resources,6,MSc,2,4,5,5,7,Intermediate,12,15,10,8,62,60000,150000,112500,130500,1.16,Satisfied
+280,Abir Islam,AI,33,Operations Manager,Operations,6,MSc,0,2,8,6,3,Fluent,12,15,0,4,48,60000,150000,104000,91000,0.88,Satisfied
+281,Tanvir Akter,TA,33,Business Analyst,Strategy,9,BSc,0,2,2,4,2,Basic,18,10,0,4,40,40000,110000,62500,65500,1.05,Dissatisfied
+282,Kamal Akter,KA,30,Customer Support Executive,Customer Support,4,BSc,0,3,2,4,5,Advanced,8,10,0,6,35,18000,45000,25500,31000,1.22,Satisfied
+283,Imran Uddin,IU,29,Software Engineer,Engineering,6,BSc,5,4,2,2,5,Fluent,12,10,20,8,59,35000,120000,81000,70500,0.87,Dissatisfied
+284,Rahim Khan,RK,30,Operations Manager,Operations,3,BSc,0,4,9,6,1,Fluent,6,10,0,8,40,60000,150000,102000,105000,1.03,Dissatisfied
+285,Ruma Begum,RB,28,Finance Manager,Finance,2,MSc,0,4,3,6,5,Advanced,4,15,0,8,41,70000,180000,112500,87000,0.77,Satisfied
+286,Farhana Khan,FK,28,HR Manager,Human Resources,6,MSc,0,4,10,7,7,Advanced,12,15,0,8,59,60000,150000,106500,110500,1.04,Dissatisfied
+287,Rahim Islam,RI,28,Customer Support Executive,Customer Support,2,MSc,0,1,9,4,7,Advanced,4,15,0,2,41,18000,45000,29500,21500,0.73,Dissatisfied
+288,Tania Hossain,TH,32,HR Manager,Human Resources,7,MSc,1,2,7,4,1,Advanced,14,15,5,4,50,60000,150000,101500,86000,0.85,Dissatisfied
+289,Jahid Uddin,JU,28,Senior Software Engineer,Engineering,4,Diploma,1,0,1,7,7,Advanced,8,5,5,0,33,70000,180000,109000,119000,1.09,Satisfied
+290,Jahid Islam,JI,32,Senior Software Engineer,Engineering,8,BSc,3,0,6,8,8,Advanced,16,10,15,0,63,70000,180000,138500,140000,1.01,Satisfied
+291,Abir Hossain,AH,32,Project Manager,Operations,5,Diploma,5,3,4,7,5,Advanced,10,5,20,6,57,80000,200000,146000,135000,0.92,Satisfied
+292,Faisal Hossain,FH,26,Finance Manager,Finance,5,Diploma,2,2,5,5,8,Intermediate,10,5,10,4,47,70000,180000,121500,130000,1.07,Satisfied
+293,Sabrina Chowdhury,SC,31,Software Engineer,Engineering,5,BSc,2,3,6,8,5,Intermediate,10,10,10,6,55,35000,120000,85500,82000,0.96,Dissatisfied
+294,Abir Hossain,AH,33,HR Executive,Human Resources,8,BSc,1,3,4,4,1,Advanced,16,10,5,6,46,25000,70000,46500,51500,1.11,Dissatisfied
+295,Sadia Sarker,SS,30,QA Engineer,Engineering,4,BSc,0,1,6,7,7,Basic,8,10,0,2,40,28000,85000,48500,52000,1.07,Satisfied
+296,Mim Begum,MB,37,HR Executive,Human Resources,14,BSc,1,4,7,1,5,Advanced,20,10,5,8,56,25000,70000,44500,38000,0.85,Satisfied
+297,Sabrina Islam,SI,28,Sales Executive,Sales,2,Diploma,4,1,4,4,6,Intermediate,4,5,20,2,45,20000,60000,37000,33500,0.91,Dissatisfied
+298,Rahim Chowdhury,RC,27,Sales Executive,Sales,3,BSc,1,3,3,1,6,Advanced,6,10,5,6,37,20000,60000,35500,34000,0.96,Dissatisfied
+299,Jahid Rahman,JR,28,Senior Software Engineer,Engineering,4,BSc,0,0,3,4,4,Intermediate,8,10,0,0,29,70000,180000,102000,78500,0.77,Dissatisfied
+300,Imran Khan,IK,34,Finance Manager,Finance,7,BSc,2,3,8,5,6,Fluent,14,10,10,6,59,70000,180000,133000,140000,1.05,Satisfied
+301,Jahid Ahmed,JA,28,Graphic Designer,Design,7,Diploma,1,1,3,7,7,Advanced,14,5,5,2,43,22000,60000,39000,39000,1.0,Satisfied
+302,Mahmud Sarker,MS,39,Customer Support Executive,Customer Support,11,BSc,1,2,3,8,3,Intermediate,20,10,5,4,53,18000,45000,33000,36500,1.11,Dissatisfied
+303,Rafiq Rahman,RR,28,Software Engineer,Engineering,5,MSc,0,3,3,6,3,Intermediate,10,15,0,6,43,35000,120000,74000,72000,0.97,Dissatisfied
+304,Tanvir Begum,TB,25,Finance Manager,Finance,1,BSc,5,3,4,4,7,Basic,2,10,20,6,53,70000,180000,138500,117000,0.84,Satisfied
+305,Ruma Islam,RI,27,Senior Software Engineer,Engineering,6,BSc,1,3,4,6,7,Advanced,12,10,5,6,50,70000,180000,121000,108000,0.89,Satisfied
+306,Kamal Ahmed,KA,28,Sales Executive,Sales,1,BSc,2,4,4,6,4,Basic,2,10,10,8,44,20000,60000,36000,35000,0.97,Dissatisfied
+307,Abir Rahman,AR,34,Project Manager,Operations,12,BSc,0,4,9,5,6,Basic,20,10,0,8,58,80000,200000,147000,144000,0.98,Satisfied
+308,Farhana Uddin,FU,27,Data Analyst,Engineering,4,BSc,0,5,9,2,4,Fluent,8,10,0,10,43,30000,90000,55500,61500,1.11,Satisfied
+309,Rafiq Begum,RB,27,Software Engineer,Engineering,5,BSc,5,3,2,4,6,Fluent,10,10,20,6,58,35000,120000,84500,72000,0.85,Dissatisfied
+310,Sabrina Begum,SB,26,Software Engineer,Engineering,0,BSc,6,0,6,6,6,Intermediate,0,10,20,0,48,35000,120000,71500,74000,1.03,Satisfied
+311,Sabrina Chowdhury,SC,32,Operations Manager,Operations,5,Diploma,0,3,3,5,5,Advanced,10,5,0,6,34,60000,150000,90000,89500,0.99,Satisfied
+312,Abir Hossain,AH,34,Accountant,Finance,6,BSc,0,0,3,4,2,Advanced,12,10,0,0,31,25000,65000,39500,39500,1.0,Satisfied
+313,Tanvir Begum,TB,25,Software Engineer,Engineering,3,BSc,2,1,9,10,7,Intermediate,6,10,10,2,54,35000,120000,78500,78500,1.0,Satisfied
+314,Mahmud Sarker,MS,28,Marketing Executive,Marketing,3,BSc,0,5,6,7,4,Intermediate,6,10,0,10,43,25000,70000,43000,38500,0.9,Satisfied
+315,Jahid Begum,JB,27,Finance Manager,Finance,4,MSc,0,2,7,4,5,Intermediate,8,15,0,4,43,70000,180000,119500,130000,1.09,Satisfied
+316,Farhana Islam,FI,28,Finance Manager,Finance,5,BSc,5,4,2,4,6,Basic,10,10,20,8,60,70000,180000,147000,140500,0.96,Satisfied
+317,Rafiq Hossain,RH,35,Software Engineer,Engineering,11,BSc,2,0,7,4,6,Intermediate,20,10,10,0,57,35000,120000,84500,64500,0.76,Dissatisfied
+318,Rahim Islam,RI,31,Finance Manager,Finance,6,MSc,0,3,5,7,7,Advanced,12,15,0,6,52,70000,180000,122000,120000,0.98,Satisfied
+319,Mahmud Uddin,MU,28,Graphic Designer,Design,3,BSc,0,5,7,9,10,Intermediate,6,10,0,10,52,22000,60000,42500,44000,1.04,Satisfied
+320,Faisal Sarker,FS,31,Customer Support Executive,Customer Support,4,Diploma,2,2,4,5,4,Intermediate,8,5,10,4,40,18000,45000,31000,41500,1.34,Satisfied
+321,Rafiq Ahmed,RA,29,Software Engineer,Engineering,6,BSc,2,5,6,6,6,Intermediate,12,10,10,10,60,35000,120000,87500,92500,1.06,Dissatisfied
+322,Imran Khan,IK,31,Project Manager,Operations,9,Diploma,0,1,3,4,1,Intermediate,18,5,0,2,33,80000,200000,118500,124000,1.05,Satisfied
+323,Sabrina Chowdhury,SC,25,Graphic Designer,Design,3,BSc,0,0,5,6,3,Advanced,6,10,0,0,30,22000,60000,34000,37500,1.1,Satisfied
+324,Nabila Uddin,NU,30,Customer Support Executive,Customer Support,5,BSc,1,5,7,4,4,Basic,10,10,5,10,50,18000,45000,33000,35000,1.06,Satisfied
+325,Mahmud Islam,MI,30,Finance Manager,Finance,6,BSc,1,2,9,4,8,Intermediate,12,10,5,4,52,70000,180000,131000,141000,1.08,Satisfied
+326,Rahim Akter,RA,29,Project Manager,Operations,4,BSc,2,1,5,0,3,Advanced,8,10,10,2,38,80000,200000,125500,111500,0.89,Dissatisfied
+327,Imran Khan,IK,29,QA Engineer,Engineering,3,BSc,1,4,7,3,6,Advanced,6,10,5,8,45,28000,85000,54000,60000,1.11,Satisfied
+328,Abir Begum,AB,31,Graphic Designer,Design,7,MSc,1,4,8,8,9,Advanced,14,15,5,8,67,22000,60000,49000,45000,0.92,Satisfied
+329,Kamal Akter,KA,26,Accountant,Finance,2,BSc,0,5,8,3,7,Intermediate,4,10,0,10,42,25000,65000,44500,49000,1.1,Satisfied
+330,Faisal Islam,FI,29,HR Manager,Human Resources,6,Diploma,1,1,2,4,2,Fluent,12,5,5,2,32,60000,150000,86500,80000,0.92,Dissatisfied
+331,Shakil Akter,SA,38,Software Engineer,Engineering,14,BSc,2,1,4,7,6,Advanced,20,10,10,2,59,35000,120000,84000,75500,0.9,Satisfied
+332,Tania Khan,TK,30,Finance Manager,Finance,4,BSc,0,3,3,9,9,Intermediate,8,10,0,6,45,70000,180000,115500,108500,0.94,Satisfied
+333,Farhana Uddin,FU,34,Graphic Designer,Design,9,MSc,0,0,1,6,7,Intermediate,18,15,0,0,47,22000,60000,40500,41000,1.01,Dissatisfied
+334,Faisal Hossain,FH,31,Finance Manager,Finance,9,BSc,2,1,4,1,3,Advanced,18,10,10,2,48,70000,180000,115000,116500,1.01,Dissatisfied
+335,Jahid Rahman,JR,32,Accountant,Finance,8,BSc,0,2,8,4,6,Advanced,16,10,0,4,48,25000,65000,44500,40000,0.9,Dissatisfied
+336,Tania Akter,TA,30,Operations Manager,Operations,6,MSc,0,1,5,5,9,Intermediate,12,15,0,2,48,60000,150000,105000,90500,0.86,Dissatisfied
+337,Sabrina Sarker,SS,26,Data Analyst,Engineering,3,BSc,2,2,1,6,5,Advanced,6,10,10,4,42,30000,90000,56000,59500,1.06,Satisfied
+338,Mim Sarker,MS,26,Senior Software Engineer,Engineering,2,BSc,0,1,1,8,5,Fluent,4,10,0,2,30,70000,180000,97500,90000,0.92,Satisfied
+339,Rahim Ahmed,RA,26,QA Engineer,Engineering,3,High School,3,3,3,6,10,Fluent,6,0,15,6,46,28000,85000,56500,59500,1.05,Satisfied
+340,Tanvir Akter,TA,29,Sales Executive,Sales,2,BSc,2,1,4,8,3,Advanced,4,10,10,2,41,20000,60000,37000,30000,0.81,Satisfied
+341,Kamal Khan,KK,27,Business Analyst,Strategy,2,BSc,1,1,6,4,6,Fluent,4,10,5,2,37,40000,110000,65500,58000,0.89,Dissatisfied
+342,Sultana Khan,SK,29,Customer Support Executive,Customer Support,4,BSc,1,2,2,5,4,Intermediate,8,10,5,4,38,18000,45000,27000,22500,0.83,Dissatisfied
+343,Sultana Akter,SA,30,QA Engineer,Engineering,5,BSc,0,3,4,8,6,Advanced,10,10,0,6,44,28000,85000,52000,51500,0.99,Dissatisfied
+344,Sultana Hossain,SH,32,Business Analyst,Strategy,5,BSc,1,4,4,8,6,Intermediate,10,10,5,8,51,40000,110000,74500,74500,1.0,Dissatisfied
+345,Sultana Uddin,SU,34,Accountant,Finance,7,MSc,0,3,7,6,7,Intermediate,14,15,0,6,55,25000,65000,45500,48500,1.07,Satisfied
+346,Mahmud Akter,MA,26,Finance Manager,Finance,5,MSc,3,0,8,1,3,Fluent,10,15,15,0,52,70000,180000,136000,100500,0.74,Dissatisfied
+347,Kamal Sarker,KS,36,Software Engineer,Engineering,13,PhD,4,2,7,7,8,Advanced,20,20,20,4,86,35000,120000,110500,111000,1.0,Dissatisfied
+348,Rahim Islam,RI,27,Project Manager,Operations,4,BSc,1,3,8,9,9,Advanced,8,10,5,6,55,80000,200000,152500,135500,0.89,Satisfied
+349,Rafiq Chowdhury,RC,33,Business Analyst,Strategy,7,MSc,1,0,8,7,9,Fluent,14,15,5,0,58,40000,110000,85000,78000,0.92,Satisfied
+350,Ruma Rahman,RR,29,Project Manager,Operations,2,BSc,0,3,6,5,4,Advanced,4,10,0,6,35,80000,200000,129500,107500,0.83,Dissatisfied
+351,Farhana Chowdhury,FC,27,Senior Software Engineer,Engineering,2,BSc,0,5,7,6,5,Advanced,4,10,0,10,42,70000,180000,121000,88500,0.73,Dissatisfied
+352,Tania Sarker,TS,25,QA Engineer,Engineering,2,Diploma,0,4,3,2,6,Advanced,4,5,0,8,28,28000,85000,44000,40000,0.91,Dissatisfied
+353,Mahmud Begum,MB,34,Project Manager,Operations,9,BSc,0,5,6,9,8,Intermediate,18,10,0,10,61,80000,200000,164000,161000,0.98,Dissatisfied
+354,Abir Uddin,AU,31,Accountant,Finance,4,High School,3,2,4,3,6,Intermediate,8,0,15,4,40,25000,65000,40000,42000,1.05,Dissatisfied
+355,Ayesha Hossain,AH,29,QA Engineer,Engineering,3,BSc,0,3,3,2,3,Basic,6,10,0,6,30,28000,85000,44000,50000,1.14,Satisfied
+356,Sadia Khan,SK,36,Graphic Designer,Design,8,MSc,1,4,5,2,5,Fluent,16,15,5,8,56,22000,60000,42500,43500,1.02,Satisfied
+357,Mahmud Hossain,MH,33,Accountant,Finance,5,BSc,1,0,2,7,5,Basic,10,10,5,0,39,25000,65000,38500,26500,0.69,Dissatisfied
+358,Sadia Sarker,SS,29,Customer Support Executive,Customer Support,3,BSc,0,0,3,2,2,Fluent,6,10,0,0,23,18000,45000,24500,24500,1.0,Dissatisfied
+359,Jahid Chowdhury,JC,30,Project Manager,Operations,6,BSc,0,5,9,3,6,Advanced,12,10,0,10,50,80000,200000,136000,159500,1.17,Satisfied
+360,Faisal Rahman,FR,33,HR Executive,Human Resources,7,BSc,0,3,2,8,5,Advanced,14,10,0,6,45,25000,70000,46000,47500,1.03,Satisfied
+361,Sabrina Khan,SK,26,Senior Software Engineer,Engineering,4,Diploma,3,0,4,5,7,Advanced,8,5,15,0,44,70000,180000,119500,130500,1.09,Satisfied
+362,Nusrat Hossain,NH,36,HR Manager,Human Resources,12,BSc,2,5,5,2,4,Advanced,20,10,10,10,61,60000,150000,112500,104000,0.92,Dissatisfied
+363,Faisal Uddin,FU,30,HR Executive,Human Resources,4,Diploma,4,4,5,6,4,Fluent,8,5,20,8,56,25000,70000,51000,49500,0.97,Dissatisfied
+364,Imran Begum,IB,34,Finance Manager,Finance,6,BSc,1,3,5,5,3,Advanced,12,10,5,6,46,70000,180000,125000,120000,0.96,Dissatisfied
+365,Jahid Akter,JA,26,Data Analyst,Engineering,2,BSc,0,2,4,7,8,Intermediate,4,10,0,4,37,30000,90000,55500,48500,0.87,Dissatisfied
+366,Jahid Islam,JI,31,Operations Manager,Operations,5,MSc,0,2,5,5,2,Intermediate,10,15,0,4,41,60000,150000,96000,95500,0.99,Dissatisfied
+367,Shakil Akter,SA,29,Finance Manager,Finance,5,BSc,0,4,3,7,7,Advanced,10,10,0,8,45,70000,180000,122000,117000,0.96,Satisfied
+368,Ruma Chowdhury,RC,31,Senior Software Engineer,Engineering,5,BSc,2,1,7,8,4,Intermediate,10,10,10,2,51,70000,180000,124500,112000,0.9,Dissatisfied
+369,Abir Khan,AK,28,Finance Manager,Finance,4,BSc,0,1,3,5,7,Advanced,8,10,0,2,35,70000,180000,116000,108500,0.94,Satisfied
+370,Nusrat Chowdhury,NC,35,QA Engineer,Engineering,11,BSc,0,0,4,5,5,Intermediate,20,10,0,0,44,28000,85000,53500,59000,1.1,Satisfied
+371,Nusrat Hossain,NH,28,Software Engineer,Engineering,0,BSc,0,1,7,4,6,Intermediate,0,10,0,2,29,35000,120000,59500,48500,0.82,Dissatisfied
+372,Tania Ahmed,TA,31,QA Engineer,Engineering,7,BSc,4,0,5,9,5,Fluent,14,10,20,0,63,28000,85000,67000,79500,1.19,Satisfied
+373,Tanvir Khan,TK,34,Sales Executive,Sales,8,Diploma,1,3,5,6,5,Intermediate,16,5,5,6,48,20000,60000,36500,28500,0.78,Dissatisfied
+374,Sadia Begum,SB,32,Graphic Designer,Design,6,BSc,0,1,2,6,5,Advanced,12,10,0,2,37,22000,60000,36000,35000,0.97,Satisfied
+375,Mim Chowdhury,MC,30,Software Engineer,Engineering,7,BSc,3,3,4,4,5,Advanced,14,10,15,6,58,35000,120000,81500,84500,1.04,Dissatisfied
+376,Nabila Akter,NA,35,Customer Support Executive,Customer Support,12,High School,1,5,9,2,3,Intermediate,20,0,5,10,49,18000,45000,30500,35500,1.16,Dissatisfied
+377,Kamal Hossain,KH,30,Finance Manager,Finance,3,BSc,4,0,3,4,5,Intermediate,6,10,20,0,48,70000,180000,131500,109000,0.83,Satisfied
+378,Jahid Hossain,JH,31,Customer Support Executive,Customer Support,8,MSc,0,0,0,5,5,Advanced,16,15,0,0,41,18000,45000,30500,26500,0.87,Dissatisfied
+379,Ruma Hossain,RH,29,QA Engineer,Engineering,2,BSc,0,4,2,8,7,Intermediate,4,10,0,8,39,28000,85000,53500,49000,0.92,Dissatisfied
+380,Farhana Begum,FB,36,Data Analyst,Engineering,14,Diploma,0,0,8,7,9,Advanced,20,5,0,0,49,30000,90000,57000,70500,1.24,Satisfied
+381,Ruma Ahmed,RA,30,Operations Manager,Operations,4,BSc,4,5,1,8,7,Intermediate,8,10,20,10,64,60000,150000,117000,117500,1.0,Dissatisfied
+382,Tania Ahmed,TA,35,Data Analyst,Engineering,9,BSc,1,2,7,5,6,Intermediate,18,10,5,4,55,30000,90000,65000,79500,1.22,Satisfied
+383,Ruma Hossain,RH,26,Operations Manager,Operations,2,BSc,4,4,2,2,9,Intermediate,4,10,20,8,55,60000,150000,109000,90500,0.83,Satisfied
+384,Tania Hossain,TH,25,Software Engineer,Engineering,3,MSc,0,4,5,6,3,Basic,6,15,0,8,43,35000,120000,73500,75500,1.03,Dissatisfied
+385,Tania Hossain,TH,28,Sales Executive,Sales,3,BSc,4,3,7,7,7,Advanced,6,10,20,6,63,20000,60000,43500,40000,0.92,Dissatisfied
+386,Faisal Begum,FB,32,HR Manager,Human Resources,7,MSc,3,3,6,8,7,Advanced,14,15,15,6,71,60000,150000,121000,118000,0.98,Satisfied
+387,Mahmud Sarker,MS,30,Software Engineer,Engineering,6,MSc,0,1,5,6,9,Intermediate,12,15,0,2,49,35000,120000,78000,76000,0.97,Satisfied
+388,Faisal Rahman,FR,33,Operations Manager,Operations,7,Diploma,3,3,5,5,6,Intermediate,14,5,15,6,56,60000,150000,107000,104000,0.97,Satisfied
+389,Ruma Rahman,RR,26,Graphic Designer,Design,1,Diploma,3,4,7,3,5,Fluent,2,5,15,8,45,22000,60000,40000,39000,0.97,Dissatisfied
+390,Imran Rahman,IR,29,Marketing Executive,Marketing,5,BSc,4,5,1,5,6,Advanced,10,10,20,10,62,25000,70000,50000,42000,0.84,Dissatisfied
+391,Sabrina Islam,SI,34,Data Analyst,Engineering,10,MSc,0,0,7,6,6,Fluent,20,15,0,0,54,30000,90000,58500,54000,0.92,Satisfied
+392,Rahim Ahmed,RA,33,Marketing Executive,Marketing,5,BSc,0,0,2,2,3,Intermediate,10,10,0,0,27,25000,70000,40500,44000,1.09,Dissatisfied
+393,Sultana Chowdhury,SC,28,HR Executive,Human Resources,7,MSc,1,1,6,7,5,Intermediate,14,15,5,2,54,25000,70000,50500,55500,1.1,Satisfied
+394,Sadia Khan,SK,37,HR Manager,Human Resources,11,BSc,1,4,3,5,5,Fluent,20,10,5,8,56,60000,150000,113500,107000,0.94,Satisfied
+395,Sultana Chowdhury,SC,32,Sales Executive,Sales,8,BSc,2,3,3,8,7,Fluent,16,10,10,6,60,20000,60000,45000,48500,1.08,Satisfied
+396,Ayesha Uddin,AU,37,Business Analyst,Strategy,10,BSc,1,2,4,3,3,Intermediate,20,10,5,4,49,40000,110000,74500,63000,0.85,Dissatisfied
+397,Ayesha Sarker,AS,32,Operations Manager,Operations,11,BSc,0,3,6,9,6,Intermediate,20,10,0,6,57,60000,150000,110500,116500,1.05,Satisfied
+398,Farhana Ahmed,FA,37,Graphic Designer,Design,11,BSc,2,0,6,3,5,Intermediate,20,10,10,0,54,22000,60000,45500,46000,1.01,Satisfied
+399,Jahid Sarker,JS,30,HR Manager,Human Resources,4,MSc,6,1,4,4,6,Advanced,8,15,20,2,59,60000,150000,111500,86500,0.78,Dissatisfied
+400,Shakil Uddin,SU,34,Data Analyst,Engineering,12,MSc,1,3,4,3,4,Fluent,20,15,5,6,57,30000,90000,64500,73500,1.14,Satisfied
+401,Kamal Chowdhury,KC,23,Project Manager,Operations,2,BSc,2,3,2,7,3,Intermediate,4,10,10,6,42,80000,200000,135000,135000,1.0,Satisfied
+402,Rafiq Akter,RA,30,Project Manager,Operations,5,Diploma,3,1,9,8,8,Basic,10,5,15,2,57,80000,200000,152500,155500,1.02,Satisfied
+403,Nabila Rahman,NR,26,Operations Manager,Operations,3,MSc,2,5,3,7,6,Advanced,6,15,10,10,57,60000,150000,115000,107500,0.93,Dissatisfied
+404,Mahmud Sarker,MS,27,HR Executive,Human Resources,3,BSc,4,2,6,6,7,Basic,6,10,20,4,59,25000,70000,50000,49500,0.99,Satisfied
+405,Jahid Ahmed,JA,24,Accountant,Finance,1,BSc,0,1,6,1,3,Intermediate,2,10,0,2,24,25000,65000,35000,36500,1.04,Satisfied
+406,Tanvir Rahman,TR,31,Sales Executive,Sales,4,MSc,4,2,7,9,6,Advanced,8,15,20,4,69,20000,60000,48000,56000,1.17,Dissatisfied
+407,Abir Begum,AB,26,HR Executive,Human Resources,2,Diploma,4,0,8,5,5,Advanced,4,5,20,0,47,25000,70000,44000,49000,1.11,Satisfied
+408,Farhana Ahmed,FA,24,Marketing Executive,Marketing,2,BSc,0,5,9,5,9,Basic,4,10,0,10,47,25000,70000,46500,45500,0.98,Satisfied
+409,Ayesha Rahman,AR,30,HR Executive,Human Resources,4,BSc,0,0,2,8,7,Advanced,8,10,0,0,35,25000,70000,40000,29000,0.72,Dissatisfied
+410,Ruma Akter,RA,28,Senior Software Engineer,Engineering,3,MSc,1,4,8,3,4,Fluent,6,15,5,8,49,70000,180000,122000,109500,0.9,Dissatisfied
+411,Imran Uddin,IU,34,Senior Software Engineer,Engineering,11,BSc,1,3,7,6,5,Basic,20,10,5,6,59,70000,180000,140000,142000,1.01,Satisfied
+412,Ruma Uddin,RU,27,Finance Manager,Finance,4,MSc,1,1,8,2,5,Advanced,8,15,5,2,45,70000,180000,118500,115500,0.97,Satisfied
+413,Nusrat Akter,NA,24,Senior Software Engineer,Engineering,3,BSc,0,2,3,3,3,Intermediate,6,10,0,4,29,70000,180000,99000,85000,0.86,Dissatisfied
+414,Abir Rahman,AR,34,Data Analyst,Engineering,6,BSc,0,5,7,2,5,Advanced,12,10,0,10,46,30000,90000,59500,52000,0.87,Dissatisfied
+415,Mahmud Islam,MI,34,Finance Manager,Finance,10,MSc,0,3,4,7,3,Intermediate,20,15,0,6,55,70000,180000,122000,129000,1.06,Satisfied
+416,Rahim Uddin,RU,33,Graphic Designer,Design,7,MSc,2,3,0,5,6,Advanced,14,15,10,6,56,22000,60000,44000,56500,1.28,Satisfied
+417,Shakil Uddin,SU,36,Operations Manager,Operations,11,BSc,2,4,8,5,9,Intermediate,20,10,10,8,70,60000,150000,126500,123000,0.97,Dissatisfied
+418,Faisal Hossain,FH,40,Sales Executive,Sales,13,BSc,0,1,1,6,4,Advanced,20,10,0,2,43,20000,60000,39500,37000,0.94,Satisfied
+419,Shakil Hossain,SH,28,Customer Support Executive,Customer Support,3,BSc,0,5,4,9,9,Basic,6,10,0,10,48,18000,45000,30000,27500,0.92,Dissatisfied
+420,Tanvir Chowdhury,TC,29,HR Executive,Human Resources,2,BSc,0,4,5,5,2,Basic,4,10,0,8,34,25000,70000,41000,39000,0.95,Satisfied
+421,Ayesha Akter,AA,30,Marketing Executive,Marketing,6,BSc,1,1,5,9,6,Basic,12,10,5,2,49,25000,70000,45500,51500,1.13,Satisfied
+422,Nusrat Rahman,NR,33,Customer Support Executive,Customer Support,6,BSc,2,2,8,6,10,Advanced,12,10,10,4,60,18000,45000,33500,35000,1.04,Satisfied
+423,Farhana Uddin,FU,25,Senior Software Engineer,Engineering,3,PhD,1,2,7,5,7,Basic,6,20,5,4,54,70000,180000,135000,156000,1.16,Satisfied
+424,Jahid Uddin,JU,29,QA Engineer,Engineering,5,BSc,5,2,5,9,6,Intermediate,10,10,20,4,64,28000,85000,62000,49500,0.8,Dissatisfied
+425,Nusrat Ahmed,NA,32,Data Analyst,Engineering,5,BSc,6,2,5,5,5,Intermediate,10,10,20,4,59,30000,90000,62500,56000,0.9,Dissatisfied
+426,Ruma Khan,RK,31,Finance Manager,Finance,7,BSc,1,3,3,5,4,Advanced,14,10,5,6,47,70000,180000,117000,126000,1.08,Dissatisfied
+427,Mim Rahman,MR,37,Operations Manager,Operations,10,BSc,1,0,4,8,2,Advanced,20,10,5,0,49,60000,150000,110500,120000,1.09,Satisfied
+428,Ayesha Akter,AA,34,QA Engineer,Engineering,8,BSc,0,3,7,8,6,Advanced,16,10,0,6,53,28000,85000,51500,52000,1.01,Dissatisfied
+429,Ruma Uddin,RU,29,HR Manager,Human Resources,4,BSc,1,3,5,7,5,Intermediate,8,10,5,6,46,60000,150000,102000,121500,1.19,Satisfied
+430,Ayesha Rahman,AR,33,Sales Executive,Sales,6,BSc,0,0,6,5,4,Basic,12,10,0,0,37,20000,60000,35000,33000,0.94,Dissatisfied
+431,Nusrat Akter,NA,29,Finance Manager,Finance,2,BSc,3,0,8,6,9,Basic,4,10,15,0,52,70000,180000,126000,135000,1.07,Dissatisfied
+432,Sabrina Sarker,SS,32,Business Analyst,Strategy,4,PhD,1,2,3,3,4,Fluent,8,20,5,4,47,40000,110000,74500,78500,1.05,Satisfied
+433,Sultana Uddin,SU,24,Marketing Executive,Marketing,1,MSc,0,0,6,9,5,Basic,2,15,0,0,37,25000,70000,41000,39500,0.96,Dissatisfied
+434,Nabila Akter,NA,33,Finance Manager,Finance,8,BSc,2,2,4,8,7,Advanced,16,10,10,4,59,70000,180000,135500,150500,1.11,Dissatisfied
+435,Imran Islam,II,35,QA Engineer,Engineering,8,Diploma,0,4,5,3,4,Intermediate,16,5,0,8,41,28000,85000,51000,57000,1.12,Satisfied
+436,Ayesha Islam,AI,31,Sales Executive,Sales,8,BSc,0,4,2,6,9,Intermediate,16,10,0,8,51,20000,60000,41000,40500,0.99,Satisfied
+437,Mahmud Uddin,MU,28,HR Executive,Human Resources,3,BSc,4,0,1,4,3,Advanced,6,10,20,0,44,25000,70000,42500,41000,0.96,Dissatisfied
+438,Rahim Chowdhury,RC,27,Business Analyst,Strategy,3,BSc,1,5,7,9,7,Fluent,6,10,5,10,54,40000,110000,78500,88000,1.12,Satisfied
+439,Tania Islam,TI,23,QA Engineer,Engineering,2,BSc,4,3,4,3,3,Advanced,4,10,20,6,50,28000,85000,58500,61000,1.04,Satisfied
+440,Jahid Rahman,JR,29,QA Engineer,Engineering,3,BSc,2,0,9,9,7,Advanced,6,10,10,0,51,28000,85000,59000,62000,1.05,Satisfied
+441,Jahid Sarker,JS,27,Customer Support Executive,Customer Support,4,BSc,0,3,4,4,4,Intermediate,8,10,0,6,36,18000,45000,27000,26500,0.98,Satisfied
+442,Mahmud Chowdhury,MC,26,Operations Manager,Operations,3,MSc,0,5,9,3,6,Advanced,6,15,0,10,49,60000,150000,109000,106500,0.98,Satisfied
+443,Sultana Sarker,SS,26,Project Manager,Operations,2,BSc,0,2,5,4,3,Advanced,4,10,0,4,30,80000,200000,117500,118500,1.01,Dissatisfied
+444,Sultana Islam,SI,24,Customer Support Executive,Customer Support,3,BSc,1,2,3,4,5,Fluent,6,10,5,4,37,18000,45000,29500,27000,0.92,Dissatisfied
+445,Sultana Chowdhury,SC,29,Graphic Designer,Design,5,MSc,3,5,5,7,2,Advanced,10,15,15,10,64,22000,60000,46000,41000,0.89,Dissatisfied
+446,Rahim Hossain,RH,29,Data Analyst,Engineering,1,MSc,1,3,7,2,5,Advanced,2,15,5,6,42,30000,90000,52000,55500,1.07,Dissatisfied
+447,Sadia Islam,SI,38,Marketing Executive,Marketing,11,BSc,0,4,1,3,8,Advanced,20,10,0,8,50,25000,70000,45000,48500,1.08,Satisfied
+448,Mim Rahman,MR,27,HR Manager,Human Resources,3,BSc,2,3,5,5,2,Advanced,6,10,10,6,44,60000,150000,95000,110000,1.16,Dissatisfied
+449,Mim Akter,MA,29,HR Executive,Human Resources,5,BSc,0,1,5,8,6,Advanced,10,10,0,2,41,25000,70000,44000,39500,0.9,Dissatisfied
+450,Sadia Chowdhury,SC,28,Business Analyst,Strategy,3,BSc,3,2,7,9,6,Basic,6,10,15,4,57,40000,110000,80500,82500,1.02,Satisfied
+451,Kamal Hossain,KH,36,Graphic Designer,Design,10,BSc,0,1,3,5,6,Advanced,20,10,0,2,46,22000,60000,38000,45000,1.18,Satisfied
+452,Sultana Akter,SA,35,Marketing Executive,Marketing,10,BSc,0,5,5,1,3,Basic,20,10,0,10,49,25000,70000,50000,51500,1.03,Dissatisfied
+453,Sadia Uddin,SU,33,Accountant,Finance,10,BSc,4,1,8,3,5,Advanced,20,10,20,2,68,25000,65000,53000,58000,1.09,Satisfied
+454,Kamal Khan,KK,32,Data Analyst,Engineering,9,MSc,1,3,6,6,6,Intermediate,18,15,5,6,62,30000,90000,70000,83000,1.19,Satisfied
+455,Kamal Chowdhury,KC,28,Accountant,Finance,2,BSc,0,3,4,4,4,Intermediate,4,10,0,6,32,25000,65000,39000,44000,1.13,Satisfied
+456,Sabrina Hossain,SH,36,QA Engineer,Engineering,10,MSc,0,3,4,8,7,Advanced,20,15,0,6,60,28000,85000,63500,64000,1.01,Dissatisfied
+457,Sabrina Begum,SB,32,Sales Executive,Sales,6,BSc,2,2,9,7,9,Intermediate,12,10,10,4,61,20000,60000,45000,39000,0.87,Dissatisfied
+458,Sabrina Khan,SK,23,Accountant,Finance,1,High School,2,4,6,6,6,Advanced,2,0,10,8,38,25000,65000,44000,43500,0.99,Satisfied
+459,Ruma Islam,RI,28,HR Manager,Human Resources,5,MSc,6,1,3,5,4,Advanced,10,15,20,2,59,60000,150000,115000,110000,0.96,Dissatisfied
+460,Sultana Sarker,SS,30,Customer Support Executive,Customer Support,4,Diploma,1,3,6,6,5,Advanced,8,5,5,6,41,18000,45000,29000,25000,0.86,Dissatisfied
+461,Tania Begum,TB,25,QA Engineer,Engineering,3,MSc,3,0,4,3,4,Basic,6,15,15,0,47,28000,85000,55000,52500,0.95,Satisfied
+462,Ruma Ahmed,RA,35,HR Executive,Human Resources,10,MSc,2,1,4,4,8,Advanced,20,15,10,2,63,25000,70000,57000,69500,1.22,Satisfied
+463,Nabila Khan,NK,30,QA Engineer,Engineering,7,BSc,5,5,5,9,5,Intermediate,14,10,20,10,73,28000,85000,71000,70500,0.99,Satisfied
+464,Nusrat Sarker,NS,28,Business Analyst,Strategy,1,High School,2,2,3,9,6,Advanced,2,0,10,4,34,40000,110000,64000,65500,1.02,Satisfied
+465,Tanvir Sarker,TS,28,Customer Support Executive,Customer Support,1,Diploma,0,5,10,8,8,Intermediate,2,5,0,10,43,18000,45000,29500,30500,1.03,Dissatisfied
+466,Jahid Khan,JK,29,Data Analyst,Engineering,7,BSc,0,1,5,2,1,Advanced,14,10,0,2,34,30000,90000,48000,44000,0.92,Dissatisfied
+467,Rafiq Akter,RA,36,HR Executive,Human Resources,10,BSc,2,1,6,6,7,Intermediate,20,10,10,2,61,25000,70000,53500,57000,1.07,Satisfied
+468,Jahid Begum,JB,29,Business Analyst,Strategy,7,Diploma,1,1,6,7,3,Intermediate,14,5,5,2,42,40000,110000,67000,66500,0.99,Satisfied
+469,Shakil Islam,SI,30,Operations Manager,Operations,2,MSc,0,3,4,7,5,Fluent,4,15,0,6,41,60000,150000,95000,107000,1.13,Satisfied
+470,Abir Begum,AB,34,Graphic Designer,Design,7,BSc,2,2,3,8,5,Advanced,14,10,10,4,54,22000,60000,44500,47500,1.07,Satisfied
+471,Tania Uddin,TU,37,QA Engineer,Engineering,12,MSc,0,5,7,4,6,Advanced,20,15,0,10,62,28000,85000,64500,71000,1.1,Satisfied
+472,Ruma Uddin,RU,28,Project Manager,Operations,5,BSc,3,3,5,7,5,Intermediate,10,10,15,6,58,80000,200000,150000,126000,0.84,Dissatisfied
+473,Tania Hossain,TH,27,Graphic Designer,Design,3,BSc,0,3,6,5,6,Intermediate,6,10,0,6,39,22000,60000,37000,32500,0.88,Satisfied
+474,Sultana Hossain,SH,30,Data Analyst,Engineering,5,BSc,0,3,3,5,2,Intermediate,10,10,0,6,36,30000,90000,53500,62500,1.17,Satisfied
+475,Faisal Uddin,FU,36,HR Manager,Human Resources,9,BSc,6,0,2,4,3,Basic,18,10,20,0,57,60000,150000,115000,103500,0.9,Satisfied
+476,Tania Ahmed,TA,32,HR Executive,Human Resources,5,BSc,0,1,4,7,5,Basic,10,10,0,2,38,25000,70000,39500,40000,1.01,Satisfied
+477,Faisal Sarker,FS,39,QA Engineer,Engineering,11,BSc,0,1,1,2,3,Intermediate,20,10,0,2,38,28000,85000,49500,58500,1.18,Satisfied
+478,Rafiq Khan,RK,35,Senior Software Engineer,Engineering,9,High School,2,2,9,5,7,Basic,18,0,10,4,53,70000,180000,130000,136000,1.05,Satisfied
+479,Abir Khan,AK,27,QA Engineer,Engineering,1,MSc,0,3,5,7,3,Basic,2,15,0,6,38,28000,85000,51500,56500,1.1,Satisfied
+480,Faisal Begum,FB,30,QA Engineer,Engineering,6,BSc,1,3,5,3,5,Intermediate,12,10,5,6,46,28000,85000,53500,60500,1.13,Satisfied
+481,Mahmud Khan,MK,36,Accountant,Finance,14,BSc,1,1,8,2,4,Advanced,20,10,5,2,51,25000,65000,44500,48000,1.08,Satisfied
+482,Nabila Rahman,NR,38,Project Manager,Operations,10,BSc,1,2,5,4,4,Fluent,20,10,5,4,52,80000,200000,138500,154500,1.12,Dissatisfied
+483,Sultana Akter,SA,23,Project Manager,Operations,1,BSc,1,0,9,3,8,Advanced,2,10,5,0,37,80000,200000,121500,132500,1.09,Satisfied
+484,Sadia Begum,SB,30,HR Manager,Human Resources,8,BSc,2,1,1,7,3,Advanced,16,10,10,2,49,60000,150000,105000,85000,0.81,Dissatisfied
+485,Rafiq Islam,RI,28,Customer Support Executive,Customer Support,1,Diploma,6,4,3,2,6,Advanced,2,5,20,8,46,18000,45000,30500,34000,1.11,Dissatisfied
+486,Nusrat Ahmed,NA,35,Accountant,Finance,8,BSc,1,0,1,4,7,Intermediate,16,10,5,0,43,25000,65000,42500,46500,1.09,Satisfied
+487,Ruma Akter,RA,28,Graphic Designer,Design,3,BSc,3,3,7,6,8,Intermediate,6,10,15,6,58,22000,60000,44500,46000,1.03,Dissatisfied
+488,Imran Hossain,IH,29,Marketing Executive,Marketing,4,BSc,0,1,5,7,7,Intermediate,8,10,0,2,39,25000,70000,44500,41000,0.92,Dissatisfied
+489,Ruma Hossain,RH,29,Business Analyst,Strategy,6,Diploma,0,5,6,6,2,Fluent,12,5,0,10,41,40000,110000,72000,58000,0.81,Dissatisfied
+490,Jahid Akter,JA,29,Customer Support Executive,Customer Support,3,BSc,0,1,2,9,6,Advanced,6,10,0,2,35,18000,45000,27500,23000,0.84,Dissatisfied
+491,Faisal Hossain,FH,38,Software Engineer,Engineering,13,BSc,2,3,9,2,9,Basic,20,10,10,6,66,35000,120000,94500,90000,0.95,Dissatisfied
+492,Faisal Rahman,FR,30,Finance Manager,Finance,3,MSc,1,3,8,6,5,Advanced,6,15,5,6,51,70000,180000,117000,114000,0.97,Satisfied
+493,Sabrina Akter,SA,31,HR Manager,Human Resources,4,BSc,1,5,4,3,2,Advanced,8,10,5,10,42,60000,150000,101500,121000,1.19,Satisfied
+494,Tanvir Chowdhury,TC,30,Sales Executive,Sales,4,MSc,0,3,8,6,10,Advanced,8,15,0,6,53,20000,60000,41000,32500,0.79,Dissatisfied
+495,Shakil Begum,SB,34,Operations Manager,Operations,10,MSc,0,2,7,6,4,Fluent,20,15,0,4,56,60000,150000,114500,112000,0.98,Dissatisfied
+496,Tanvir Chowdhury,TC,32,HR Executive,Human Resources,10,BSc,0,3,6,7,9,Fluent,20,10,0,6,58,25000,70000,53000,49500,0.93,Satisfied
+497,Ruma Akter,RA,39,HR Executive,Human Resources,13,MSc,0,1,7,7,5,Intermediate,20,15,0,2,56,25000,70000,47500,45000,0.95,Dissatisfied
+498,Ayesha Islam,AI,32,Data Analyst,Engineering,9,BSc,0,4,6,9,5,Basic,18,10,0,8,56,30000,90000,60500,57500,0.95,Dissatisfied
+499,Abir Sarker,AS,40,Accountant,Finance,14,BSc,1,3,5,5,9,Advanced,20,10,5,6,60,25000,65000,53000,52500,0.99,Dissatisfied
+500,Sultana Chowdhury,SC,31,Finance Manager,Finance,5,BSc,0,3,3,7,5,Advanced,10,10,0,6,41,70000,180000,115500,129000,1.12,Satisfied
+501,Mahmud Ahmed,MA,35,Operations Manager,Operations,10,MSc,0,1,5,4,7,Fluent,20,15,0,2,53,60000,150000,107500,104500,0.97,Dissatisfied
+502,Faisal Rahman,FR,34,Business Analyst,Strategy,12,Diploma,4,1,3,6,6,Fluent,20,5,20,2,62,40000,110000,84500,75000,0.89,Dissatisfied
+503,Sultana Akter,SA,39,QA Engineer,Engineering,13,BSc,1,5,1,4,7,Intermediate,20,10,5,10,57,28000,85000,59000,49000,0.83,Dissatisfied
+504,Ruma Islam,RI,31,HR Executive,Human Resources,8,MSc,0,3,2,1,2,Intermediate,16,15,0,6,42,25000,70000,46500,58000,1.25,Dissatisfied
+505,Sadia Ahmed,SA,33,Operations Manager,Operations,11,BSc,0,3,5,2,4,Basic,20,10,0,6,47,60000,150000,103000,99500,0.97,Dissatisfied
+506,Farhana Begum,FB,39,Finance Manager,Finance,13,MSc,2,3,3,6,6,Intermediate,20,15,10,6,66,70000,180000,148000,179000,1.21,Satisfied
+507,Rafiq Rahman,RR,30,Customer Support Executive,Customer Support,5,MSc,0,3,4,7,5,Basic,10,15,0,6,47,18000,45000,31000,24000,0.77,Dissatisfied
+508,Kamal Islam,KI,25,Graphic Designer,Design,3,MSc,0,4,2,3,3,Advanced,6,15,0,8,37,22000,60000,36000,35500,0.99,Satisfied
+509,Jahid Ahmed,JA,37,HR Manager,Human Resources,14,BSc,4,4,2,5,4,Fluent,20,10,20,8,69,60000,150000,122500,116000,0.95,Dissatisfied
+510,Imran Ahmed,IA,30,HR Executive,Human Resources,5,Diploma,6,1,7,8,4,Advanced,10,5,20,2,56,25000,70000,49500,49000,0.99,Dissatisfied
+511,Sabrina Akter,SA,37,Customer Support Executive,Customer Support,12,BSc,0,1,3,3,4,Fluent,20,10,0,2,42,18000,45000,31000,38500,1.24,Dissatisfied
+512,Ruma Begum,RB,25,HR Manager,Human Resources,2,MSc,2,3,3,8,5,Intermediate,4,15,10,6,51,60000,150000,106000,136500,1.29,Satisfied
+513,Kamal Rahman,KR,34,Customer Support Executive,Customer Support,8,MSc,0,1,4,8,7,Advanced,16,15,0,2,52,18000,45000,32000,38500,1.2,Satisfied
+514,Rahim Chowdhury,RC,27,Software Engineer,Engineering,4,BSc,1,1,6,4,6,Advanced,8,10,5,2,41,35000,120000,65000,65500,1.01,Satisfied
+515,Nusrat Rahman,NR,37,Business Analyst,Strategy,9,BSc,0,2,7,4,8,Advanced,18,10,0,4,51,40000,110000,74000,67500,0.91,Dissatisfied
+516,Jahid Khan,JK,34,Software Engineer,Engineering,7,Diploma,1,0,6,4,6,Advanced,14,5,5,0,40,35000,120000,59500,57000,0.96,Dissatisfied
+517,Sultana Islam,SI,29,QA Engineer,Engineering,6,Diploma,0,5,7,7,7,Advanced,12,5,0,10,48,28000,85000,57500,64000,1.11,Satisfied
+518,Sadia Begum,SB,27,Business Analyst,Strategy,2,BSc,3,5,4,8,4,Intermediate,4,10,15,10,55,40000,110000,78000,82000,1.05,Satisfied
+519,Abir Rahman,AR,33,QA Engineer,Engineering,6,BSc,0,3,6,6,7,Intermediate,12,10,0,6,47,28000,85000,57000,62000,1.09,Dissatisfied
+520,Ayesha Sarker,AS,36,Marketing Executive,Marketing,13,BSc,0,2,6,3,3,Advanced,20,10,0,4,46,25000,70000,44500,50000,1.12,Satisfied
+521,Mahmud Khan,MK,27,Customer Support Executive,Customer Support,3,BSc,0,5,7,3,5,Fluent,6,10,0,10,41,18000,45000,30500,30000,0.98,Dissatisfied
+522,Farhana Sarker,FS,36,QA Engineer,Engineering,8,BSc,1,5,8,5,8,Fluent,16,10,5,10,62,28000,85000,65500,75000,1.15,Satisfied
+523,Shakil Sarker,SS,38,HR Executive,Human Resources,12,BSc,1,3,9,7,10,Basic,20,10,5,6,67,25000,70000,50500,48000,0.95,Satisfied
+524,Abir Sarker,AS,33,Software Engineer,Engineering,8,MSc,6,3,4,8,5,Basic,16,15,20,6,74,35000,120000,101500,117000,1.15,Satisfied
+525,Kamal Khan,KK,31,Accountant,Finance,8,MSc,0,1,8,3,5,Intermediate,16,15,0,2,49,25000,65000,45000,43500,0.97,Dissatisfied
+526,Nabila Rahman,NR,25,Data Analyst,Engineering,0,PhD,0,0,9,5,9,Advanced,0,20,0,0,43,30000,90000,56500,50000,0.88,Dissatisfied
+527,Sadia Uddin,SU,33,Data Analyst,Engineering,9,BSc,5,4,2,5,4,Advanced,18,10,20,8,67,30000,90000,73500,60000,0.82,Dissatisfied
+528,Sabrina Rahman,SR,25,HR Manager,Human Resources,3,Diploma,1,4,6,6,3,Advanced,6,5,5,8,39,60000,150000,94000,100000,1.06,Dissatisfied
+529,Ayesha Khan,AK,27,Accountant,Finance,5,PhD,0,3,4,5,3,Advanced,10,20,0,6,48,25000,65000,43500,43000,0.99,Satisfied
+530,Tanvir Ahmed,TA,29,Sales Executive,Sales,2,BSc,1,1,6,4,10,Advanced,4,10,5,2,41,20000,60000,34500,40000,1.16,Satisfied
+531,Imran Sarker,IS,31,QA Engineer,Engineering,7,BSc,2,5,3,9,9,Basic,14,10,10,10,65,28000,85000,65500,62500,0.95,Satisfied
+532,Sadia Begum,SB,26,Senior Software Engineer,Engineering,3,Diploma,0,3,5,1,3,Basic,6,5,0,6,26,70000,180000,100500,100000,1.0,Satisfied
+533,Mim Islam,MI,28,Business Analyst,Strategy,5,BSc,0,3,4,5,7,Fluent,10,10,0,6,42,40000,110000,70500,67000,0.95,Satisfied
+534,Nusrat Khan,NK,28,Accountant,Finance,3,MSc,0,1,7,5,4,Intermediate,6,15,0,2,39,25000,65000,41500,39500,0.95,Satisfied
+535,Farhana Akter,FA,29,Software Engineer,Engineering,4,BSc,3,0,3,7,3,Advanced,8,10,15,0,46,35000,120000,74000,68500,0.93,Dissatisfied
+536,Faisal Begum,FB,37,Operations Manager,Operations,11,Diploma,0,1,7,4,8,Fluent,20,5,0,2,46,60000,150000,107500,77000,0.72,Dissatisfied
+537,Nabila Akter,NA,30,Accountant,Finance,5,BSc,1,2,5,6,8,Advanced,10,10,5,4,48,25000,65000,44500,40500,0.91,Dissatisfied
+538,Sultana Ahmed,SA,28,Project Manager,Operations,4,BSc,1,2,9,9,10,Advanced,8,10,5,4,55,80000,200000,156000,129500,0.83,Dissatisfied
+539,Tanvir Hossain,TH,28,Accountant,Finance,4,MSc,5,1,5,2,4,Basic,8,15,20,2,56,25000,65000,43500,39000,0.9,Satisfied
+540,Sultana Rahman,SR,35,Sales Executive,Sales,11,BSc,2,3,5,5,4,Advanced,20,10,10,6,60,20000,60000,44500,45000,1.01,Satisfied
+541,Mahmud Ahmed,MA,26,Operations Manager,Operations,4,MSc,0,1,3,4,9,Intermediate,8,15,0,2,41,60000,150000,100000,120500,1.21,Satisfied
+542,Shakil Uddin,SU,36,Operations Manager,Operations,11,Diploma,0,1,4,7,5,Fluent,20,5,0,2,43,60000,150000,95000,82000,0.86,Satisfied
+543,Kamal Akter,KA,29,Operations Manager,Operations,5,BSc,0,2,3,7,7,Advanced,10,10,0,4,41,60000,150000,100500,75500,0.75,Dissatisfied
+544,Farhana Islam,FI,23,Graphic Designer,Design,2,MSc,0,1,10,9,9,Fluent,4,15,0,2,49,22000,60000,40000,38000,0.95,Satisfied
+545,Imran Akter,IA,29,Operations Manager,Operations,8,MSc,5,0,4,3,6,Basic,16,15,20,0,64,60000,150000,119500,128000,1.07,Satisfied
+546,Sabrina Sarker,SS,34,QA Engineer,Engineering,8,MSc,3,4,4,5,9,Advanced,16,15,15,8,72,28000,85000,69000,74000,1.07,Satisfied
+547,Ruma Ahmed,RA,34,Operations Manager,Operations,8,MSc,3,3,2,9,7,Advanced,16,15,15,6,70,60000,150000,116500,118500,1.02,Dissatisfied
+548,Rahim Uddin,RU,28,Customer Support Executive,Customer Support,3,MSc,0,2,3,6,5,Basic,6,15,0,4,39,18000,45000,28000,30500,1.09,Dissatisfied
+549,Imran Khan,IK,27,HR Manager,Human Resources,1,MSc,5,1,1,3,4,Advanced,2,15,20,2,47,60000,150000,100500,100500,1.0,Dissatisfied
+550,Ruma Islam,RI,34,HR Manager,Human Resources,12,BSc,2,0,7,4,4,Intermediate,20,10,10,0,55,60000,150000,104000,117500,1.13,Satisfied
+551,Mahmud Begum,MB,25,Senior Software Engineer,Engineering,1,MSc,5,3,7,6,5,Fluent,2,15,20,6,61,70000,180000,131500,111500,0.85,Dissatisfied
+552,Mahmud Sarker,MS,32,QA Engineer,Engineering,9,BSc,4,1,3,8,6,Intermediate,18,10,20,2,67,28000,85000,64000,55500,0.87,Satisfied
+553,Abir Ahmed,AA,35,HR Manager,Human Resources,9,MSc,0,1,4,5,6,Intermediate,18,15,0,2,50,60000,150000,110500,97000,0.88,Dissatisfied
+554,Abir Chowdhury,AC,26,HR Executive,Human Resources,3,PhD,2,2,5,7,5,Intermediate,6,20,10,4,57,25000,70000,53000,53000,1.0,Satisfied
+555,Ruma Ahmed,RA,31,Data Analyst,Engineering,4,BSc,2,3,6,9,7,Basic,8,10,10,6,56,30000,90000,65500,73500,1.12,Dissatisfied
+556,Mim Rahman,MR,28,Graphic Designer,Design,4,MSc,0,0,5,9,8,Fluent,8,15,0,0,45,22000,60000,41000,42500,1.04,Dissatisfied
+557,Abir Islam,AI,33,Project Manager,Operations,10,MSc,0,1,3,10,4,Advanced,20,15,0,2,54,80000,200000,144000,142500,0.99,Dissatisfied
+558,Tanvir Akter,TA,30,Marketing Executive,Marketing,5,MSc,4,2,7,3,7,Intermediate,10,15,20,4,66,25000,70000,56500,50500,0.89,Dissatisfied
+559,Jahid Khan,JK,25,QA Engineer,Engineering,3,BSc,2,4,2,9,2,Intermediate,6,10,10,8,47,28000,85000,52000,51500,0.99,Satisfied
+560,Sadia Ahmed,SA,33,QA Engineer,Engineering,6,BSc,1,2,7,10,9,Advanced,12,10,5,4,57,28000,85000,61500,60500,0.98,Satisfied
+561,Tanvir Khan,TK,32,Customer Support Executive,Customer Support,10,BSc,0,4,1,3,8,Intermediate,20,10,0,8,50,18000,45000,32500,32500,1.0,Satisfied
+562,Mahmud Uddin,MU,32,HR Executive,Human Resources,4,BSc,2,1,6,6,6,Advanced,8,10,10,2,48,25000,70000,49000,49500,1.01,Dissatisfied
+563,Mim Begum,MB,26,Graphic Designer,Design,0,Diploma,3,2,7,6,5,Advanced,0,5,15,4,42,22000,60000,38000,44000,1.16,Satisfied
+564,Sadia Sarker,SS,28,Accountant,Finance,4,MSc,2,4,7,4,4,Fluent,8,15,10,8,56,25000,65000,50500,55000,1.09,Satisfied
+565,Sadia Sarker,SS,37,Data Analyst,Engineering,13,BSc,3,4,7,7,7,Fluent,20,10,15,8,74,30000,90000,69000,67000,0.97,Satisfied
+566,Nabila Khan,NK,29,Customer Support Executive,Customer Support,8,BSc,1,4,0,4,3,Advanced,16,10,5,8,46,18000,45000,30500,30500,1.0,Satisfied
+567,Sadia Rahman,SR,25,Senior Software Engineer,Engineering,3,Diploma,2,0,6,5,4,Intermediate,6,5,10,0,36,70000,180000,100000,107500,1.07,Satisfied
+568,Kamal Uddin,KU,30,Graphic Designer,Design,2,BSc,0,5,9,4,8,Advanced,4,10,0,10,45,22000,60000,38500,52000,1.35,Satisfied
+569,Ayesha Uddin,AU,32,Graphic Designer,Design,8,BSc,0,3,9,4,7,Advanced,16,10,0,6,52,22000,60000,40500,43000,1.06,Satisfied
+570,Sadia Begum,SB,32,HR Executive,Human Resources,10,BSc,1,3,6,7,7,Advanced,20,10,5,6,61,25000,70000,52500,53000,1.01,Dissatisfied
+571,Farhana Rahman,FR,31,Data Analyst,Engineering,3,BSc,1,2,4,5,7,Fluent,6,10,5,4,41,30000,90000,54000,59000,1.09,Dissatisfied
+572,Imran Rahman,IR,28,Software Engineer,Engineering,3,BSc,1,5,8,3,6,Advanced,6,10,5,10,48,35000,120000,77500,77500,1.0,Dissatisfied
+573,Farhana Uddin,FU,29,Project Manager,Operations,4,BSc,3,1,5,7,4,Basic,8,10,15,2,51,80000,200000,132000,105000,0.8,Satisfied
+574,Rafiq Begum,RB,37,Sales Executive,Sales,14,MSc,2,2,7,5,7,Fluent,20,15,10,4,68,20000,60000,43000,44500,1.03,Satisfied
+575,Sultana Hossain,SH,31,QA Engineer,Engineering,7,BSc,1,0,6,8,6,Fluent,14,10,5,0,49,28000,85000,55500,55000,0.99,Dissatisfied
+576,Mahmud Uddin,MU,34,Operations Manager,Operations,7,BSc,0,1,6,2,6,Intermediate,14,10,0,2,40,60000,150000,97500,126500,1.3,Satisfied
+577,Rahim Uddin,RU,30,Project Manager,Operations,5,BSc,2,4,6,4,7,Fluent,10,10,10,8,55,80000,200000,149000,139500,0.94,Dissatisfied
+578,Rahim Hossain,RH,32,Operations Manager,Operations,7,MSc,1,1,8,2,7,Fluent,14,15,5,2,53,60000,150000,111000,104500,0.94,Dissatisfied
+579,Mahmud Chowdhury,MC,29,Sales Executive,Sales,6,MSc,1,5,6,3,6,Advanced,12,15,5,10,57,20000,60000,41000,51000,1.24,Satisfied
+580,Abir Rahman,AR,40,HR Manager,Human Resources,13,BSc,0,1,5,4,6,Advanced,20,10,0,2,47,60000,150000,96000,75500,0.79,Dissatisfied
+581,Farhana Rahman,FR,32,QA Engineer,Engineering,10,BSc,0,1,5,7,7,Advanced,20,10,0,2,51,28000,85000,55000,59000,1.07,Satisfied
+582,Tania Khan,TK,29,Software Engineer,Engineering,6,Diploma,1,4,5,8,4,Intermediate,12,5,5,8,47,35000,120000,73000,67000,0.92,Satisfied
+583,Kamal Chowdhury,KC,31,QA Engineer,Engineering,8,BSc,1,0,4,5,6,Intermediate,16,10,5,0,46,28000,85000,54000,60000,1.11,Dissatisfied
+584,Ruma Hossain,RH,30,Data Analyst,Engineering,3,BSc,1,1,5,6,6,Intermediate,6,10,5,2,40,30000,90000,56500,59500,1.05,Satisfied
+585,Sadia Akter,SA,29,Accountant,Finance,4,MSc,0,0,8,6,7,Advanced,8,15,0,0,44,25000,65000,43000,45500,1.06,Satisfied
+586,Nabila Hossain,NH,28,Data Analyst,Engineering,6,BSc,0,1,4,5,5,Intermediate,12,10,0,2,38,30000,90000,55500,48000,0.86,Dissatisfied
+587,Farhana Akter,FA,28,Data Analyst,Engineering,7,High School,0,1,4,7,3,Advanced,14,0,0,2,30,30000,90000,48500,43500,0.9,Satisfied
+588,Sultana Hossain,SH,32,Sales Executive,Sales,10,MSc,1,2,4,5,7,Advanced,20,15,5,4,60,20000,60000,46000,38000,0.83,Dissatisfied
+589,Mim Hossain,MH,36,Software Engineer,Engineering,11,BSc,1,2,8,5,5,Intermediate,20,10,5,4,57,35000,120000,90500,81500,0.9,Dissatisfied
+590,Nabila Ahmed,NA,29,QA Engineer,Engineering,4,PhD,0,3,5,6,5,Intermediate,8,20,0,6,50,28000,85000,58500,49500,0.85,Dissatisfied
+591,Ruma Khan,RK,34,Graphic Designer,Design,6,BSc,1,0,5,5,7,Fluent,12,10,5,0,44,22000,60000,39500,45500,1.15,Satisfied
+592,Imran Khan,IK,28,Sales Executive,Sales,6,High School,0,0,8,6,7,Advanced,12,0,0,0,33,20000,60000,31500,34500,1.1,Dissatisfied
+593,Mahmud Uddin,MU,38,Sales Executive,Sales,11,BSc,0,1,6,6,4,Advanced,20,10,0,2,48,20000,60000,36500,42500,1.16,Satisfied
+594,Shakil Rahman,SR,25,Business Analyst,Strategy,3,Diploma,0,5,6,4,4,Fluent,6,5,0,10,35,40000,110000,63000,65500,1.04,Satisfied
+595,Sultana Begum,SB,27,Software Engineer,Engineering,4,BSc,1,5,5,7,7,Basic,8,10,5,10,52,35000,120000,78000,72500,0.93,Dissatisfied
+596,Rafiq Hossain,RH,22,Software Engineer,Engineering,0,MSc,6,2,7,3,1,Advanced,0,15,20,4,50,35000,120000,74500,69000,0.93,Satisfied
+597,Kamal Begum,KB,29,Senior Software Engineer,Engineering,4,BSc,0,3,1,7,4,Intermediate,8,10,0,6,36,70000,180000,103500,112500,1.09,Satisfied
+598,Kamal Khan,KK,36,Graphic Designer,Design,11,BSc,0,0,2,5,5,Advanced,20,10,0,0,42,22000,60000,36000,31500,0.88,Satisfied
+599,Sabrina Sarker,SS,35,HR Executive,Human Resources,12,BSc,0,2,2,5,6,Intermediate,20,10,0,4,47,25000,70000,44500,36500,0.82,Dissatisfied
+600,Rahim Sarker,RS,29,Business Analyst,Strategy,8,Diploma,1,2,6,4,8,Advanced,16,5,5,4,48,40000,110000,72000,72000,1.0,Satisfied
+601,Jahid Chowdhury,JC,32,Sales Executive,Sales,5,BSc,2,2,4,4,1,Fluent,10,10,10,4,43,20000,60000,39000,35500,0.91,Satisfied
+602,Rahim Sarker,RS,30,QA Engineer,Engineering,5,Diploma,3,3,7,4,9,Advanced,10,5,15,6,56,28000,85000,60500,48000,0.79,Dissatisfied
+603,Nusrat Begum,NB,31,Marketing Executive,Marketing,3,BSc,0,1,6,5,6,Advanced,6,10,0,2,35,25000,70000,40500,46000,1.14,Satisfied
+604,Sadia Ahmed,SA,32,Senior Software Engineer,Engineering,8,High School,2,3,4,8,6,Advanced,16,0,10,6,50,70000,180000,124500,108500,0.87,Dissatisfied
+605,Ruma Sarker,RS,32,HR Executive,Human Resources,9,BSc,0,1,3,5,7,Advanced,18,10,0,2,45,25000,70000,46500,50000,1.08,Satisfied
+606,Mahmud Rahman,MR,30,Customer Support Executive,Customer Support,3,BSc,1,1,8,5,5,Basic,6,10,5,2,41,18000,45000,30000,33500,1.12,Satisfied
+607,Farhana Sarker,FS,29,Sales Executive,Sales,6,MSc,1,5,6,6,7,Fluent,12,15,5,10,61,20000,60000,45500,48500,1.07,Satisfied
+608,Imran Chowdhury,IC,33,HR Manager,Human Resources,10,BSc,1,3,6,3,6,Fluent,20,10,5,6,56,60000,150000,111500,100000,0.9,Satisfied
+609,Mahmud Akter,MA,31,Marketing Executive,Marketing,9,BSc,3,3,3,7,4,Advanced,18,10,15,6,63,25000,70000,59500,63500,1.07,Satisfied
+610,Rahim Chowdhury,RC,23,Customer Support Executive,Customer Support,2,Diploma,1,0,6,4,6,Advanced,4,5,5,0,30,18000,45000,25000,22500,0.9,Dissatisfied
+611,Abir Begum,AB,30,QA Engineer,Engineering,8,BSc,3,3,2,7,4,Advanced,16,10,15,6,60,28000,85000,61000,65000,1.07,Dissatisfied
+612,Sultana Sarker,SS,29,HR Executive,Human Resources,4,BSc,0,3,4,6,6,Basic,8,10,0,6,40,25000,70000,41000,49000,1.2,Satisfied
+613,Farhana Sarker,FS,33,Software Engineer,Engineering,7,BSc,0,0,2,4,5,Intermediate,14,10,0,0,35,35000,120000,65500,78000,1.19,Dissatisfied
+614,Mim Begum,MB,36,Finance Manager,Finance,12,BSc,1,1,5,5,7,Intermediate,20,10,5,2,54,70000,180000,134500,128500,0.96,Dissatisfied
+615,Ayesha Akter,AA,27,Finance Manager,Finance,3,Diploma,0,2,3,5,6,Intermediate,6,5,0,4,29,70000,180000,104000,109500,1.05,Dissatisfied
+616,Jahid Chowdhury,JC,28,Customer Support Executive,Customer Support,5,Diploma,0,4,2,8,10,Intermediate,10,5,0,8,43,18000,45000,29000,25000,0.86,Dissatisfied
+617,Abir Begum,AB,30,QA Engineer,Engineering,3,BSc,1,3,4,8,6,Basic,6,10,5,6,45,28000,85000,54000,60500,1.12,Satisfied
+618,Rahim Begum,RB,30,QA Engineer,Engineering,5,BSc,0,4,5,7,6,Basic,10,10,0,8,46,28000,85000,53000,67000,1.26,Satisfied
+619,Shakil Sarker,SS,27,Operations Manager,Operations,5,BSc,0,0,7,6,10,Advanced,10,10,0,0,43,60000,150000,99500,111500,1.12,Satisfied
+620,Rafiq Uddin,RU,29,Marketing Executive,Marketing,3,PhD,2,5,8,9,8,Intermediate,6,20,10,10,71,25000,70000,58000,61000,1.05,Satisfied
+621,Nusrat Rahman,NR,34,Customer Support Executive,Customer Support,11,BSc,4,1,9,6,5,Basic,20,10,20,2,72,18000,45000,36000,33000,0.92,Satisfied
+622,Farhana Khan,FK,31,QA Engineer,Engineering,8,BSc,2,4,5,6,4,Intermediate,16,10,10,8,59,28000,85000,59000,60500,1.03,Dissatisfied
+623,Faisal Chowdhury,FC,27,HR Manager,Human Resources,3,BSc,3,1,4,4,6,Intermediate,6,10,15,2,47,60000,150000,97000,82000,0.85,Dissatisfied
+624,Nusrat Uddin,NU,28,Data Analyst,Engineering,6,MSc,0,4,5,7,6,Intermediate,12,15,0,8,53,30000,90000,62000,58500,0.94,Dissatisfied
+625,Rafiq Uddin,RU,29,Data Analyst,Engineering,7,BSc,1,3,5,1,3,Advanced,14,10,5,6,44,30000,90000,54000,56000,1.04,Dissatisfied
+626,Mahmud Rahman,MR,32,Senior Software Engineer,Engineering,8,BSc,4,3,4,3,8,Advanced,16,10,20,6,67,70000,180000,142500,133500,0.94,Dissatisfied
+627,Rafiq Hossain,RH,34,Data Analyst,Engineering,9,BSc,0,2,6,5,4,Intermediate,18,10,0,4,47,30000,90000,57000,55000,0.96,Satisfied
+628,Shakil Uddin,SU,39,QA Engineer,Engineering,14,MSc,0,1,5,7,4,Intermediate,20,15,0,2,53,28000,85000,60000,60000,1.0,Dissatisfied
+629,Jahid Hossain,JH,25,Data Analyst,Engineering,2,Diploma,4,1,7,8,8,Intermediate,4,5,20,2,54,30000,90000,65000,76500,1.18,Satisfied
+630,Kamal Sarker,KS,28,Project Manager,Operations,4,BSc,2,3,6,5,6,Advanced,8,10,10,6,51,80000,200000,152000,170500,1.12,Dissatisfied
+631,Ayesha Khan,AK,28,Data Analyst,Engineering,4,Diploma,0,2,4,8,5,Intermediate,8,5,0,4,34,30000,90000,48500,43500,0.9,Dissatisfied
+632,Abir Akter,AA,26,Customer Support Executive,Customer Support,2,BSc,1,4,6,7,3,Intermediate,4,10,5,8,43,18000,45000,28000,30500,1.09,Dissatisfied
+633,Nabila Akter,NA,32,Business Analyst,Strategy,6,Diploma,0,3,9,9,8,Advanced,12,5,0,6,49,40000,110000,74000,74000,1.0,Dissatisfied
+634,Mim Islam,MI,28,Operations Manager,Operations,5,MSc,0,4,9,6,10,Intermediate,10,15,0,8,58,60000,150000,118500,123000,1.04,Satisfied
+635,Rahim Khan,RK,33,Senior Software Engineer,Engineering,6,Diploma,0,2,6,10,7,Advanced,12,5,0,4,44,70000,180000,122500,126500,1.03,Satisfied
+636,Rafiq Rahman,RR,32,Business Analyst,Strategy,6,MSc,0,1,9,6,6,Basic,12,15,0,2,50,40000,110000,77000,79500,1.03,Dissatisfied
+637,Ayesha Hossain,AH,32,Sales Executive,Sales,6,BSc,2,4,5,9,7,Intermediate,12,10,10,8,61,20000,60000,46000,45500,0.99,Satisfied
+638,Kamal Khan,KK,29,Operations Manager,Operations,7,MSc,1,1,1,4,2,Fluent,14,15,5,2,43,60000,150000,94000,71500,0.76,Dissatisfied
+639,Ayesha Islam,AI,28,Senior Software Engineer,Engineering,3,BSc,6,4,2,7,4,Basic,6,10,20,8,57,70000,180000,132000,141000,1.07,Dissatisfied
+640,Abir Sarker,AS,26,Business Analyst,Strategy,1,BSc,0,1,4,5,1,Intermediate,2,10,0,2,24,40000,110000,52500,44500,0.85,Dissatisfied
+641,Ayesha Uddin,AU,34,Project Manager,Operations,7,BSc,2,5,6,6,8,Intermediate,14,10,10,10,64,80000,200000,148000,115500,0.78,Dissatisfied
+642,Sadia Akter,SA,26,Senior Software Engineer,Engineering,3,BSc,3,2,9,3,4,Fluent,6,10,15,4,51,70000,180000,125500,118500,0.94,Satisfied
+643,Sabrina Akter,SA,32,Sales Executive,Sales,7,BSc,4,3,9,4,8,Intermediate,14,10,20,6,71,20000,60000,50000,52000,1.04,Dissatisfied
+644,Kamal Sarker,KS,30,Graphic Designer,Design,4,BSc,0,4,5,4,6,Advanced,8,10,0,8,41,22000,60000,35500,30500,0.86,Dissatisfied
+645,Shakil Akter,SA,29,Graphic Designer,Design,4,MSc,3,1,6,7,5,Intermediate,8,15,15,2,58,22000,60000,44500,42500,0.96,Satisfied
+646,Rafiq Khan,RK,29,Sales Executive,Sales,2,MSc,2,0,4,6,5,Intermediate,4,15,10,0,44,20000,60000,38000,38500,1.01,Satisfied
+647,Ayesha Khan,AK,26,Data Analyst,Engineering,2,BSc,3,2,8,6,6,Intermediate,4,10,15,4,53,30000,90000,61500,52000,0.85,Dissatisfied
+648,Shakil Islam,SI,40,Accountant,Finance,12,BSc,6,1,7,7,5,Fluent,20,10,20,2,71,25000,65000,53000,54000,1.02,Dissatisfied
+649,Sadia Rahman,SR,29,Senior Software Engineer,Engineering,7,MSc,3,1,8,8,9,Intermediate,14,15,15,2,71,70000,180000,150000,155500,1.04,Dissatisfied
+650,Mahmud Ahmed,MA,28,Software Engineer,Engineering,3,BSc,6,0,5,4,7,Advanced,6,10,20,0,52,35000,120000,80500,75500,0.94,Satisfied
+651,Abir Hossain,AH,28,Project Manager,Operations,2,BSc,0,3,4,3,2,Fluent,4,10,0,6,29,80000,200000,118000,144000,1.22,Satisfied
+652,Farhana Uddin,FU,30,Data Analyst,Engineering,6,PhD,0,4,6,7,3,Intermediate,12,20,0,8,56,30000,90000,63000,70500,1.12,Satisfied
+653,Abir Ahmed,AA,25,Graphic Designer,Design,0,MSc,3,1,8,10,10,Advanced,0,15,15,2,60,22000,60000,44000,45500,1.03,Satisfied
+654,Sadia Rahman,SR,28,Marketing Executive,Marketing,2,Diploma,3,5,4,4,6,Fluent,4,5,15,10,48,25000,70000,48000,39500,0.82,Dissatisfied
+655,Mim Uddin,MU,40,Accountant,Finance,13,BSc,1,1,3,5,3,Intermediate,20,10,5,2,48,25000,65000,45500,34500,0.76,Dissatisfied
+656,Faisal Rahman,FR,35,HR Manager,Human Resources,11,BSc,0,1,9,4,4,Intermediate,20,10,0,2,49,60000,150000,107000,121500,1.14,Dissatisfied
+657,Jahid Begum,JB,33,Customer Support Executive,Customer Support,10,BSc,0,5,2,4,6,Basic,20,10,0,10,52,18000,45000,33000,30500,0.92,Dissatisfied
+658,Kamal Sarker,KS,32,HR Manager,Human Resources,7,MSc,0,1,6,5,6,Advanced,14,15,0,2,48,60000,150000,104500,121500,1.16,Satisfied
+659,Imran Uddin,IU,30,Customer Support Executive,Customer Support,6,BSc,0,5,5,4,6,Advanced,12,10,0,10,47,18000,45000,32500,31500,0.97,Dissatisfied
+660,Kamal Hossain,KH,28,Marketing Executive,Marketing,3,Diploma,0,2,8,6,8,Intermediate,6,5,0,4,37,25000,70000,39500,45500,1.15,Satisfied
+661,Tania Ahmed,TA,32,Graphic Designer,Design,5,BSc,0,1,5,8,6,Advanced,10,10,0,2,41,22000,60000,37000,31500,0.85,Dissatisfied
+662,Nusrat Rahman,NR,29,Business Analyst,Strategy,4,MSc,0,0,3,3,4,Advanced,8,15,0,0,33,40000,110000,64500,63000,0.98,Dissatisfied
+663,Farhana Chowdhury,FC,31,Graphic Designer,Design,9,MSc,0,2,5,5,6,Fluent,18,15,0,4,53,22000,60000,42500,40000,0.94,Dissatisfied
+664,Sultana Khan,SK,39,Software Engineer,Engineering,12,BSc,3,2,6,5,4,Fluent,20,10,15,4,64,35000,120000,92000,71500,0.78,Dissatisfied
+665,Jahid Hossain,JH,33,HR Executive,Human Resources,12,BSc,1,1,1,6,7,Fluent,20,10,5,2,51,25000,70000,51000,41500,0.81,Dissatisfied
+666,Rafiq Akter,RA,28,Software Engineer,Engineering,4,BSc,2,2,8,6,6,Fluent,8,10,10,4,52,35000,120000,76000,56000,0.74,Dissatisfied
+667,Faisal Chowdhury,FC,31,Project Manager,Operations,5,MSc,3,5,7,1,5,Basic,10,15,15,10,63,80000,200000,155000,146500,0.95,Dissatisfied
+668,Abir Chowdhury,AC,28,Marketing Executive,Marketing,2,PhD,0,1,2,2,6,Advanced,4,20,0,2,36,25000,70000,43000,39500,0.92,Satisfied
+669,Nabila Uddin,NU,27,Project Manager,Operations,4,MSc,1,0,1,6,5,Fluent,8,15,5,0,40,80000,200000,127000,89000,0.7,Dissatisfied
+670,Sadia Rahman,SR,30,Finance Manager,Finance,7,BSc,2,5,7,5,9,Advanced,14,10,10,10,65,70000,180000,137500,114500,0.83,Dissatisfied
+671,Ayesha Akter,AA,28,Sales Executive,Sales,6,BSc,0,5,7,3,4,Intermediate,12,10,0,10,46,20000,60000,38500,39500,1.03,Satisfied
+672,Shakil Sarker,SS,38,Graphic Designer,Design,12,BSc,0,4,5,3,5,Advanced,20,10,0,8,51,22000,60000,39500,46500,1.18,Dissatisfied
+673,Imran Sarker,IS,37,Sales Executive,Sales,12,MSc,0,3,8,4,2,Intermediate,20,15,0,6,55,20000,60000,41000,34000,0.83,Dissatisfied
+674,Nabila Uddin,NU,31,HR Manager,Human Resources,3,BSc,0,4,8,7,10,Intermediate,6,10,0,8,49,60000,150000,107500,127500,1.19,Dissatisfied
+675,Rafiq Islam,RI,28,Graphic Designer,Design,3,BSc,2,3,5,8,6,Intermediate,6,10,10,6,51,22000,60000,40500,41000,1.01,Dissatisfied
+676,Rafiq Sarker,RS,26,Senior Software Engineer,Engineering,3,MSc,0,1,2,9,6,Basic,6,15,0,2,40,70000,180000,111000,115000,1.04,Satisfied
+677,Farhana Sarker,FS,25,Customer Support Executive,Customer Support,1,BSc,2,2,6,6,5,Advanced,2,10,10,4,43,18000,45000,30000,35000,1.17,Satisfied
+678,Rafiq Chowdhury,RC,36,Software Engineer,Engineering,9,BSc,0,1,1,6,8,Advanced,18,10,0,2,45,35000,120000,75500,81500,1.08,Satisfied
+679,Tanvir Sarker,TS,32,Marketing Executive,Marketing,4,BSc,0,0,4,9,9,Basic,8,10,0,0,40,25000,70000,44500,43500,0.98,Satisfied
+680,Nabila Sarker,NS,31,Data Analyst,Engineering,5,BSc,0,3,8,8,3,Basic,10,10,0,6,45,30000,90000,54500,69000,1.27,Satisfied
+681,Abir Akter,AA,31,Customer Support Executive,Customer Support,8,MSc,0,3,4,2,3,Intermediate,16,15,0,6,46,18000,45000,31000,35500,1.15,Satisfied
+682,Shakil Begum,SB,23,Accountant,Finance,0,MSc,0,4,1,5,6,Intermediate,0,15,0,8,35,25000,65000,38500,38500,1.0,Satisfied
+683,Nabila Begum,NB,26,Senior Software Engineer,Engineering,3,MSc,0,0,2,3,5,Fluent,6,15,0,0,31,70000,180000,105000,101000,0.96,Satisfied
+684,Kamal Hossain,KH,29,Senior Software Engineer,Engineering,8,BSc,0,2,6,6,7,Intermediate,16,10,0,4,49,70000,180000,126000,95500,0.76,Dissatisfied
+685,Shakil Khan,SK,27,Operations Manager,Operations,5,BSc,0,1,4,7,4,Intermediate,10,10,0,2,37,60000,150000,95000,93500,0.98,Dissatisfied
+686,Shakil Sarker,SS,31,QA Engineer,Engineering,6,BSc,1,3,6,7,6,Basic,12,10,5,6,52,28000,85000,58000,52500,0.91,Dissatisfied
+687,Ruma Khan,RK,33,Graphic Designer,Design,7,MSc,0,2,5,9,8,Advanced,14,15,0,4,55,22000,60000,42500,52000,1.22,Satisfied
+688,Sultana Hossain,SH,35,QA Engineer,Engineering,8,BSc,0,3,1,4,5,Intermediate,16,10,0,6,42,28000,85000,52500,44500,0.85,Dissatisfied
+689,Shakil Rahman,SR,36,Business Analyst,Strategy,11,MSc,2,4,3,8,9,Advanced,20,15,10,8,73,40000,110000,85500,66500,0.78,Dissatisfied
+690,Jahid Islam,JI,32,Business Analyst,Strategy,9,Diploma,4,1,3,5,5,Intermediate,18,5,20,2,58,40000,110000,81500,74500,0.91,Satisfied
+691,Ruma Ahmed,RA,29,Finance Manager,Finance,7,BSc,0,3,5,7,4,Fluent,14,10,0,6,46,70000,180000,122000,141000,1.16,Satisfied
+692,Ruma Islam,RI,24,HR Executive,Human Resources,1,BSc,0,4,8,3,5,Fluent,2,10,0,8,36,25000,70000,39500,35000,0.89,Dissatisfied
+693,Kamal Hossain,KH,33,HR Executive,Human Resources,7,BSc,0,3,6,2,7,Basic,14,10,0,6,45,25000,70000,48000,60500,1.26,Satisfied
+694,Mim Khan,MK,28,HR Executive,Human Resources,6,BSc,1,4,3,8,0,Advanced,12,10,5,8,46,25000,70000,44500,47000,1.06,Satisfied
+695,Tania Rahman,TR,26,Senior Software Engineer,Engineering,4,BSc,3,3,4,8,7,Fluent,8,10,15,6,58,70000,180000,135000,138500,1.03,Satisfied
+696,Farhana Khan,FK,35,HR Manager,Human Resources,9,Diploma,0,5,8,3,5,Intermediate,18,5,0,10,49,60000,150000,111000,98500,0.89,Dissatisfied
+697,Rafiq Uddin,RU,35,Data Analyst,Engineering,8,BSc,1,0,10,5,8,Intermediate,16,10,5,0,54,30000,90000,64000,71000,1.11,Satisfied
+698,Shakil Uddin,SU,34,Accountant,Finance,7,BSc,0,5,5,6,5,Basic,14,10,0,10,50,25000,65000,45000,39500,0.88,Dissatisfied
+699,Nusrat Begum,NB,29,HR Manager,Human Resources,3,MSc,0,2,6,7,6,Advanced,6,15,0,4,44,60000,150000,110500,121000,1.1,Satisfied
+700,Tania Islam,TI,26,Accountant,Finance,5,BSc,2,1,2,5,5,Advanced,10,10,10,2,44,25000,65000,39500,41500,1.05,Satisfied
+701,Sultana Chowdhury,SC,25,Data Analyst,Engineering,1,BSc,0,4,4,6,6,Basic,2,10,0,8,36,30000,90000,52000,47500,0.91,Dissatisfied
+702,Kamal Hossain,KH,32,Business Analyst,Strategy,7,BSc,0,2,6,8,7,Fluent,14,10,0,4,49,40000,110000,76500,67000,0.88,Dissatisfied
+703,Ruma Chowdhury,RC,27,Accountant,Finance,2,MSc,0,0,7,8,3,Basic,4,15,0,0,37,25000,65000,38000,35000,0.92,Satisfied
+704,Mahmud Uddin,MU,31,Accountant,Finance,5,MSc,4,1,6,1,4,Intermediate,10,15,20,2,58,25000,65000,49000,47000,0.96,Dissatisfied
+705,Sadia Islam,SI,30,QA Engineer,Engineering,6,BSc,1,1,5,3,3,Basic,12,10,5,2,40,28000,85000,48500,45000,0.93,Dissatisfied
+706,Shakil Ahmed,SA,31,Graphic Designer,Design,8,MSc,5,1,6,9,8,Fluent,16,15,20,2,76,22000,60000,53000,60500,1.14,Satisfied
+707,Ruma Sarker,RS,31,Customer Support Executive,Customer Support,9,BSc,3,4,3,6,7,Advanced,18,10,15,8,67,18000,45000,36500,35000,0.96,Dissatisfied
+708,Tania Khan,TK,33,QA Engineer,Engineering,9,BSc,0,2,6,1,5,Fluent,18,10,0,4,44,28000,85000,51500,54000,1.05,Satisfied
+709,Rafiq Khan,RK,38,HR Manager,Human Resources,14,BSc,2,2,3,8,3,Basic,20,10,10,4,58,60000,150000,110500,95500,0.86,Dissatisfied
+710,Rahim Akter,RA,30,Project Manager,Operations,6,BSc,1,3,6,5,8,Basic,12,10,5,6,52,80000,200000,142500,142000,1.0,Dissatisfied
+711,Imran Begum,IB,30,Senior Software Engineer,Engineering,4,MSc,0,0,2,6,6,Advanced,8,15,0,0,37,70000,180000,108000,116000,1.07,Satisfied
+712,Farhana Hossain,FH,41,Senior Software Engineer,Engineering,13,BSc,0,4,5,5,8,Intermediate,20,10,0,8,56,70000,180000,130500,133500,1.02,Dissatisfied
+713,Jahid Sarker,JS,37,Project Manager,Operations,10,BSc,0,2,8,3,5,Advanced,20,10,0,4,50,80000,200000,144000,141000,0.98,Satisfied
+714,Sultana Sarker,SS,31,HR Manager,Human Resources,10,PhD,2,5,6,6,8,Fluent,20,20,10,10,80,60000,150000,130500,138500,1.06,Satisfied
+715,Kamal Ahmed,KA,36,HR Executive,Human Resources,10,BSc,4,5,5,5,4,Intermediate,20,10,20,10,74,25000,70000,58500,67000,1.15,Satisfied
+716,Mahmud Sarker,MS,31,Marketing Executive,Marketing,5,BSc,0,1,5,6,4,Intermediate,10,10,0,2,37,25000,70000,42500,43000,1.01,Satisfied
+717,Kamal Islam,KI,28,Customer Support Executive,Customer Support,6,Diploma,0,4,4,10,8,Basic,12,5,0,8,47,18000,45000,31000,33000,1.06,Satisfied
+718,Rahim Rahman,RR,30,Finance Manager,Finance,5,MSc,2,2,8,9,7,Basic,10,15,10,4,63,70000,180000,136000,145500,1.07,Satisfied
+719,Ruma Ahmed,RA,30,Sales Executive,Sales,6,BSc,4,5,5,2,8,Basic,12,10,20,10,67,20000,60000,44500,51500,1.16,Dissatisfied
+720,Sultana Chowdhury,SC,27,Software Engineer,Engineering,5,BSc,4,5,4,2,3,Intermediate,10,10,20,10,59,35000,120000,84000,85500,1.02,Dissatisfied
+721,Rafiq Khan,RK,29,Operations Manager,Operations,6,BSc,0,2,5,8,8,Intermediate,12,10,0,4,47,60000,150000,101500,81500,0.8,Satisfied
+722,Mahmud Hossain,MH,25,QA Engineer,Engineering,1,BSc,1,3,0,6,4,Intermediate,2,10,5,6,33,28000,85000,43000,35500,0.83,Dissatisfied
+723,Sultana Sarker,SS,31,Sales Executive,Sales,6,MSc,0,5,5,9,8,Basic,12,15,0,10,59,20000,60000,43000,38000,0.88,Satisfied
+724,Shakil Ahmed,SA,30,Software Engineer,Engineering,3,BSc,0,1,3,7,7,Intermediate,6,10,0,2,35,35000,120000,67000,77000,1.15,Satisfied
+725,Sultana Begum,SB,30,QA Engineer,Engineering,6,High School,4,5,7,8,5,Basic,12,0,20,10,62,28000,85000,62000,70000,1.13,Satisfied
+726,Nabila Khan,NK,27,Data Analyst,Engineering,3,BSc,1,2,7,6,7,Basic,6,10,5,4,45,30000,90000,59000,66000,1.12,Dissatisfied
+727,Farhana Sarker,FS,25,Project Manager,Operations,1,BSc,1,2,5,7,6,Advanced,2,10,5,4,39,80000,200000,144000,143500,1.0,Dissatisfied
+728,Sadia Begum,SB,30,Operations Manager,Operations,4,Diploma,0,1,7,4,4,Intermediate,8,5,0,2,30,60000,150000,81500,71500,0.88,Satisfied
+729,Ayesha Islam,AI,31,Business Analyst,Strategy,5,MSc,0,3,1,5,9,Intermediate,10,15,0,6,46,40000,110000,73500,68000,0.93,Satisfied
+730,Abir Akter,AA,32,Customer Support Executive,Customer Support,11,BSc,0,0,7,8,5,Advanced,20,10,0,0,50,18000,45000,30500,34500,1.13,Satisfied
+731,Mim Ahmed,MA,28,Project Manager,Operations,6,BSc,0,0,6,10,7,Basic,12,10,0,0,45,80000,200000,129000,118000,0.91,Dissatisfied
+732,Shakil Hossain,SH,35,Customer Support Executive,Customer Support,11,MSc,3,1,7,9,9,Fluent,20,15,15,2,77,18000,45000,38500,40500,1.05,Satisfied
+733,Ayesha Rahman,AR,30,Finance Manager,Finance,6,MSc,0,5,4,2,4,Advanced,12,15,0,10,47,70000,180000,114000,106500,0.93,Dissatisfied
+734,Mim Islam,MI,31,Data Analyst,Engineering,10,BSc,1,4,4,5,7,Advanced,20,10,5,8,59,30000,90000,67000,74500,1.11,Satisfied
+735,Mim Khan,MK,31,Project Manager,Operations,9,Diploma,0,2,5,9,8,Intermediate,18,5,0,4,49,80000,200000,139500,119000,0.85,Satisfied
+736,Sultana Hossain,SH,34,Senior Software Engineer,Engineering,7,BSc,0,5,5,2,6,Advanced,14,10,0,10,47,70000,180000,121500,137500,1.13,Satisfied
+737,Rahim Sarker,RS,29,Customer Support Executive,Customer Support,5,BSc,0,3,2,5,2,Fluent,10,10,0,6,35,18000,45000,27500,25000,0.91,Dissatisfied
+738,Ayesha Islam,AI,27,Project Manager,Operations,2,MSc,3,1,1,8,6,Intermediate,4,15,15,2,51,80000,200000,140000,141000,1.01,Satisfied
+739,Imran Uddin,IU,27,Customer Support Executive,Customer Support,2,BSc,2,3,5,7,7,Intermediate,4,10,10,6,49,18000,45000,33000,30500,0.92,Satisfied
+740,Nabila Akter,NA,35,Software Engineer,Engineering,11,MSc,0,0,3,6,4,Fluent,20,15,0,0,48,35000,120000,79000,85500,1.08,Satisfied
+741,Rafiq Islam,RI,28,Project Manager,Operations,3,BSc,4,3,7,9,7,Advanced,6,10,20,6,65,80000,200000,165500,159000,0.96,Satisfied
+742,Sadia Hossain,SH,24,Marketing Executive,Marketing,2,BSc,0,0,8,5,6,Advanced,4,10,0,0,33,25000,70000,40500,32000,0.79,Dissatisfied
+743,Nusrat Begum,NB,29,Accountant,Finance,5,BSc,3,3,7,4,10,Intermediate,10,10,15,6,62,25000,65000,52000,43000,0.83,Dissatisfied
+744,Rahim Uddin,RU,30,Customer Support Executive,Customer Support,4,MSc,1,2,6,3,5,Advanced,8,15,5,4,46,18000,45000,28000,24500,0.88,Dissatisfied
+745,Mim Akter,MA,26,Sales Executive,Sales,4,BSc,5,1,6,3,4,Basic,8,10,20,2,53,20000,60000,41000,40500,0.99,Dissatisfied
+746,Kamal Sarker,KS,28,Project Manager,Operations,4,BSc,2,3,4,3,2,Intermediate,8,10,10,6,43,80000,200000,138000,133000,0.96,Satisfied
+747,Ayesha Ahmed,AA,29,Software Engineer,Engineering,6,BSc,3,3,3,5,5,Fluent,12,10,15,6,56,35000,120000,82000,89000,1.09,Dissatisfied
+748,Mahmud Rahman,MR,25,HR Executive,Human Resources,3,MSc,2,1,6,8,5,Advanced,6,15,10,2,52,25000,70000,48000,48500,1.01,Dissatisfied
+749,Abir Islam,AI,33,Sales Executive,Sales,7,BSc,1,2,6,5,7,Advanced,14,10,5,4,51,20000,60000,42500,39500,0.93,Dissatisfied
+750,Jahid Begum,JB,32,HR Executive,Human Resources,4,Diploma,1,0,1,7,5,Fluent,8,5,5,0,31,25000,70000,37500,38000,1.01,Satisfied
+751,Rahim Khan,RK,24,QA Engineer,Engineering,3,BSc,0,4,5,2,5,Fluent,6,10,0,8,36,28000,85000,46500,47500,1.02,Dissatisfied
+752,Rafiq Chowdhury,RC,30,Data Analyst,Engineering,4,MSc,0,1,1,8,4,Intermediate,8,15,0,2,38,30000,90000,52000,48000,0.92,Dissatisfied
+753,Tania Hossain,TH,32,Marketing Executive,Marketing,8,BSc,2,5,3,3,2,Intermediate,16,10,10,10,54,25000,70000,48000,47000,0.98,Satisfied
+754,Nabila Begum,NB,31,Customer Support Executive,Customer Support,8,MSc,0,2,5,6,3,Basic,16,15,0,4,49,18000,45000,30000,30000,1.0,Dissatisfied
+755,Kamal Islam,KI,22,Senior Software Engineer,Engineering,1,BSc,0,4,7,7,4,Advanced,2,10,0,8,38,70000,180000,104000,102000,0.98,Satisfied
+756,Tanvir Ahmed,TA,30,Finance Manager,Finance,8,MSc,5,1,6,7,5,Fluent,16,15,20,2,71,70000,180000,148500,189000,1.27,Satisfied
+757,Kamal Hossain,KH,34,Business Analyst,Strategy,11,BSc,0,2,6,5,5,Basic,20,10,0,4,50,40000,110000,78000,72000,0.92,Dissatisfied
+758,Ayesha Rahman,AR,28,Project Manager,Operations,6,Diploma,0,4,3,4,4,Intermediate,12,5,0,8,36,80000,200000,121500,123500,1.02,Satisfied
+759,Rafiq Hossain,RH,29,Operations Manager,Operations,7,MSc,6,1,1,3,0,Advanced,14,15,20,2,55,60000,150000,111000,115500,1.04,Dissatisfied
+760,Nusrat Begum,NB,22,Graphic Designer,Design,0,BSc,1,1,1,4,0,Intermediate,0,10,5,2,22,22000,60000,30000,29000,0.97,Dissatisfied
+761,Mahmud Uddin,MU,26,Finance Manager,Finance,3,BSc,1,0,8,6,10,Advanced,6,10,5,0,45,70000,180000,121000,108000,0.89,Satisfied
+762,Farhana Sarker,FS,32,Senior Software Engineer,Engineering,7,BSc,0,2,7,3,7,Advanced,14,10,0,4,45,70000,180000,119500,131000,1.1,Satisfied
+763,Ayesha Begum,AB,29,Software Engineer,Engineering,8,BSc,1,2,4,8,5,Advanced,16,10,5,4,52,35000,120000,85500,90000,1.05,Satisfied
+764,Sultana Akter,SA,27,HR Manager,Human Resources,4,MSc,1,2,6,2,3,Intermediate,8,15,5,4,43,60000,150000,100500,104000,1.03,Satisfied
+765,Abir Hossain,AH,28,HR Manager,Human Resources,4,MSc,1,1,2,7,7,Intermediate,8,15,5,2,46,60000,150000,99500,109500,1.1,Satisfied
+766,Ayesha Akter,AA,30,HR Executive,Human Resources,8,BSc,0,5,7,3,5,Advanced,16,10,0,10,51,25000,70000,48500,42500,0.88,Satisfied
+767,Nusrat Sarker,NS,30,HR Manager,Human Resources,6,BSc,2,1,5,8,10,Advanced,12,10,10,2,57,60000,150000,108500,110000,1.01,Satisfied
+768,Ruma Islam,RI,30,Finance Manager,Finance,4,MSc,2,4,4,7,4,Fluent,8,15,10,8,56,70000,180000,136000,154000,1.13,Satisfied
+769,Abir Hossain,AH,31,Operations Manager,Operations,8,MSc,0,3,4,4,3,Advanced,16,15,0,6,48,60000,150000,106000,98000,0.92,Dissatisfied
+770,Shakil Ahmed,SA,29,Sales Executive,Sales,4,BSc,0,0,4,3,5,Intermediate,8,10,0,0,30,20000,60000,32000,35500,1.11,Satisfied
+771,Abir Chowdhury,AC,35,QA Engineer,Engineering,7,BSc,2,3,6,5,7,Advanced,14,10,10,6,58,28000,85000,63500,68500,1.08,Satisfied
+772,Ruma Begum,RB,29,Operations Manager,Operations,4,MSc,0,1,4,7,8,Intermediate,8,15,0,2,44,60000,150000,96000,99500,1.04,Dissatisfied
+773,Sadia Akter,SA,26,QA Engineer,Engineering,2,BSc,0,0,7,4,9,Advanced,4,10,0,0,34,28000,85000,48000,56000,1.17,Satisfied
+774,Sultana Hossain,SH,31,Graphic Designer,Design,5,BSc,0,4,2,3,4,Intermediate,10,10,0,8,37,22000,60000,38000,34000,0.89,Satisfied
+775,Sabrina Chowdhury,SC,29,Finance Manager,Finance,2,BSc,4,0,7,8,6,Intermediate,4,10,20,0,55,70000,180000,126500,115000,0.91,Dissatisfied
+776,Farhana Begum,FB,32,Project Manager,Operations,7,BSc,1,3,9,7,4,Intermediate,14,10,5,6,55,80000,200000,151500,169000,1.12,Dissatisfied
+777,Sadia Hossain,SH,34,HR Manager,Human Resources,7,BSc,0,2,5,6,9,Basic,14,10,0,4,48,60000,150000,109000,127500,1.17,Satisfied
+778,Faisal Uddin,FU,28,Software Engineer,Engineering,3,BSc,3,3,1,4,3,Advanced,6,10,15,6,45,35000,120000,70500,66000,0.94,Satisfied
+779,Tania Ahmed,TA,32,Customer Support Executive,Customer Support,10,MSc,0,5,6,8,3,Fluent,20,15,0,10,62,18000,45000,36000,36000,1.0,Dissatisfied
+780,Tanvir Akter,TA,28,HR Executive,Human Resources,4,BSc,3,2,9,3,9,Intermediate,8,10,15,4,58,25000,70000,52500,46000,0.88,Satisfied
+781,Sadia Khan,SK,29,Accountant,Finance,7,Diploma,1,1,4,6,6,Advanced,14,5,5,2,42,25000,65000,38500,34000,0.88,Satisfied
+782,Ayesha Rahman,AR,28,Senior Software Engineer,Engineering,4,MSc,1,1,7,6,5,Advanced,8,15,5,2,48,70000,180000,122500,136500,1.11,Satisfied
+783,Shakil Sarker,SS,29,Sales Executive,Sales,1,BSc,0,3,3,8,6,Fluent,2,10,0,6,35,20000,60000,35000,36500,1.04,Dissatisfied
+784,Jahid Rahman,JR,27,Customer Support Executive,Customer Support,4,BSc,1,5,8,5,3,Advanced,8,10,5,10,49,18000,45000,32000,22500,0.7,Dissatisfied
+785,Ayesha Khan,AK,30,Customer Support Executive,Customer Support,4,BSc,2,1,8,5,6,Advanced,8,10,10,2,49,18000,45000,33500,29000,0.87,Dissatisfied
+786,Farhana Rahman,FR,34,Finance Manager,Finance,10,BSc,1,3,8,7,6,Advanced,20,10,5,6,62,70000,180000,138500,139500,1.01,Satisfied
+787,Tanvir Hossain,TH,30,Sales Executive,Sales,4,MSc,0,1,2,4,3,Advanced,8,15,0,2,34,20000,60000,33000,34500,1.05,Dissatisfied
+788,Sadia Begum,SB,27,Graphic Designer,Design,5,MSc,1,4,6,5,7,Intermediate,10,15,5,8,56,22000,60000,41000,37000,0.9,Satisfied
+789,Rafiq Akter,RA,29,Data Analyst,Engineering,7,Diploma,2,1,5,6,8,Advanced,14,5,10,2,50,30000,90000,56000,64000,1.14,Satisfied
+790,Farhana Islam,FI,35,Accountant,Finance,8,BSc,0,3,8,4,4,Intermediate,16,10,0,6,48,25000,65000,43000,38500,0.9,Dissatisfied
+791,Abir Hossain,AH,30,Customer Support Executive,Customer Support,5,Diploma,0,2,3,4,6,Intermediate,10,5,0,4,32,18000,45000,25500,23000,0.9,Dissatisfied
+792,Abir Begum,AB,28,Customer Support Executive,Customer Support,4,Diploma,0,1,5,5,3,Intermediate,8,5,0,2,28,18000,45000,25000,23000,0.92,Dissatisfied
+793,Tania Sarker,TS,28,HR Executive,Human Resources,5,MSc,2,2,5,7,4,Fluent,10,15,10,4,55,25000,70000,49000,56500,1.15,Satisfied
+794,Ayesha Ahmed,AA,33,Software Engineer,Engineering,9,BSc,3,4,2,4,4,Basic,18,10,15,8,61,35000,120000,91000,85000,0.93,Dissatisfied
+795,Shakil Ahmed,SA,24,Sales Executive,Sales,2,BSc,1,3,8,7,6,Fluent,4,10,5,6,46,20000,60000,39500,38000,0.96,Dissatisfied
+796,Abir Hossain,AH,35,Operations Manager,Operations,12,MSc,0,3,7,8,7,Intermediate,20,15,0,6,63,60000,150000,108500,102000,0.94,Dissatisfied
+797,Sultana Begum,SB,28,Marketing Executive,Marketing,2,Diploma,2,2,2,8,4,Intermediate,4,5,10,4,37,25000,70000,42500,35500,0.84,Dissatisfied
+798,Shakil Ahmed,SA,31,Accountant,Finance,6,MSc,5,2,3,9,8,Intermediate,12,15,20,4,71,25000,65000,53000,48500,0.92,Satisfied
+799,Kamal Chowdhury,KC,28,Sales Executive,Sales,4,BSc,2,1,4,1,6,Fluent,8,10,10,2,41,20000,60000,40000,42500,1.06,Satisfied
+800,Sadia Rahman,SR,37,Operations Manager,Operations,10,MSc,3,0,4,5,5,Advanced,20,15,15,0,64,60000,150000,122500,147500,1.2,Satisfied
+801,Rahim Rahman,RR,28,Accountant,Finance,2,BSc,2,2,2,6,5,Intermediate,4,10,10,4,41,25000,65000,42500,51000,1.2,Satisfied
+802,Jahid Chowdhury,JC,34,Senior Software Engineer,Engineering,10,BSc,0,4,7,4,6,Intermediate,20,10,0,8,55,70000,180000,138000,152500,1.11,Satisfied
+803,Mim Uddin,MU,30,Operations Manager,Operations,7,Diploma,1,2,7,6,5,Advanced,14,5,5,4,46,60000,150000,100000,105500,1.05,Dissatisfied
+804,Sultana Ahmed,SA,32,Business Analyst,Strategy,7,MSc,3,4,1,8,5,Advanced,14,15,15,8,66,40000,110000,77000,90000,1.17,Dissatisfied
+805,Mim Akter,MA,32,Business Analyst,Strategy,5,BSc,4,3,6,5,4,Intermediate,10,10,20,6,61,40000,110000,79500,74000,0.93,Satisfied
+806,Rahim Hossain,RH,35,Senior Software Engineer,Engineering,8,BSc,1,5,4,6,4,Advanced,16,10,5,10,55,70000,180000,121500,128500,1.06,Dissatisfied
+807,Ruma Ahmed,RA,33,Project Manager,Operations,8,MSc,1,0,8,4,6,Basic,16,15,5,0,54,80000,200000,141000,139000,0.99,Dissatisfied
+808,Faisal Rahman,FR,26,Finance Manager,Finance,1,BSc,4,1,5,7,7,Intermediate,2,10,20,2,53,70000,180000,128500,132000,1.03,Satisfied
+809,Rahim Khan,RK,29,Business Analyst,Strategy,6,MSc,6,2,3,7,6,Advanced,12,15,20,4,67,40000,110000,84000,88000,1.05,Dissatisfied
+810,Sultana Sarker,SS,26,QA Engineer,Engineering,3,BSc,2,3,4,2,2,Basic,6,10,10,6,40,28000,85000,50000,45000,0.9,Satisfied
+811,Mim Uddin,MU,35,Data Analyst,Engineering,10,MSc,4,1,3,8,7,Basic,20,15,20,2,75,30000,90000,77000,82000,1.06,Satisfied
+812,Kamal Rahman,KR,32,Operations Manager,Operations,4,BSc,0,2,6,3,4,Fluent,8,10,0,4,35,60000,150000,94000,91000,0.97,Dissatisfied
+813,Nabila Chowdhury,NC,30,Finance Manager,Finance,7,BSc,0,2,6,5,4,Advanced,14,10,0,4,43,70000,180000,117500,109000,0.93,Satisfied
+814,Abir Hossain,AH,33,Sales Executive,Sales,6,BSc,0,1,1,2,5,Fluent,12,10,0,2,32,20000,60000,31500,38000,1.21,Satisfied
+815,Ayesha Khan,AK,27,Business Analyst,Strategy,4,MSc,2,2,3,2,2,Advanced,8,15,10,4,44,40000,110000,71500,52500,0.73,Dissatisfied
+816,Mahmud Islam,MI,30,Accountant,Finance,5,BSc,4,4,6,5,4,Basic,10,10,20,8,63,25000,65000,52000,40500,0.78,Dissatisfied
+817,Sabrina Begum,SB,32,Data Analyst,Engineering,10,BSc,0,3,4,2,6,Advanced,20,10,0,6,48,30000,90000,63000,47000,0.75,Dissatisfied
+818,Tanvir Uddin,TU,32,Finance Manager,Finance,5,Diploma,0,1,5,2,8,Intermediate,10,5,0,2,32,70000,180000,113500,89000,0.78,Dissatisfied
+819,Sadia Uddin,SU,29,Data Analyst,Engineering,5,BSc,5,5,1,2,1,Basic,10,10,20,10,54,30000,90000,61000,66500,1.09,Dissatisfied
+820,Mim Uddin,MU,28,Project Manager,Operations,2,BSc,0,5,8,6,8,Intermediate,4,10,0,10,46,80000,200000,125000,158500,1.27,Satisfied
+821,Imran Hossain,IH,29,HR Executive,Human Resources,1,BSc,0,0,9,6,9,Intermediate,2,10,0,0,36,25000,70000,41000,39500,0.96,Dissatisfied
+822,Nusrat Islam,NI,27,Marketing Executive,Marketing,4,Diploma,1,0,9,8,6,Fluent,8,5,5,0,41,25000,70000,47000,48000,1.02,Dissatisfied
+823,Rafiq Akter,RA,36,Graphic Designer,Design,9,MSc,0,1,6,5,6,Fluent,18,15,0,2,52,22000,60000,40500,36500,0.9,Dissatisfied
+824,Farhana Begum,FB,31,Senior Software Engineer,Engineering,6,BSc,0,1,2,9,6,Intermediate,12,10,0,2,41,70000,180000,115500,133500,1.16,Satisfied
+825,Imran Islam,II,31,Marketing Executive,Marketing,4,BSc,1,1,8,8,8,Basic,8,10,5,2,49,25000,70000,46000,45500,0.99,Dissatisfied
+826,Nabila Sarker,NS,28,Sales Executive,Sales,4,MSc,0,3,3,2,3,Advanced,8,15,0,6,37,20000,60000,33500,31500,0.94,Dissatisfied
+827,Jahid Khan,JK,27,Data Analyst,Engineering,3,Diploma,1,1,3,9,7,Intermediate,6,5,5,2,37,30000,90000,53000,54500,1.03,Dissatisfied
+828,Jahid Akter,JA,35,Accountant,Finance,7,MSc,0,1,3,5,5,Basic,14,15,0,2,44,25000,65000,43500,51000,1.17,Satisfied
+829,Imran Islam,II,32,HR Manager,Human Resources,11,BSc,0,0,3,10,7,Basic,20,10,0,0,50,60000,150000,101500,114000,1.12,Satisfied
+830,Mahmud Rahman,MR,34,Accountant,Finance,6,MSc,0,3,2,3,1,Basic,12,15,0,6,39,25000,65000,41500,33000,0.8,Dissatisfied
+831,Shakil Khan,SK,24,QA Engineer,Engineering,1,BSc,6,2,8,9,8,Advanced,2,10,20,4,61,28000,85000,60000,57500,0.96,Satisfied
+832,Jahid Hossain,JH,29,Graphic Designer,Design,6,High School,0,1,6,3,4,Intermediate,12,0,0,2,27,22000,60000,30500,31500,1.03,Satisfied
+833,Imran Chowdhury,IC,28,Operations Manager,Operations,7,BSc,1,0,4,6,7,Intermediate,14,10,5,0,46,60000,150000,103500,110000,1.06,Dissatisfied
+834,Tanvir Khan,TK,26,HR Executive,Human Resources,3,High School,0,1,2,6,7,Advanced,6,0,0,2,23,25000,70000,35500,35000,0.99,Satisfied
+835,Kamal Rahman,KR,27,Operations Manager,Operations,1,MSc,0,2,6,8,9,Fluent,2,15,0,4,44,60000,150000,100000,105000,1.05,Satisfied
+836,Shakil Uddin,SU,30,Customer Support Executive,Customer Support,4,BSc,3,1,8,4,7,Advanced,8,10,15,2,54,18000,45000,33500,34500,1.03,Satisfied
+837,Abir Ahmed,AA,34,Finance Manager,Finance,8,Diploma,0,4,6,1,6,Basic,16,5,0,8,42,70000,180000,116500,125500,1.08,Dissatisfied
+838,Nabila Khan,NK,33,Data Analyst,Engineering,10,Diploma,2,2,6,4,4,Basic,20,5,10,4,53,30000,90000,61500,61000,0.99,Dissatisfied
+839,Jahid Sarker,JS,36,Finance Manager,Finance,14,MSc,4,4,4,8,6,Intermediate,20,15,20,8,81,70000,180000,155500,138000,0.89,Dissatisfied
+840,Mahmud Hossain,MH,41,Software Engineer,Engineering,13,BSc,0,4,8,10,8,Advanced,20,10,0,8,64,35000,120000,92000,79500,0.86,Dissatisfied
+841,Sadia Rahman,SR,32,Sales Executive,Sales,6,BSc,6,2,9,6,8,Basic,12,10,20,4,69,20000,60000,49000,52000,1.06,Dissatisfied
+842,Jahid Khan,JK,32,Software Engineer,Engineering,9,MSc,2,3,8,5,7,Advanced,18,15,10,6,69,35000,120000,94000,94500,1.01,Satisfied
+843,Ruma Rahman,RR,29,QA Engineer,Engineering,2,BSc,1,2,5,9,9,Advanced,4,10,5,4,46,28000,85000,53500,44500,0.83,Dissatisfied
+844,Nabila Islam,NI,25,Project Manager,Operations,2,BSc,0,1,4,5,6,Basic,4,10,0,2,31,80000,200000,115000,122500,1.07,Satisfied
+845,Jahid Rahman,JR,29,Graphic Designer,Design,7,Diploma,2,4,7,4,4,Fluent,14,5,10,8,52,22000,60000,42500,42000,0.99,Dissatisfied
+846,Sabrina Islam,SI,34,Project Manager,Operations,8,BSc,1,5,2,6,7,Basic,16,10,5,10,56,80000,200000,149000,133000,0.89,Dissatisfied
+847,Kamal Uddin,KU,34,HR Manager,Human Resources,10,BSc,0,4,6,3,6,Advanced,20,10,0,8,53,60000,150000,113000,88500,0.78,Dissatisfied
+848,Kamal Rahman,KR,26,Software Engineer,Engineering,5,MSc,0,5,8,4,7,Intermediate,10,15,0,10,54,35000,120000,84000,85000,1.01,Satisfied
+849,Farhana Khan,FK,30,Marketing Executive,Marketing,9,BSc,0,0,4,8,6,Advanced,18,10,0,0,46,25000,70000,47000,42500,0.9,Satisfied
+850,Sabrina Rahman,SR,21,Senior Software Engineer,Engineering,0,Diploma,0,2,4,7,6,Basic,0,5,0,4,26,70000,180000,90000,89000,0.99,Satisfied
+851,Ruma Ahmed,RA,26,Graphic Designer,Design,2,BSc,1,2,5,2,5,Intermediate,4,10,5,4,35,22000,60000,34500,41000,1.19,Dissatisfied
+852,Nabila Chowdhury,NC,33,Accountant,Finance,9,MSc,0,0,5,4,4,Advanced,18,15,0,0,46,25000,65000,43500,44500,1.02,Satisfied
+853,Mim Uddin,MU,34,Software Engineer,Engineering,9,BSc,3,2,4,7,7,Advanced,18,10,15,4,65,35000,120000,89000,92000,1.03,Satisfied
+854,Shakil Hossain,SH,31,Software Engineer,Engineering,5,MSc,1,0,5,6,7,Intermediate,10,15,5,0,48,35000,120000,72500,70500,0.97,Satisfied
+855,Jahid Khan,JK,29,Marketing Executive,Marketing,7,BSc,3,4,8,7,7,Intermediate,14,10,15,8,69,25000,70000,53500,48000,0.9,Satisfied
+856,Abir Ahmed,AA,34,QA Engineer,Engineering,7,BSc,0,2,4,3,5,Intermediate,14,10,0,4,40,28000,85000,55000,49000,0.89,Dissatisfied
+857,Imran Begum,IB,26,Customer Support Executive,Customer Support,3,MSc,5,0,1,6,6,Advanced,6,15,20,0,54,18000,45000,34000,41000,1.21,Satisfied
+858,Ayesha Chowdhury,AC,33,Business Analyst,Strategy,6,MSc,0,5,10,9,7,Intermediate,12,15,0,10,63,40000,110000,85000,85500,1.01,Satisfied
+859,Abir Akter,AA,38,Graphic Designer,Design,14,BSc,3,4,7,6,5,Basic,20,10,15,8,71,22000,60000,50000,46500,0.93,Satisfied
+860,Faisal Khan,FK,34,QA Engineer,Engineering,11,MSc,1,3,9,5,6,Advanced,20,15,5,6,66,28000,85000,67500,67000,0.99,Dissatisfied
+861,Rafiq Hossain,RH,30,Operations Manager,Operations,6,BSc,0,5,8,6,8,Intermediate,12,10,0,10,54,60000,150000,110000,107500,0.98,Satisfied
+862,Mahmud Ahmed,MA,28,Software Engineer,Engineering,5,Diploma,1,4,5,9,8,Advanced,10,5,5,8,50,35000,120000,77500,93500,1.21,Satisfied
+863,Shakil Chowdhury,SC,29,Sales Executive,Sales,6,MSc,4,1,4,8,5,Intermediate,12,15,20,2,66,20000,60000,42500,46000,1.08,Satisfied
+864,Sabrina Chowdhury,SC,34,Customer Support Executive,Customer Support,9,BSc,0,4,6,1,5,Fluent,18,10,0,8,48,18000,45000,31500,34500,1.1,Satisfied
+865,Mahmud Islam,MI,35,Finance Manager,Finance,9,BSc,4,3,3,7,7,Advanced,18,10,20,6,71,70000,180000,148000,156000,1.05,Satisfied
+866,Faisal Ahmed,FA,36,Marketing Executive,Marketing,13,MSc,0,0,5,3,6,Basic,20,15,0,0,49,25000,70000,48500,43500,0.9,Dissatisfied
+867,Sultana Rahman,SR,31,Finance Manager,Finance,9,PhD,1,3,8,5,6,Basic,18,20,5,6,68,70000,180000,150500,157500,1.05,Dissatisfied
+868,Farhana Sarker,FS,26,Project Manager,Operations,2,BSc,1,2,2,3,4,Intermediate,4,10,5,4,32,80000,200000,131000,119500,0.91,Dissatisfied
+869,Abir Chowdhury,AC,30,Graphic Designer,Design,6,BSc,2,4,5,7,6,Intermediate,12,10,10,8,58,22000,60000,43500,36000,0.83,Dissatisfied
+870,Shakil Islam,SI,34,Operations Manager,Operations,6,BSc,0,2,5,7,7,Intermediate,12,10,0,4,45,60000,150000,100000,102000,1.02,Dissatisfied
+871,Nabila Chowdhury,NC,30,Operations Manager,Operations,3,BSc,0,3,5,8,8,Advanced,6,10,0,6,43,60000,150000,101000,100000,0.99,Dissatisfied
+872,Tanvir Sarker,TS,27,Graphic Designer,Design,3,PhD,4,1,6,2,5,Intermediate,6,20,20,2,61,22000,60000,48000,48000,1.0,Dissatisfied
+873,Nusrat Sarker,NS,27,HR Manager,Human Resources,5,BSc,0,0,9,4,7,Advanced,10,10,0,0,40,60000,150000,103500,120500,1.16,Satisfied
+874,Abir Islam,AI,37,Accountant,Finance,12,BSc,2,1,3,8,5,Advanced,20,10,10,2,58,25000,65000,50000,51000,1.02,Satisfied
+875,Faisal Hossain,FH,26,QA Engineer,Engineering,4,BSc,2,4,7,5,6,Intermediate,8,10,10,8,54,28000,85000,60500,57000,0.94,Dissatisfied
+876,Tanvir Begum,TB,32,Data Analyst,Engineering,5,BSc,1,2,3,8,5,Intermediate,10,10,5,4,45,30000,90000,62000,62000,1.0,Satisfied
+877,Tania Sarker,TS,29,QA Engineer,Engineering,3,MSc,0,3,6,4,7,Advanced,6,15,0,6,44,28000,85000,53500,57000,1.07,Satisfied
+878,Nabila Chowdhury,NC,32,Graphic Designer,Design,6,BSc,3,2,6,7,5,Advanced,12,10,15,4,59,22000,60000,43500,46000,1.06,Dissatisfied
+879,Mim Ahmed,MA,27,Graphic Designer,Design,6,BSc,0,2,5,7,8,Intermediate,12,10,0,4,46,22000,60000,38000,39000,1.03,Satisfied
+880,Sabrina Begum,SB,31,Business Analyst,Strategy,7,BSc,1,2,8,9,8,Intermediate,14,10,5,4,58,40000,110000,76500,75000,0.98,Satisfied
+881,Nusrat Hossain,NH,31,Finance Manager,Finance,5,BSc,0,4,4,4,5,Advanced,10,10,0,8,41,70000,180000,108500,118500,1.09,Satisfied
+882,Mim Akter,MA,32,Software Engineer,Engineering,5,BSc,0,2,8,4,8,Advanced,10,10,0,4,44,35000,120000,67500,58500,0.87,Dissatisfied
+883,Jahid Khan,JK,28,HR Manager,Human Resources,3,BSc,3,2,8,3,6,Basic,6,10,15,4,52,60000,150000,102000,84000,0.82,Dissatisfied
+884,Abir Chowdhury,AC,25,Marketing Executive,Marketing,2,BSc,0,4,8,7,8,Intermediate,4,10,0,8,45,25000,70000,45000,55500,1.23,Satisfied
+885,Abir Begum,AB,39,QA Engineer,Engineering,12,MSc,3,4,1,6,6,Advanced,20,15,15,8,71,28000,85000,65500,67500,1.03,Dissatisfied
+886,Abir Uddin,AU,34,Accountant,Finance,9,BSc,1,1,1,9,7,Fluent,18,10,5,2,52,25000,65000,45500,45000,0.99,Satisfied
+887,Mahmud Sarker,MS,31,Accountant,Finance,5,MSc,2,4,6,3,6,Advanced,10,15,10,8,58,25000,65000,46500,38000,0.82,Dissatisfied
+888,Rafiq Begum,RB,31,Customer Support Executive,Customer Support,6,BSc,4,2,3,4,5,Intermediate,12,10,20,4,58,18000,45000,34500,27500,0.8,Dissatisfied
+889,Imran Uddin,IU,27,Senior Software Engineer,Engineering,4,BSc,0,0,5,6,6,Intermediate,8,10,0,0,35,70000,180000,109500,116000,1.06,Dissatisfied
+890,Sabrina Hossain,SH,34,Project Manager,Operations,10,BSc,0,5,2,6,7,Intermediate,20,10,0,10,55,80000,200000,146000,141500,0.97,Dissatisfied
+891,Kamal Rahman,KR,34,Data Analyst,Engineering,9,MSc,1,2,3,2,4,Advanced,18,15,5,4,51,30000,90000,62500,46500,0.74,Dissatisfied
+892,Sadia Ahmed,SA,28,QA Engineer,Engineering,5,MSc,4,5,7,4,6,Advanced,10,15,20,10,72,28000,85000,75500,75500,1.0,Satisfied
+893,Kamal Ahmed,KA,37,Data Analyst,Engineering,10,MSc,0,3,8,8,7,Intermediate,20,15,0,6,64,30000,90000,65000,64500,0.99,Dissatisfied
+894,Sultana Hossain,SH,35,QA Engineer,Engineering,12,MSc,1,2,7,3,9,Fluent,20,15,5,4,63,28000,85000,62500,64500,1.03,Satisfied
+895,Tania Uddin,TU,29,Accountant,Finance,3,BSc,0,2,4,2,4,Fluent,6,10,0,4,30,25000,65000,34500,28500,0.83,Dissatisfied
+896,Tanvir Ahmed,TA,31,Graphic Designer,Design,6,BSc,1,2,8,3,5,Advanced,12,10,5,4,47,22000,60000,43000,42000,0.98,Satisfied
+897,Imran Khan,IK,23,Software Engineer,Engineering,1,BSc,2,3,3,9,6,Intermediate,2,10,10,6,46,35000,120000,75500,74000,0.98,Satisfied
+898,Abir Akter,AA,34,Sales Executive,Sales,9,MSc,2,2,2,7,5,Advanced,18,15,10,4,61,20000,60000,43500,44000,1.01,Dissatisfied
+899,Farhana Sarker,FS,32,HR Executive,Human Resources,6,MSc,5,5,6,10,5,Basic,12,15,20,10,78,25000,70000,60000,55000,0.92,Dissatisfied
+900,Sultana Sarker,SS,37,HR Manager,Human Resources,13,Diploma,2,4,3,7,5,Intermediate,20,5,10,8,58,60000,150000,114000,115500,1.01,Satisfied
+901,Sadia Rahman,SR,37,Finance Manager,Finance,14,MSc,0,3,8,6,7,Intermediate,20,15,0,6,62,70000,180000,145500,149000,1.02,Satisfied
+902,Ayesha Chowdhury,AC,35,HR Executive,Human Resources,10,BSc,3,2,1,9,9,Intermediate,20,10,15,4,68,25000,70000,58000,63500,1.09,Satisfied
+903,Ruma Islam,RI,31,Operations Manager,Operations,8,BSc,0,3,4,4,4,Basic,16,10,0,6,44,60000,150000,102500,97000,0.95,Dissatisfied
+904,Faisal Chowdhury,FC,34,HR Executive,Human Resources,8,BSc,0,3,7,1,6,Intermediate,16,10,0,6,46,25000,70000,44000,43000,0.98,Satisfied
+905,Kamal Khan,KK,31,Graphic Designer,Design,3,MSc,1,5,6,3,7,Advanced,6,15,5,10,52,22000,60000,41500,38000,0.92,Satisfied
+906,Mim Ahmed,MA,27,Customer Support Executive,Customer Support,5,Diploma,2,2,7,8,6,Advanced,10,5,10,4,50,18000,45000,29000,27500,0.95,Dissatisfied
+907,Ayesha Akter,AA,28,Senior Software Engineer,Engineering,2,BSc,0,0,5,5,7,Fluent,4,10,0,0,31,70000,180000,103000,90500,0.88,Dissatisfied
+908,Nabila Chowdhury,NC,31,HR Executive,Human Resources,5,Diploma,2,3,4,6,5,Intermediate,10,5,10,6,46,25000,70000,47500,43000,0.91,Dissatisfied
+909,Sultana Hossain,SH,28,Business Analyst,Strategy,5,BSc,1,5,7,9,5,Intermediate,10,10,5,10,56,40000,110000,76500,82500,1.08,Satisfied
+910,Nusrat Khan,NK,25,QA Engineer,Engineering,1,BSc,0,0,9,3,2,Basic,2,10,0,0,26,28000,85000,40000,33000,0.82,Satisfied
+911,Imran Islam,II,27,Marketing Executive,Marketing,3,MSc,5,4,6,5,9,Intermediate,6,15,20,8,69,25000,70000,60500,51500,0.85,Dissatisfied
+912,Rahim Chowdhury,RC,32,Graphic Designer,Design,4,Diploma,0,1,4,4,7,Intermediate,8,5,0,2,30,22000,60000,33500,30000,0.9,Satisfied
+913,Ayesha Ahmed,AA,35,Accountant,Finance,13,BSc,2,0,6,1,6,Intermediate,20,10,10,0,53,25000,65000,44500,46000,1.03,Dissatisfied
+914,Imran Khan,IK,32,Operations Manager,Operations,11,MSc,3,0,6,1,7,Basic,20,15,15,0,64,60000,150000,116500,122500,1.05,Satisfied
+915,Nusrat Ahmed,NA,26,Data Analyst,Engineering,3,MSc,1,1,6,6,10,Advanced,6,15,5,2,50,30000,90000,57500,64500,1.12,Satisfied
+916,Rafiq Uddin,RU,31,Project Manager,Operations,6,Diploma,5,4,5,7,6,Intermediate,12,5,20,8,63,80000,200000,160500,160000,1.0,Dissatisfied
+917,Nusrat Hossain,NH,41,QA Engineer,Engineering,14,BSc,3,0,4,6,5,Advanced,20,10,15,0,60,28000,85000,62500,88500,1.42,Satisfied
+918,Shakil Islam,SI,33,Data Analyst,Engineering,10,MSc,0,2,8,7,5,Intermediate,20,15,0,4,59,30000,90000,62000,60500,0.98,Satisfied
+919,Imran Akter,IA,28,Project Manager,Operations,3,BSc,6,0,4,6,4,Fluent,6,10,20,0,50,80000,200000,143500,145000,1.01,Satisfied
+920,Rahim Rahman,RR,37,HR Manager,Human Resources,10,MSc,0,5,4,2,6,Intermediate,20,15,0,10,57,60000,150000,111500,97500,0.87,Dissatisfied
+921,Imran Hossain,IH,29,Finance Manager,Finance,5,MSc,0,4,6,6,5,Advanced,10,15,0,8,50,70000,180000,128000,120000,0.94,Satisfied
+922,Nusrat Begum,NB,34,Graphic Designer,Design,8,MSc,1,0,4,6,10,Advanced,16,15,5,0,56,22000,60000,43500,43500,1.0,Dissatisfied
+923,Tanvir Uddin,TU,40,Project Manager,Operations,13,Diploma,3,5,7,8,10,Advanced,20,5,15,10,75,80000,200000,162500,165000,1.02,Satisfied
+924,Shakil Sarker,SS,29,Graphic Designer,Design,2,BSc,0,3,10,8,9,Basic,4,10,0,6,47,22000,60000,39000,26500,0.68,Dissatisfied
+925,Kamal Rahman,KR,30,Data Analyst,Engineering,2,BSc,5,2,7,7,10,Basic,4,10,20,4,62,30000,90000,68000,78000,1.15,Satisfied
+926,Ayesha Begum,AB,29,HR Executive,Human Resources,3,BSc,2,3,7,4,5,Advanced,6,10,10,6,48,25000,70000,49500,52500,1.06,Satisfied
+927,Rafiq Akter,RA,35,Customer Support Executive,Customer Support,8,BSc,0,3,9,5,7,Advanced,16,10,0,6,53,18000,45000,32000,32500,1.02,Dissatisfied
+928,Faisal Hossain,FH,26,QA Engineer,Engineering,5,BSc,0,4,7,3,4,Intermediate,10,10,0,8,42,28000,85000,56000,49000,0.88,Dissatisfied
+929,Nabila Begum,NB,25,HR Manager,Human Resources,2,BSc,0,0,4,8,8,Intermediate,4,10,0,0,34,60000,150000,93000,97500,1.05,Satisfied
+930,Ayesha Chowdhury,AC,36,Senior Software Engineer,Engineering,9,BSc,0,0,3,6,7,Basic,18,10,0,0,44,70000,180000,113000,96000,0.85,Dissatisfied
+931,Tanvir Uddin,TU,27,Project Manager,Operations,5,BSc,0,0,9,9,10,Advanced,10,10,0,0,48,80000,200000,140000,123000,0.88,Dissatisfied
+932,Mahmud Begum,MB,33,Data Analyst,Engineering,10,BSc,0,2,7,4,0,Fluent,20,10,0,4,45,30000,90000,59000,59500,1.01,Dissatisfied
+933,Mim Sarker,MS,32,HR Executive,Human Resources,7,BSc,3,0,8,6,9,Advanced,14,10,15,0,62,25000,70000,51500,56000,1.09,Dissatisfied
+934,Abir Begum,AB,32,QA Engineer,Engineering,10,MSc,1,2,5,4,8,Fluent,20,15,5,4,61,28000,85000,60000,49500,0.82,Satisfied
+935,Jahid Uddin,JU,34,Graphic Designer,Design,8,BSc,1,2,8,6,9,Advanced,16,10,5,4,58,22000,60000,43000,48000,1.12,Satisfied
+936,Faisal Khan,FK,30,Business Analyst,Strategy,5,MSc,6,1,1,7,6,Advanced,10,15,20,2,61,40000,110000,79500,68500,0.86,Dissatisfied
+937,Sabrina Sarker,SS,25,Business Analyst,Strategy,1,MSc,1,0,5,3,5,Advanced,2,15,5,0,35,40000,110000,65500,44500,0.68,Dissatisfied
+938,Shakil Uddin,SU,30,Project Manager,Operations,7,Diploma,0,2,6,6,9,Fluent,14,5,0,4,44,80000,200000,130000,124000,0.95,Dissatisfied
+939,Tanvir Begum,TB,27,Sales Executive,Sales,2,BSc,2,3,3,5,3,Intermediate,4,10,10,6,41,20000,60000,36500,37000,1.01,Satisfied
+940,Ruma Khan,RK,29,Senior Software Engineer,Engineering,3,BSc,0,5,6,3,2,Advanced,6,10,0,10,37,70000,180000,104500,116500,1.11,Dissatisfied
+941,Jahid Hossain,JH,36,Business Analyst,Strategy,9,PhD,1,3,7,9,8,Fluent,18,20,5,6,73,40000,110000,84000,82500,0.98,Satisfied
+942,Ayesha Sarker,AS,26,Operations Manager,Operations,5,BSc,0,2,2,9,3,Intermediate,10,10,0,4,38,60000,150000,95500,76000,0.8,Dissatisfied
+943,Tanvir Rahman,TR,30,HR Manager,Human Resources,4,BSc,3,2,5,6,7,Advanced,8,10,15,4,55,60000,150000,112500,147500,1.31,Satisfied
+944,Ayesha Begum,AB,33,Software Engineer,Engineering,7,BSc,5,5,8,4,6,Advanced,14,10,20,10,72,35000,120000,90000,84000,0.93,Dissatisfied
+945,Tania Begum,TB,24,Sales Executive,Sales,2,BSc,0,4,5,9,7,Advanced,4,10,0,8,43,20000,60000,38500,40000,1.04,Satisfied
+946,Sultana Akter,SA,31,Data Analyst,Engineering,7,BSc,1,1,2,7,3,Advanced,14,10,5,2,43,30000,90000,57000,53500,0.94,Dissatisfied
+947,Rahim Uddin,RU,38,HR Manager,Human Resources,11,BSc,6,1,1,2,1,Basic,20,10,20,2,56,60000,150000,106000,108000,1.02,Satisfied
+948,Kamal Begum,KB,27,Customer Support Executive,Customer Support,3,MSc,2,3,4,6,9,Basic,6,15,10,6,56,18000,45000,32000,28500,0.89,Dissatisfied
+949,Ayesha Rahman,AR,33,QA Engineer,Engineering,9,BSc,0,4,6,7,5,Intermediate,18,10,0,8,54,28000,85000,60500,55000,0.91,Dissatisfied
+950,Nabila Islam,NI,34,Marketing Executive,Marketing,8,BSc,0,3,3,5,6,Intermediate,16,10,0,6,46,25000,70000,46500,50000,1.08,Dissatisfied
+951,Nusrat Hossain,NH,32,Graphic Designer,Design,10,BSc,6,1,6,5,9,Advanced,20,10,20,2,72,22000,60000,49500,57000,1.15,Satisfied
+952,Kamal Rahman,KR,29,HR Executive,Human Resources,4,MSc,3,2,6,5,6,Basic,8,15,15,4,59,25000,70000,48000,43000,0.9,Dissatisfied
+953,Kamal Sarker,KS,29,Project Manager,Operations,4,BSc,1,2,7,5,9,Advanced,8,10,5,4,48,80000,200000,136000,149500,1.1,Satisfied
+954,Sabrina Khan,SK,30,Finance Manager,Finance,3,MSc,0,2,5,8,5,Basic,6,15,0,4,43,70000,180000,125500,132000,1.05,Dissatisfied
+955,Faisal Uddin,FU,28,Sales Executive,Sales,5,MSc,4,0,1,7,6,Basic,10,15,20,0,59,20000,60000,42000,36000,0.86,Dissatisfied
+956,Rafiq Chowdhury,RC,29,QA Engineer,Engineering,6,Diploma,0,2,8,5,5,Advanced,12,5,0,4,39,28000,85000,48500,50000,1.03,Dissatisfied
+957,Nusrat Khan,NK,27,Project Manager,Operations,6,Diploma,3,3,7,5,10,Basic,12,5,15,6,60,80000,200000,145500,174500,1.2,Satisfied
+958,Farhana Rahman,FR,31,HR Executive,Human Resources,9,BSc,0,1,3,9,10,Intermediate,18,10,0,2,52,25000,70000,50000,49500,0.99,Dissatisfied
+959,Nusrat Ahmed,NA,24,Accountant,Finance,3,Diploma,2,4,5,5,6,Intermediate,6,5,10,8,45,25000,65000,43000,50000,1.16,Satisfied
+960,Sultana Chowdhury,SC,25,HR Manager,Human Resources,2,BSc,0,4,10,7,7,Intermediate,4,10,0,8,46,60000,150000,95000,100000,1.05,Dissatisfied
+961,Mim Chowdhury,MC,34,Project Manager,Operations,6,BSc,2,4,7,5,2,Fluent,12,10,10,8,54,80000,200000,143000,152500,1.07,Dissatisfied
+962,Nusrat Sarker,NS,28,Operations Manager,Operations,5,BSc,3,2,2,8,5,Advanced,10,10,15,4,54,60000,150000,105000,86500,0.82,Dissatisfied
+963,Mahmud Uddin,MU,26,Operations Manager,Operations,4,BSc,4,3,6,5,7,Fluent,8,10,20,6,62,60000,150000,118500,127500,1.08,Satisfied
+964,Sultana Uddin,SU,30,HR Manager,Human Resources,6,BSc,0,4,6,5,6,Basic,12,10,0,8,47,60000,150000,104000,89500,0.86,Dissatisfied
+965,Farhana Khan,FK,35,Operations Manager,Operations,9,BSc,0,1,4,8,8,Fluent,18,10,0,2,50,60000,150000,105000,108000,1.03,Satisfied
+966,Shakil Sarker,SS,24,QA Engineer,Engineering,2,BSc,0,4,8,8,6,Fluent,4,10,0,8,44,28000,85000,55000,58000,1.05,Satisfied
+967,Mahmud Sarker,MS,32,Project Manager,Operations,11,BSc,1,2,8,8,6,Advanced,20,10,5,4,61,80000,200000,142500,161500,1.13,Satisfied
+968,Rahim Akter,RA,24,Marketing Executive,Marketing,2,MSc,0,4,1,6,4,Advanced,4,15,0,8,38,25000,70000,44500,37500,0.84,Satisfied
+969,Shakil Uddin,SU,25,Graphic Designer,Design,2,BSc,2,0,8,5,6,Basic,4,10,10,0,43,22000,60000,39000,33500,0.86,Dissatisfied
+970,Nusrat Hossain,NH,31,Sales Executive,Sales,6,Diploma,1,2,2,6,6,Basic,12,5,5,4,40,20000,60000,37500,39500,1.05,Dissatisfied
+971,Farhana Begum,FB,37,Business Analyst,Strategy,12,MSc,1,0,2,9,9,Fluent,20,15,5,0,60,40000,110000,79500,89500,1.13,Dissatisfied
+972,Sadia Uddin,SU,31,Sales Executive,Sales,9,MSc,0,2,2,6,3,Intermediate,18,15,0,4,48,20000,60000,38500,36500,0.95,Dissatisfied
+973,Rafiq Islam,RI,32,Operations Manager,Operations,7,High School,2,2,8,7,8,Intermediate,14,0,10,4,51,60000,150000,103000,112500,1.09,Dissatisfied
+974,Sadia Khan,SK,29,Senior Software Engineer,Engineering,5,BSc,6,1,5,6,2,Intermediate,10,10,20,2,55,70000,180000,127000,135000,1.06,Satisfied
+975,Tania Akter,TA,24,Software Engineer,Engineering,1,High School,2,1,6,9,8,Intermediate,2,0,10,2,37,35000,120000,67500,60000,0.89,Dissatisfied
+976,Shakil Khan,SK,24,Business Analyst,Strategy,1,MSc,0,5,4,4,5,Fluent,2,15,0,10,40,40000,110000,70000,69000,0.99,Dissatisfied
+977,Nusrat Chowdhury,NC,32,Graphic Designer,Design,8,BSc,0,2,6,8,7,Basic,16,10,0,4,51,22000,60000,42000,46500,1.11,Satisfied
+978,Tanvir Ahmed,TA,29,Marketing Executive,Marketing,6,PhD,0,3,8,7,6,Advanced,12,20,0,6,59,25000,70000,51000,50500,0.99,Dissatisfied
+979,Sultana Chowdhury,SC,34,Senior Software Engineer,Engineering,7,Diploma,1,0,9,8,7,Advanced,14,5,5,0,48,70000,180000,123500,104500,0.85,Dissatisfied
+980,Ruma Uddin,RU,34,Accountant,Finance,9,Diploma,0,0,2,2,1,Basic,18,5,0,0,28,25000,65000,36500,36500,1.0,Dissatisfied
+981,Farhana Hossain,FH,31,Senior Software Engineer,Engineering,3,BSc,2,1,10,5,7,Intermediate,6,10,10,2,50,70000,180000,115500,105000,0.91,Dissatisfied
+982,Tania Khan,TK,34,Marketing Executive,Marketing,7,BSc,0,3,6,5,7,Intermediate,14,10,0,6,48,25000,70000,48000,50500,1.05,Dissatisfied
+983,Rafiq Chowdhury,RC,32,Marketing Executive,Marketing,11,BSc,2,2,3,7,7,Intermediate,20,10,10,4,61,25000,70000,51000,40500,0.79,Dissatisfied
+984,Sadia Akter,SA,26,Customer Support Executive,Customer Support,3,MSc,1,4,6,6,3,Advanced,6,15,5,8,49,18000,45000,32000,32500,1.02,Satisfied
+985,Kamal Islam,KI,28,Data Analyst,Engineering,4,MSc,6,1,7,5,5,Intermediate,8,15,20,2,62,30000,90000,68000,65500,0.96,Dissatisfied
+986,Sadia Sarker,SS,24,Marketing Executive,Marketing,2,BSc,5,3,4,7,8,Intermediate,4,10,20,6,59,25000,70000,52500,51500,0.98,Dissatisfied
+987,Tanvir Rahman,TR,27,Business Analyst,Strategy,3,MSc,1,5,4,5,5,Basic,6,15,5,10,50,40000,110000,75000,75500,1.01,Dissatisfied
+988,Rahim Khan,RK,27,Senior Software Engineer,Engineering,4,BSc,2,1,6,4,7,Intermediate,8,10,10,2,47,70000,180000,121500,98500,0.81,Dissatisfied
+989,Imran Akter,IA,40,Senior Software Engineer,Engineering,12,BSc,4,2,3,8,7,Fluent,20,10,20,4,72,70000,180000,159500,146000,0.92,Dissatisfied
+990,Sultana Khan,SK,27,Customer Support Executive,Customer Support,5,MSc,1,4,8,5,6,Basic,10,15,5,8,57,18000,45000,33500,34500,1.03,Satisfied
+991,Sabrina Begum,SB,30,Software Engineer,Engineering,4,BSc,0,0,3,1,4,Intermediate,8,10,0,0,26,35000,120000,60500,59000,0.98,Satisfied
+992,Imran Sarker,IS,24,HR Executive,Human Resources,3,Diploma,0,4,5,3,6,Intermediate,6,5,0,8,33,25000,70000,40500,39000,0.96,Dissatisfied
+993,Shakil Rahman,SR,31,Finance Manager,Finance,7,BSc,0,0,3,8,6,Fluent,14,10,0,0,41,70000,180000,114500,117500,1.03,Satisfied
+994,Shakil Ahmed,SA,26,HR Manager,Human Resources,3,Diploma,0,2,5,7,6,Basic,6,5,0,4,33,60000,150000,91000,105500,1.16,Satisfied
+995,Sultana Sarker,SS,38,Data Analyst,Engineering,13,BSc,4,4,1,6,8,Advanced,20,10,20,8,73,30000,90000,70500,63000,0.89,Satisfied
+996,Shakil Hossain,SH,24,Senior Software Engineer,Engineering,2,BSc,3,2,3,6,5,Intermediate,4,10,15,4,47,70000,180000,118000,106500,0.9,Satisfied
+997,Farhana Uddin,FU,30,HR Executive,Human Resources,8,PhD,0,3,2,8,4,Advanced,16,20,0,6,56,25000,70000,47000,49000,1.04,Dissatisfied
+998,Ruma Khan,RK,30,Graphic Designer,Design,8,MSc,2,3,5,6,8,Advanced,16,15,10,6,66,22000,60000,43500,43000,0.99,Satisfied
+999,Kamal Chowdhury,KC,37,Graphic Designer,Design,12,MSc,3,2,9,3,6,Advanced,20,15,15,4,72,22000,60000,45500,52500,1.15,Satisfied
+1000,Shakil Sarker,SS,30,Operations Manager,Operations,4,MSc,1,2,7,2,3,Fluent,8,15,5,4,44,60000,150000,104000,100500,0.97,Dissatisfied
