@@ -101,3 +101,48 @@ class EmployeeDetailTests(TestCase):
         target = data.get_roster()[0]
         response = self.client.get(reverse("compensation:employee_detail", args=[target["employee_id"]]))
         self.assertEqual(response.status_code, 302)
+
+
+class PredictProfileTests(TestCase):
+    def setUp(self):
+        self.client.login(username="hr_admin", password="buscom-hr-2026")
+
+    def valid_payload(self, **overrides):
+        payload = {
+            "job_role": "Software Engineer",
+            "age": 28,
+            "experience_years": 5,
+            "education_level": "BSc",
+            "publications_count": 0,
+            "projects_led_count": 2,
+            "training_score": 7,
+            "skills_score": 7,
+            "boss_assessment_score": 6,
+            "language_proficiency": "Advanced",
+        }
+        payload.update(overrides)
+        return payload
+
+    def test_get_shows_empty_form(self):
+        response = self.client.get(reverse("compensation:predict_profile"))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Predicted Fair Salary")
+
+    def test_post_valid_profile_shows_prediction_without_satisfaction(self):
+        response = self.client.post(reverse("compensation:predict_profile"), self.valid_payload())
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Predicted Fair Salary")
+        self.assertNotContains(response, "Predicted Satisfaction")
+
+    def test_post_with_proposed_salary_shows_satisfaction(self):
+        response = self.client.post(
+            reverse("compensation:predict_profile"),
+            self.valid_payload(proposed_salary=60000),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Predicted Satisfaction")
+
+    def test_invalid_profile_shows_errors(self):
+        response = self.client.post(reverse("compensation:predict_profile"), {"job_role": "Software Engineer"})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Please correct the errors below.")
