@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
+from dashboard.mock_data import PAYSLIPS
+
 
 class AuthFlowTests(TestCase):
     def test_root_redirects_anonymous_user_to_login(self):
@@ -11,14 +13,12 @@ class AuthFlowTests(TestCase):
     def test_hr_login_redirects_to_dashboard_path(self):
         self.client.login(username="hr_admin", password="buscom-hr-2026")
         response = self.client.get(reverse("root"))
-        # /dashboard/ isn't routed until Task 7, so don't follow the redirect.
-        self.assertRedirects(response, "/dashboard/", fetch_redirect_response=False)
+        self.assertRedirects(response, reverse("hr_dashboard"))
 
     def test_employee_login_redirects_to_self_service_path(self):
         self.client.login(username="amara_okafor", password="buscom-emp-2026")
         response = self.client.get(reverse("root"))
-        # /me/ isn't routed until Task 9, so don't follow the redirect.
-        self.assertRedirects(response, "/me/", fetch_redirect_response=False)
+        self.assertRedirects(response, reverse("employee_self_service"))
 
     def test_login_page_renders(self):
         response = self.client.get(reverse("login"))
@@ -32,6 +32,26 @@ class AuthFlowTests(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Invalid username or password")
+
+    def test_next_param_is_honored_over_role_default(self):
+        target = reverse("payslip_detail", args=[1])
+        response = self.client.post(
+            f"{reverse('login')}?next={target}",
+            {"username": "amara_okafor", "password": "buscom-emp-2026"},
+        )
+        self.assertRedirects(response, target)
+
+    def test_login_without_next_falls_back_to_role_default(self):
+        response = self.client.post(
+            reverse("login"),
+            {"username": "hr_admin", "password": "buscom-hr-2026"},
+        )
+        self.assertRedirects(response, reverse("hr_dashboard"))
+
+    def test_authenticated_user_visiting_login_is_redirected(self):
+        self.client.login(username="amara_okafor", password="buscom-emp-2026")
+        response = self.client.get(reverse("login"))
+        self.assertRedirects(response, reverse("employee_self_service"))
 
 
 class UserRoleTests(TestCase):
@@ -84,6 +104,24 @@ class PayslipDetailTests(TestCase):
         response = self.client.get("/me/payslips/999/")
         self.assertEqual(response.status_code, 404)
 
+    def test_other_employees_payslip_returns_404(self):
+        other_payslip = {
+            "id": 9001,
+            "employee_id": 2,
+            "period": "July 2026",
+            "gross": 6000.00,
+            "deductions": 900.00,
+            "net": 5100.00,
+            "breakdown": [{"label": "Base Salary", "amount": 6000.00}],
+        }
+        PAYSLIPS.append(other_payslip)
+        try:
+            self.client.login(username="amara_okafor", password="buscom-emp-2026")
+            response = self.client.get(reverse("payslip_detail", args=[other_payslip["id"]]))
+            self.assertEqual(response.status_code, 404)
+        finally:
+            PAYSLIPS.remove(other_payslip)
+
 
 class EmployeeSelfServiceTests(TestCase):
     def test_requires_login(self):
@@ -97,3 +135,12 @@ class EmployeeSelfServiceTests(TestCase):
         self.assertTemplateUsed(response, "dashboard/employee_self_service.html")
         self.assertContains(response, "Senior Backend Engineer")
         self.assertContains(response, "June 2026")
+
+    def test_user_with_no_matching_employee_sees_empty_state(self):
+        self.client.login(username="hr_admin", password="buscom-hr-2026")
+        response = self.client.get(reverse("employee_self_service"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "dashboard/empty_state.html")
+        self.assertNotContains(response, "Amara Okafor")
+        self.assertNotContains(response, "95000")
+        self.assertContains(response, "No employee record is linked to your account yet.")
