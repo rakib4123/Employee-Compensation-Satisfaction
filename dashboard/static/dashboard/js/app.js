@@ -1,4 +1,28 @@
 document.addEventListener("alpine:init", () => {
+  Alpine.data("employeeDirectory", (initialEmployees) => ({
+    employees: initialEmployees,
+    query: "",
+    loading: true,
+    formError: "",
+    showModal: false,
+    get filtered() {
+      const q = this.query.trim().toLowerCase();
+      if (!q) return this.employees;
+      return this.employees.filter(
+        (e) =>
+          e.name.toLowerCase().includes(q) ||
+          e.designation.toLowerCase().includes(q) ||
+          e.department.toLowerCase().includes(q)
+      );
+    },
+    init() {
+      setTimeout(() => {
+        this.loading = false;
+        this.$nextTick(() => staggerRows(this.$refs.tbody));
+      }, 400);
+    },
+  }));
+
   Alpine.data("toast", () => ({
     items: [],
     add(message) {
