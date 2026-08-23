@@ -27,7 +27,6 @@
 BusCom/
 ├── manage.py
 ├── requirements.txt
-├── tailwind.config.js
 ├── .gitignore
 ├── buscom/                      # Django project config
 │   ├── __init__.py
@@ -339,13 +338,14 @@ git commit -m "feat: add custom User model with role field and seed demo users"
 
 ### Task 3: Tailwind CSS Setup (Standalone CLI)
 
+*(The standalone CLI's `latest` release is Tailwind v4, which uses CSS-native configuration — no `tailwind.config.js`, and no `@tailwind base/components/utilities` directives. Verified empirically: v3-style JS config is silently ignored by v4, which would leave every later template completely unstyled, and v4's `dark:` variant defaults to the OS `prefers-color-scheme` media query rather than a `.dark` class toggle unless overridden — which would break the theme toggle every later task's templates depend on. Use the v4-native syntax below.)*
+
 **Files:**
-- Create: `tailwind.config.js`
 - Create: `dashboard/static/dashboard/css/input.css`
 - Create: `dashboard/static/dashboard/css/output.css` (build output)
 
 **Interfaces:**
-- Produces: static asset `dashboard/css/output.css`, referenced by templates from Task 4 onward via `{% static 'dashboard/css/output.css' %}`.
+- Produces: static asset `dashboard/css/output.css`, referenced by templates from Task 4 onward via `{% static 'dashboard/css/output.css' %}`. The `.dark` class on `<html>` (toggled by Task 4's Alpine state) drives `dark:`-prefixed utilities.
 
 - [ ] **Step 1: Download the Tailwind standalone CLI binary**
 
@@ -353,57 +353,46 @@ git commit -m "feat: add custom User model with role field and seed demo users"
 cd /home/dextro/Desktop/BusCom
 curl -sLo tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64
 chmod +x tailwindcss
+./tailwindcss --help | head -3
 ```
 
-- [ ] **Step 2: Configure Tailwind's content scan paths**
+Confirm the version line printed starts with `≈ tailwindcss v4` — if it prints a `v3` version instead, use the v3-style config from this task's git history / plan revision instead of the steps below (ask the controller if unsure which applies).
 
-Create `tailwind.config.js`:
-
-```js
-module.exports = {
-  content: ["./dashboard/templates/**/*.html"],
-  darkMode: "class",
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-};
-```
-
-- [ ] **Step 3: Write the Tailwind source file**
+- [ ] **Step 2: Write the Tailwind source file (v4-native)**
 
 Create `dashboard/static/dashboard/css/input.css`:
 
 ```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 [x-cloak] {
   display: none !important;
 }
 ```
 
-- [ ] **Step 4: Build the CSS output**
+`@import "tailwindcss"` pulls in Tailwind's base/components/utilities layers and enables v4's automatic content detection (it scans the project directory for template files referencing utility classes — no `content` array needed). `@custom-variant dark (&:where(.dark, .dark *));` makes `dark:`-prefixed utilities respond to a `.dark` class on an ancestor element (matching this project's toggle design) instead of the `prefers-color-scheme` media query.
+
+- [ ] **Step 3: Build the CSS output**
 
 ```bash
 mkdir -p dashboard/static/dashboard/css
 ./tailwindcss -i ./dashboard/static/dashboard/css/input.css -o ./dashboard/static/dashboard/css/output.css --minify
 ```
 
-- [ ] **Step 5: Verify the build output exists and is non-trivial**
+- [ ] **Step 4: Verify the build output exists and is non-trivial**
 
 Run: `wc -l dashboard/static/dashboard/css/output.css`
-Expected: a non-empty, minified CSS file (hundreds+ of lines minified onto few lines)
+Expected: a non-empty, minified CSS file (Tailwind's preflight/base styles alone produce hundreds of lines minified onto few lines — there are no templates with utility classes yet, so no utility rules are expected in this task's output, only base styles and the `[x-cloak]` rule).
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
-git add tailwind.config.js dashboard/static/dashboard/css/input.css dashboard/static/dashboard/css/output.css
+git add dashboard/static/dashboard/css/input.css dashboard/static/dashboard/css/output.css
 git commit -m "chore: add Tailwind CSS build via standalone CLI"
 ```
 
-*Note: re-run the Step 4 build command any time template class names change, throughout later tasks.*
+*Note: re-run the Step 3 build command any time template class names change, throughout later tasks.*
 
 ---
 
