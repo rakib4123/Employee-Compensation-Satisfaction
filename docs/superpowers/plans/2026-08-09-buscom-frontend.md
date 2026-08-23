@@ -1627,10 +1627,16 @@ Expected: styled "Page not found" screen, not Django's default debug traceback.
 
 Revert `DEBUG` back to `True` afterward for continued local development.
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 4: Rebuild Tailwind CSS**
 
 ```bash
-git add dashboard/templates/404.html dashboard/templates/500.html
+./tailwindcss -i ./dashboard/static/dashboard/css/input.css -o ./dashboard/static/dashboard/css/output.css --minify
+```
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add dashboard/templates/404.html dashboard/templates/500.html dashboard/static/dashboard/css/output.css
 git commit -m "feat: add styled 404 and 500 error pages"
 ```
 
