@@ -6,6 +6,7 @@ from django.shortcuts import render
 from dashboard.views import _is_hr
 
 from . import data
+from .forms import PredictProfileForm
 
 SORT_FIELDS = {
     "name": lambda row: row["name"],
@@ -71,4 +72,25 @@ def employee_detail(request, employee_id):
         "employee": employee,
         "card": employee,
         "salary_label": "Actual salary",
+    })
+
+
+@login_required
+@user_passes_test(_is_hr, login_url="employee_self_service")
+def predict_profile(request):
+    result = None
+    if request.method == "POST":
+        form = PredictProfileForm(request.POST)
+        if form.is_valid():
+            result = data.predict_profile(form.cleaned_data)
+            if result.get("proposed_salary"):
+                result["actual_salary"] = result["proposed_salary"]
+    else:
+        form = PredictProfileForm()
+
+    return render(request, "compensation/predict.html", {
+        "form": form,
+        "result": result,
+        "card": result,
+        "salary_label": "Proposed salary",
     })

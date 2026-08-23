@@ -6,5 +6,6 @@ app_name = "compensation"
 
 urlpatterns = [
     path("", views.audit_dashboard, name="audit_dashboard"),
+    path("predict/", views.predict_profile, name="predict_profile"),
     path("<int:employee_id>/", views.employee_detail, name="employee_detail"),
 ]

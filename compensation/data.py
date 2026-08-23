@@ -213,3 +213,43 @@ def get_employee_detail(employee_id):
         "regression_top_factors": regression_factors,
         "classification_top_factors": classification_factors,
     }
+
+
+def predict_profile(profile):
+    job_role = profile["job_role"]
+    department, market_min, market_max = next(
+        (dept, mn, mx) for role, dept, mn, mx in JOB_ROLES if role == job_role
+    )
+    row = {**profile, "department": department}
+    row_df = pd.DataFrame([row])
+
+    regression_pipeline, classification_pipeline = _get_pipelines()
+    predicted_salary = round(float(_predict_salary(regression_pipeline, row_df)[0]))
+    regression_factors = top_factors(regression_pipeline, row_df[CATEGORICAL_FEATURES + NUMERIC_FEATURES])
+
+    result = {
+        "job_role": job_role,
+        "department": department,
+        "market_min_salary": market_min,
+        "market_max_salary": market_max,
+        "predicted_salary": predicted_salary,
+        "market_position_pct": market_position_pct(predicted_salary, market_min, market_max),
+        "scorecard": compute_scorecard(row),
+        "regression_top_factors": regression_factors,
+        "proposed_salary": profile.get("proposed_salary"),
+    }
+
+    if profile.get("proposed_salary"):
+        clf_row = row_df.copy()
+        clf_row["actual_salary"] = profile["proposed_salary"]
+        clf_row["expected_salary"] = predicted_salary
+        probability = round(float(_predict_satisfaction(classification_pipeline, clf_row)[0]), 2)
+        result["satisfaction_probability"] = probability
+        result["predicted_satisfaction"] = "Satisfied" if probability >= 0.5 else "Dissatisfied"
+        result["risk_level"] = risk_level(probability)
+        result["gap_pct"] = round((profile["proposed_salary"] - predicted_salary) / predicted_salary * 100, 1)
+        result["classification_top_factors"] = top_factors(
+            classification_pipeline, clf_row[CATEGORICAL_FEATURES + NUMERIC_FEATURES + CLASSIFICATION_EXTRA_NUMERIC]
+        )
+
+    return result
