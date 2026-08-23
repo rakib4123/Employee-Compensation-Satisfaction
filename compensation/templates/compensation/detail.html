@@ -1,10 +1,10 @@
 {% extends "dashboard/base.html" %}
-{% block title %}{{ employee.name }} — Compensation — BusCom{% endblock %}
+{% block title %}{{ employee.name }} — Compensation — DRIKON TECH{% endblock %}
 {% block content %}
 <div class="max-w-4xl mx-auto" x-data x-init="fadeInPage($el)">
-  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6 mb-6">
+  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6 mb-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
     <div class="flex items-center gap-3 mb-4">
-      <span class="w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 flex items-center justify-center font-medium">
+      <span class="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-400 to-indigo-600 text-white flex items-center justify-center font-medium shadow-sm">
         {{ employee.initials }}
       </span>
       <div>

@@ -1,10 +1,13 @@
 {% extends "dashboard/base.html" %}
-{% block title %}Sign in — BusCom{% endblock %}
+{% block title %}Sign in — DRIKON TECH{% endblock %}
 {% block guest_content %}
-<div class="w-full max-w-sm bg-white dark:bg-slate-800 rounded-xl shadow p-8"
+<div class="w-full max-w-sm bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl border border-white/40 border-t-white/80 dark:border-slate-700/40 dark:border-t-slate-500/50 rounded-[2rem] shadow-2xl p-10 relative z-10"
      x-data x-init="fadeInPage($el); {% if form.errors %}shakeElement($el){% endif %}">
-  <h1 class="text-2xl font-semibold mb-1">BusCom</h1>
-  <p class="text-slate-500 text-sm mb-6">Sign in to manage your payroll.</p>
+  <a href="#" onclick="location.reload(); return false;" class="block hover:opacity-80 transition cursor-pointer">
+    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex items-center justify-center font-bold text-xl shadow-lg mb-6 mx-auto">D</div>
+    <h1 class="text-2xl font-semibold mb-1 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">DRIKON TECH</h1>
+  </a>
+  <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 text-center">Sign in to manage your payroll.</p>
   {% if form.errors %}
     <p class="text-red-500 text-sm mb-4">Invalid username or password.</p>
   {% endif %}
@@ -16,7 +19,7 @@
     <label class="block text-sm font-medium mb-1" for="id_password">Password</label>
     <input class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent px-3 py-2 mb-6 focus:outline-none focus:ring-2 focus:ring-indigo-500"
            type="password" name="password" id="id_password" required>
-    <button class="w-full rounded-lg bg-indigo-600 hover:bg-indigo-500 active:scale-[0.98] transition text-white font-medium py-2" type="submit">
+    <button class="w-full rounded-xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-500 hover:to-fuchsia-500 shadow-lg shadow-indigo-500/30 active:scale-[0.98] transition-all text-white font-medium py-2.5 mt-2" type="submit">
       Sign in
     </button>
   </form>

@@ -9,8 +9,8 @@ def seed_demo_users(apps, schema_editor):
             email="hr@buscom.test",
             password="buscom-hr-2026",
             role="hr",
-            first_name="Priya",
-            last_name="Sharma",
+            first_name="Md. Rakib",
+            last_name="Hossain",
         )
     if not User.objects.filter(username="amara_okafor").exists():
         User.objects.create_user(
