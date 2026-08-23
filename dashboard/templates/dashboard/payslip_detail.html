@@ -1,0 +1,30 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Payslip — BusCom{% endblock %}
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white dark:bg-slate-800 rounded-xl shadow p-8 print:shadow-none print:border-none">
+  <div class="flex justify-between items-start mb-6">
+    <div>
+      <h1 class="text-xl font-semibold">Payslip &mdash; {{ payslip.period }}</h1>
+      <p class="text-slate-500 text-sm">BusCom Payroll</p>
+    </div>
+    <button onclick="window.print()" type="button"
+            class="print:hidden rounded-lg border border-slate-300 dark:border-slate-600 px-3 py-1.5 text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+      Print
+    </button>
+  </div>
+  <table class="w-full text-sm mb-6">
+    <tbody>
+      {% for item in payslip.breakdown %}
+      <tr class="border-b border-slate-100 dark:border-slate-700">
+        <td class="py-2">{{ item.label }}</td>
+        <td class="py-2 text-right {% if item.amount < 0 %}text-red-500{% endif %}">{{ item.amount }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="flex justify-between text-base font-semibold border-t border-slate-200 dark:border-slate-700 pt-4">
+    <span>Net Pay</span>
+    <span>${{ payslip.net }}</span>
+  </div>
+</div>
+{% endblock %}

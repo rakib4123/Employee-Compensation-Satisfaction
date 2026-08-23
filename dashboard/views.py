@@ -1,8 +1,9 @@
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.http import Http404
 from django.shortcuts import redirect, render
 
-from .mock_data import EMPLOYEES
+from .mock_data import EMPLOYEES, PAYSLIPS
 from .models import User
 
 
@@ -39,3 +40,11 @@ def hr_dashboard(request):
         "total_payroll": total_payroll,
         "avg_salary": avg_salary,
     })
+
+
+@login_required
+def payslip_detail(request, payslip_id):
+    payslip = next((p for p in PAYSLIPS if p["id"] == payslip_id), None)
+    if payslip is None:
+        raise Http404("Payslip not found.")
+    return render(request, "dashboard/payslip_detail.html", {"payslip": payslip})

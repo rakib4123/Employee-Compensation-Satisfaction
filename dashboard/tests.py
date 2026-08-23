@@ -65,3 +65,21 @@ class HrDashboardTests(TestCase):
         self.client.login(username="amara_okafor", password="buscom-emp-2026")
         response = self.client.get("/dashboard/")
         self.assertEqual(response.status_code, 302)
+
+
+class PayslipDetailTests(TestCase):
+    def test_requires_login(self):
+        response = self.client.get("/me/payslips/1/")
+        self.assertEqual(response.status_code, 302)
+
+    def test_shows_itemized_breakdown(self):
+        self.client.login(username="amara_okafor", password="buscom-emp-2026")
+        response = self.client.get("/me/payslips/1/")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "dashboard/payslip_detail.html")
+        self.assertContains(response, "Base Salary")
+
+    def test_missing_payslip_returns_404(self):
+        self.client.login(username="amara_okafor", password="buscom-emp-2026")
+        response = self.client.get("/me/payslips/999/")
+        self.assertEqual(response.status_code, 404)
