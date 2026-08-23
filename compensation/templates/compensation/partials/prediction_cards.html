@@ -1,0 +1,72 @@
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6">
+    <h2 class="font-semibold mb-4">Compensation Scorecard</h2>
+    <div class="space-y-2 text-sm">
+      {% for category in card.scorecard.categories %}
+      <div>
+        <div class="flex justify-between mb-1">
+          <span class="text-slate-500">{{ category.label }}</span>
+          <span>{{ category.score }} / {{ category.max }}</span>
+        </div>
+        <div class="h-1.5 rounded-full bg-slate-100 dark:bg-slate-700">
+          <div class="h-1.5 rounded-full bg-indigo-500" style="width: {% widthratio category.score category.max 100 %}%"></div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="flex justify-between text-sm font-semibold border-t border-slate-200 dark:border-slate-700 pt-3 mt-3">
+      <span>Total</span>
+      <span>{{ card.scorecard.total }} / {{ card.scorecard.max_total }}</span>
+    </div>
+  </div>
+
+  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6">
+    <h2 class="font-semibold mb-4">Predicted Fair Salary</h2>
+    <p class="text-3xl font-semibold mb-1">৳{{ card.predicted_salary }}</p>
+    <p class="text-sm text-slate-500 mb-4">Market band: ৳{{ card.market_min_salary }} – ৳{{ card.market_max_salary }}</p>
+    <div class="relative h-2 rounded-full bg-slate-100 dark:bg-slate-700 mb-4">
+      <div class="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-slate-400" style="left: {{ card.market_position_pct }}%"></div>
+    </div>
+    {% if card.actual_salary %}
+    <div class="flex justify-between text-sm">
+      <span class="text-slate-500">{{ salary_label }}</span>
+      <span>৳{{ card.actual_salary }}</span>
+    </div>
+    <div class="flex justify-between text-sm">
+      <span class="text-slate-500">Gap</span>
+      <span class="{% if card.gap_pct < 0 %}text-red-500{% else %}text-emerald-600{% endif %}">{{ card.gap_pct }}%</span>
+    </div>
+    {% endif %}
+    {% if card.regression_top_factors %}
+    <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+      <p class="text-sm text-slate-500 mb-2">Top factors</p>
+      <ul class="text-sm space-y-1">
+        {% for factor in card.regression_top_factors %}
+        <li>{{ factor.label }} <span class="{% if factor.direction == '+' %}text-emerald-600{% else %}text-red-500{% endif %}">({{ factor.direction }})</span></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% if card.satisfaction_probability %}
+<div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6 mb-6">
+  <h2 class="font-semibold mb-4">Predicted Satisfaction</h2>
+  <div class="flex items-center gap-3 mb-4">
+    {% if card.risk_level == "low" %}
+    <span class="rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300 text-xs px-2 py-0.5">Likely satisfied</span>
+    {% elif card.risk_level == "medium" %}
+    <span class="rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300 text-xs px-2 py-0.5">Uncertain</span>
+    {% else %}
+    <span class="rounded-full bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300 text-xs px-2 py-0.5">At risk</span>
+    {% endif %}
+    <span class="text-sm text-slate-500">{{ card.predicted_satisfaction }} ({{ card.satisfaction_probability }} probability)</span>
+  </div>
+  <ul class="text-sm space-y-1">
+    {% for factor in card.classification_top_factors %}
+    <li>{{ factor.label }} <span class="{% if factor.direction == '+' %}text-emerald-600{% else %}text-red-500{% endif %}">({{ factor.direction }})</span></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}

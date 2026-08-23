@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator
+from django.http import Http404
 from django.shortcuts import render
 
 from dashboard.views import _is_hr
@@ -57,4 +58,17 @@ def audit_dashboard(request):
         "underpaid_count": underpaid_count,
         "at_risk_count": at_risk_count,
         "base_query": base_params.urlencode(),
+    })
+
+
+@login_required
+@user_passes_test(_is_hr, login_url="employee_self_service")
+def employee_detail(request, employee_id):
+    employee = data.get_employee_detail(employee_id)
+    if employee is None:
+        raise Http404("Employee not found.")
+    return render(request, "compensation/detail.html", {
+        "employee": employee,
+        "card": employee,
+        "salary_label": "Actual salary",
     })

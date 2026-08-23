@@ -1,0 +1,29 @@
+{% extends "dashboard/base.html" %}
+{% block title %}{{ employee.name }} — Compensation — BusCom{% endblock %}
+{% block content %}
+<div class="max-w-4xl mx-auto" x-data x-init="fadeInPage($el)">
+  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6 mb-6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 flex items-center justify-center font-medium">
+        {{ employee.initials }}
+      </span>
+      <div>
+        <p class="font-semibold">{{ employee.name }}</p>
+        <p class="text-sm text-slate-500">{{ employee.job_role }} &middot; {{ employee.department }}</p>
+      </div>
+    </div>
+    <dl class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
+      <div><dt class="text-slate-500">Age</dt><dd>{{ employee.age }}</dd></div>
+      <div><dt class="text-slate-500">Experience</dt><dd>{{ employee.experience_years }} yrs</dd></div>
+      <div><dt class="text-slate-500">Education</dt><dd>{{ employee.education_level }}</dd></div>
+      <div><dt class="text-slate-500">Language</dt><dd>{{ employee.language_proficiency }}</dd></div>
+      <div><dt class="text-slate-500">Publications</dt><dd>{{ employee.publications_count }}</dd></div>
+      <div><dt class="text-slate-500">Projects led</dt><dd>{{ employee.projects_led_count }}</dd></div>
+      <div><dt class="text-slate-500">Training score</dt><dd>{{ employee.training_score }} / 10</dd></div>
+      <div><dt class="text-slate-500">Skills score</dt><dd>{{ employee.skills_score }} / 10</dd></div>
+    </dl>
+  </div>
+
+  {% include "compensation/partials/prediction_cards.html" %}
+</div>
+{% endblock %}
