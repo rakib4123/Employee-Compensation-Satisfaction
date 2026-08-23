@@ -8,4 +8,5 @@ urlpatterns = [
     path("login/", views.RoleLoginView.as_view(), name="login"),
     path("logout/", auth_views.LogoutView.as_view(next_page="login"), name="logout"),
     path("dashboard/", views.hr_dashboard, name="hr_dashboard"),
+    path("me/payslips/<int:payslip_id>/", views.payslip_detail, name="payslip_detail"),
 ]
