@@ -27,7 +27,7 @@ from ml.generate_dataset import (
     project_score,
     publication_score,
 )
-from ml.train_models import CATEGORICAL_FEATURES, CLASSIFICATION_EXTRA_NUMERIC, NUMERIC_FEATURES
+from ml.features import CATEGORICAL_FEATURES, CLASSIFICATION_EXTRA_NUMERIC, NUMERIC_FEATURES
 
 INT_FIELDS = [
     "employee_id", "age", "experience_years", "publications_count",
@@ -94,6 +94,13 @@ def risk_level(probability):
     if probability >= 0.4:
         return "medium"
     return "high"
+
+
+SATISFACTION_LABELS = {"low": "Satisfied", "medium": "Uncertain", "high": "Dissatisfied"}
+
+
+def satisfaction_label(level):
+    return SATISFACTION_LABELS[level]
 
 
 def compute_scorecard(row):
@@ -169,14 +176,15 @@ def _build_roster():
     for row, salary, probability in zip(rows, predicted_salary, satisfaction_probability):
         predicted = round(float(salary))
         probability = round(float(probability), 2)
+        level = risk_level(probability)
         roster.append({
             **row,
             "predicted_salary": predicted,
             "gap_pct": round((row["actual_salary"] - predicted) / predicted * 100, 1),
             "market_position_pct": market_position_pct(predicted, row["market_min_salary"], row["market_max_salary"]),
             "satisfaction_probability": probability,
-            "predicted_satisfaction": "Satisfied" if probability >= 0.5 else "Dissatisfied",
-            "risk_level": risk_level(probability),
+            "predicted_satisfaction": satisfaction_label(level),
+            "risk_level": level,
             "scorecard": compute_scorecard(row),
         })
     return roster
@@ -245,8 +253,9 @@ def predict_profile(profile):
         clf_row["expected_salary"] = predicted_salary
         probability = round(float(_predict_satisfaction(classification_pipeline, clf_row)[0]), 2)
         result["satisfaction_probability"] = probability
-        result["predicted_satisfaction"] = "Satisfied" if probability >= 0.5 else "Dissatisfied"
-        result["risk_level"] = risk_level(probability)
+        level = risk_level(probability)
+        result["predicted_satisfaction"] = satisfaction_label(level)
+        result["risk_level"] = level
         result["gap_pct"] = round((profile["proposed_salary"] - predicted_salary) / predicted_salary * 100, 1)
         result["classification_top_factors"] = top_factors(
             classification_pipeline, clf_row[CATEGORICAL_FEATURES + NUMERIC_FEATURES + CLASSIFICATION_EXTRA_NUMERIC]

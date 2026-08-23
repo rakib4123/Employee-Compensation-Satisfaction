@@ -1,3 +1,4 @@
+{% load humanize %}
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
   <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6">
     <h2 class="font-semibold mb-4">Compensation Scorecard</h2>
@@ -22,15 +23,15 @@
 
   <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6">
     <h2 class="font-semibold mb-4">Predicted Fair Salary</h2>
-    <p class="text-3xl font-semibold mb-1">৳{{ card.predicted_salary }}</p>
-    <p class="text-sm text-slate-500 mb-4">Market band: ৳{{ card.market_min_salary }} – ৳{{ card.market_max_salary }}</p>
+    <p class="text-3xl font-semibold mb-1">৳{{ card.predicted_salary|intcomma }}</p>
+    <p class="text-sm text-slate-500 mb-4">Market band: ৳{{ card.market_min_salary|intcomma }} – ৳{{ card.market_max_salary|intcomma }}</p>
     <div class="relative h-2 rounded-full bg-slate-100 dark:bg-slate-700 mb-4">
       <div class="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-slate-400" style="left: {{ card.market_position_pct }}%"></div>
     </div>
     {% if card.actual_salary is not None %}
     <div class="flex justify-between text-sm">
       <span class="text-slate-500">{{ salary_label }}</span>
-      <span>৳{{ card.actual_salary }}</span>
+      <span>৳{{ card.actual_salary|intcomma }}</span>
     </div>
     <div class="flex justify-between text-sm">
       <span class="text-slate-500">Gap</span>
