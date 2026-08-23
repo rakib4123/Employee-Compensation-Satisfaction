@@ -154,3 +154,15 @@ class PredictProfileTests(TestCase):
         response = self.client.post(reverse("compensation:predict_profile"), {"job_role": "Software Engineer"})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Please correct the errors below.")
+
+
+class SidebarLinkTests(TestCase):
+    def test_hr_sees_compensation_link(self):
+        self.client.login(username="hr_admin", password="buscom-hr-2026")
+        response = self.client.get(reverse("hr_dashboard"))
+        self.assertContains(response, "Compensation Insights")
+
+    def test_employee_does_not_see_compensation_link(self):
+        self.client.login(username="amara_okafor", password="buscom-emp-2026")
+        response = self.client.get(reverse("employee_self_service"))
+        self.assertNotContains(response, "Compensation Insights")
