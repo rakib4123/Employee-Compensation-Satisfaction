@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en"
+      x-data="{ dark: localStorage.getItem('theme') === 'dark' }"
+      x-init="$watch('dark', v => localStorage.setItem('theme', v ? 'dark' : 'light'))"
+      :class="{ 'dark': dark }">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}BusCom{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'dashboard/css/output.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="{% static 'dashboard/js/motion.js' %}"></script>
+  <script src="{% static 'dashboard/js/app.js' %}"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen">
+  {% if user.is_authenticated %}
+  <div class="flex h-screen overflow-hidden">
+    {% include "dashboard/partials/sidebar.html" %}
+    <div class="flex-1 flex flex-col overflow-hidden">
+      {% include "dashboard/partials/topbar.html" %}
+      <main class="flex-1 overflow-y-auto p-6" x-data x-init="fadeInPage($el)">
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </div>
+  <div x-data="toast()" @toast.window="add($event.detail.message)"
+       class="fixed top-4 right-4 space-y-2 z-50 print:hidden">
+    <template x-for="t in items" :key="t.id">
+      <div :data-toast-id="t.id"
+           class="rounded-lg bg-slate-900 text-white text-sm px-4 py-2 shadow-lg">
+        <span x-text="t.message"></span>
+      </div>
+    </template>
+  </div>
+  {% else %}
+  <main class="flex items-center justify-center min-h-screen p-6">
+    {% block guest_content %}{% endblock %}
+  </main>
+  {% endif %}
+</body>
+</html>
