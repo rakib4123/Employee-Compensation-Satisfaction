@@ -1,0 +1,92 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Sign up — BusCom{% endblock %}
+{% block guest_content %}
+<div class="w-full max-w-md bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl border border-white/40 border-t-white/80 dark:border-slate-700/40 dark:border-t-slate-500/50 shadow-2xl p-8 rounded-3xl"
+     x-data x-init="fadeInPage($el); {% if form.errors %}shakeElement($el){% endif %}">
+  <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-fuchsia-600 dark:from-indigo-400 dark:to-fuchsia-400 mb-1 tracking-tight">BusCom</h1>
+  <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Register a new employee account.</p>
+  
+  {% if form.errors %}
+    <div class="mb-4 p-3 rounded-lg bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-sm border border-red-200 dark:border-red-800">
+      Please correct the errors below.
+      {% if form.non_field_errors %}
+        <ul class="mt-2 list-disc list-inside">
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  {% endif %}
+  
+  <form method="post" class="space-y-4">
+    {% csrf_token %}
+    
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_first_name">First Name</label>
+        <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+               type="text" name="first_name" id="id_first_name" required>
+        {% if form.first_name.errors %}<p class="text-red-500 text-xs mt-1">{{ form.first_name.errors.0 }}</p>{% endif %}
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_last_name">Last Name</label>
+        <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+               type="text" name="last_name" id="id_last_name" required>
+        {% if form.last_name.errors %}<p class="text-red-500 text-xs mt-1">{{ form.last_name.errors.0 }}</p>{% endif %}
+      </div>
+    </div>
+    
+    <div>
+      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_email">Email</label>
+      <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+             type="email" name="email" id="id_email" required>
+      {% if form.email.errors %}<p class="text-red-500 text-xs mt-1">{{ form.email.errors.0 }}</p>{% endif %}
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_username">Username</label>
+      <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+             type="text" name="username" id="id_username" required>
+      {% if form.username.errors %}<p class="text-red-500 text-xs mt-1">{{ form.username.errors.0 }}</p>{% endif %}
+    </div>
+    
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_designation">Job Role</label>
+        <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+               type="text" name="designation" id="id_designation" placeholder="e.g. Engineer" required>
+        {% if form.designation.errors %}<p class="text-red-500 text-xs mt-1">{{ form.designation.errors.0 }}</p>{% endif %}
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_department">Department</label>
+        <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+               type="text" name="department" id="id_department" placeholder="e.g. Engineering" required>
+        {% if form.department.errors %}<p class="text-red-500 text-xs mt-1">{{ form.department.errors.0 }}</p>{% endif %}
+      </div>
+    </div>
+    
+    <div>
+      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_password1">Password</label>
+      <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+             type="password" name="password1" id="id_password1" required>
+      {% if form.password1.errors %}<p class="text-red-500 text-xs mt-1">{{ form.password1.errors.0 }}</p>{% endif %}
+    </div>
+    
+    <div>
+      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_password2">Password (again)</label>
+      <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm mb-4"
+             type="password" name="password2" id="id_password2" required>
+      {% if form.password2.errors %}<p class="text-red-500 text-xs mt-1">{{ form.password2.errors.0 }}</p>{% endif %}
+    </div>
+    
+    <button class="w-full rounded-xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-500 hover:to-fuchsia-500 active:scale-[0.98] transition-all text-white font-medium py-2.5 shadow-lg shadow-indigo-500/25" type="submit">
+      Sign up
+    </button>
+    
+    <p class="text-center text-sm text-slate-500 dark:text-slate-400 mt-4">
+      Already have an account? <a href="{% url 'login' %}" class="text-indigo-600 dark:text-indigo-400 hover:underline">Sign in</a>
+    </p>
+  </form>
+</div>
+{% endblock %}

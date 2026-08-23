@@ -4,6 +4,8 @@ from django.http import Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
+from django.contrib.auth import login
+from .forms import EmployeeRegistrationForm
 from .mock_data import EMPLOYEES, PAYSLIPS
 from .models import User
 
@@ -72,3 +74,35 @@ def user_profile(request):
     return render(request, "dashboard/profile.html", {
         "user": request.user,
     })
+
+
+def register_employee(request):
+    if request.user.is_authenticated:
+        return redirect("root")
+        
+    if request.method == "POST":
+        form = EmployeeRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.role = User.Role.EMPLOYEE
+            user.save()
+            
+            # Append to mock data
+            new_id = max(e["id"] for e in EMPLOYEES) + 1 if EMPLOYEES else 1
+            EMPLOYEES.append({
+                "id": new_id,
+                "name": f"{user.first_name} {user.last_name}",
+                "email": user.email,
+                "designation": form.cleaned_data.get("designation"),
+                "department": form.cleaned_data.get("department"),
+                "experience_years": 0,
+                "salary": 50000,
+                "initials": "".join(part[0] for part in [user.first_name, user.last_name] if part).upper()
+            })
+            
+            login(request, user)
+            return redirect("employee_self_service")
+    else:
+        form = EmployeeRegistrationForm()
+        
+    return render(request, "dashboard/register.html", {"form": form})
