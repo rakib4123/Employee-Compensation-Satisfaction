@@ -48,3 +48,16 @@ def payslip_detail(request, payslip_id):
     if payslip is None:
         raise Http404("Payslip not found.")
     return render(request, "dashboard/payslip_detail.html", {"payslip": payslip})
+
+
+@login_required
+def employee_self_service(request):
+    employee = next(
+        (e for e in EMPLOYEES if e["email"] == request.user.email),
+        EMPLOYEES[0],
+    )
+    payslips = [p for p in PAYSLIPS if p["employee_id"] == employee["id"]]
+    return render(request, "dashboard/employee_self_service.html", {
+        "employee": employee,
+        "payslips": payslips,
+    })

@@ -83,3 +83,17 @@ class PayslipDetailTests(TestCase):
         self.client.login(username="amara_okafor", password="buscom-emp-2026")
         response = self.client.get("/me/payslips/999/")
         self.assertEqual(response.status_code, 404)
+
+
+class EmployeeSelfServiceTests(TestCase):
+    def test_requires_login(self):
+        response = self.client.get("/me/")
+        self.assertEqual(response.status_code, 302)
+
+    def test_employee_sees_own_profile_and_payslips(self):
+        self.client.login(username="amara_okafor", password="buscom-emp-2026")
+        response = self.client.get("/me/")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "dashboard/employee_self_service.html")
+        self.assertContains(response, "Senior Backend Engineer")
+        self.assertContains(response, "June 2026")

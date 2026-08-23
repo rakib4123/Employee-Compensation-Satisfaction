@@ -4,7 +4,7 @@
     {% if user.role == "hr" %}
       <a href="{% url 'hr_dashboard' %}" class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-700 transition">Dashboard</a>
     {% else %}
-      <a href="/me/" class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-700 transition">My Profile</a>
+      <a href="{% url 'employee_self_service' %}" class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-700 transition">My Profile</a>
     {% endif %}
   </nav>
 </aside>
