@@ -25,6 +25,14 @@ class AuthFlowTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "dashboard/login.html")
 
+    def test_wrong_password_shows_error(self):
+        response = self.client.post(
+            reverse("login"),
+            {"username": "hr_admin", "password": "not-the-password"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Invalid username or password")
+
 
 class UserRoleTests(TestCase):
     def test_user_has_role_field_defaulting_to_employee(self):

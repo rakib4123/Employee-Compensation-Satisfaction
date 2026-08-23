@@ -10,7 +10,10 @@
       </button>
       <div x-show="open" @click.outside="open = false" x-cloak
            class="absolute right-0 mt-2 w-40 rounded-lg bg-white dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700 py-1">
-        <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">Log out</a>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="block w-full text-left px-4 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">Log out</button>
+        </form>
       </div>
     </div>
   </div>
