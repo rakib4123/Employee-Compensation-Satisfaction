@@ -1285,158 +1285,9 @@ git commit -m "feat: add employee modal with client-side add flow and toast noti
 
 ---
 
-### Task 9: Employee Self-Service View
+### Task 9: Payslip Detail View (Itemized Breakdown, Print Layout)
 
-**Files:**
-- Modify: `dashboard/views.py`
-- Modify: `dashboard/urls.py`
-- Create: `dashboard/templates/dashboard/employee_self_service.html`
-- Modify: `dashboard/tests.py`
-
-**Interfaces:**
-- Consumes: `EMPLOYEES`, `PAYSLIPS` from `dashboard/mock_data.py` (Task 6); `animateCountUp` from `motion.js` (Task 4).
-- Produces: URL name `"employee_self_service"` → `GET /me/`. View matches the logged-in user by `request.user.email` against `EMPLOYEES[*]["email"]`.
-
-- [ ] **Step 1: Write the failing tests**
-
-Append to `dashboard/tests.py`:
-
-```python
-class EmployeeSelfServiceTests(TestCase):
-    def test_requires_login(self):
-        response = self.client.get("/me/")
-        self.assertEqual(response.status_code, 302)
-
-    def test_employee_sees_own_profile_and_payslips(self):
-        self.client.login(username="amara_okafor", password="buscom-emp-2026")
-        response = self.client.get("/me/")
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "dashboard/employee_self_service.html")
-        self.assertContains(response, "Senior Backend Engineer")
-        self.assertContains(response, "June 2026")
-```
-
-- [ ] **Step 2: Run tests to verify they fail**
-
-Run: `python manage.py test dashboard -v 2`
-Expected: FAIL — `/me/` route doesn't exist (404)
-
-- [ ] **Step 3: Implement the view**
-
-Append to `dashboard/views.py`:
-
-```python
-from .mock_data import PAYSLIPS
-
-
-@login_required
-def employee_self_service(request):
-    employee = next(
-        (e for e in EMPLOYEES if e["email"] == request.user.email),
-        EMPLOYEES[0],
-    )
-    payslips = [p for p in PAYSLIPS if p["employee_id"] == employee["id"]]
-    return render(request, "dashboard/employee_self_service.html", {
-        "employee": employee,
-        "payslips": payslips,
-    })
-```
-
-(Add this `from .mock_data import PAYSLIPS` alongside the existing `from .mock_data import EMPLOYEES` import at the top of the file — combine into a single `from .mock_data import EMPLOYEES, PAYSLIPS` line.)
-
-- [ ] **Step 4: Wire up the URL**
-
-In `dashboard/urls.py`, add to `urlpatterns`:
-
-```python
-    path("me/", views.employee_self_service, name="employee_self_service"),
-```
-
-- [ ] **Step 5: Write the template**
-
-Create `dashboard/templates/dashboard/employee_self_service.html`:
-
-```html
-{% extends "dashboard/base.html" %}
-{% block title %}My Profile — BusCom{% endblock %}
-{% block content %}
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6">
-    <div class="flex items-center gap-3 mb-4">
-      <span class="w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 flex items-center justify-center font-medium">
-        {{ employee.initials }}
-      </span>
-      <div>
-        <p class="font-semibold">{{ employee.name }}</p>
-        <p class="text-sm text-slate-500">{{ employee.designation }}</p>
-      </div>
-    </div>
-    <dl class="text-sm space-y-2">
-      <div class="flex justify-between"><dt class="text-slate-500">Department</dt><dd>{{ employee.department }}</dd></div>
-      <div class="flex justify-between"><dt class="text-slate-500">Experience</dt><dd>{{ employee.experience_years }} yrs</dd></div>
-      <div class="flex justify-between"><dt class="text-slate-500">Email</dt><dd>{{ employee.email }}</dd></div>
-    </dl>
-  </div>
-
-  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6" x-data x-init="animateCountUp($el.querySelector('.stat-value'), {{ employee.salary }}, { prefix: '$' })">
-    <p class="text-sm text-slate-500">Current Annual Salary</p>
-    <p class="stat-value text-3xl font-semibold mt-1">$0</p>
-  </div>
-</div>
-
-<div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6">
-  <h2 class="font-semibold mb-4">Payslips</h2>
-  {% if payslips %}
-  <table class="w-full text-sm">
-    <thead>
-      <tr class="text-left text-slate-500 border-b border-slate-200 dark:border-slate-700">
-        <th class="py-2">Period</th>
-        <th class="py-2 text-right">Net Pay</th>
-        <th class="py-2 text-right">Details</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for payslip in payslips %}
-      <tr class="border-b border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition">
-        <td class="py-2">{{ payslip.period }}</td>
-        <td class="py-2 text-right">${{ payslip.net }}</td>
-        <td class="py-2 text-right">
-          <a href="{% url 'payslip_detail' payslip.id %}" class="text-indigo-600 hover:underline">View</a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% else %}
-    <p class="text-slate-500 text-sm">No payslips yet.</p>
-  {% endif %}
-</div>
-{% endblock %}
-```
-
-*(This links to `payslip_detail`, added in Task 10. If verifying this task in isolation before Task 10 exists, the link will 500 when clicked — the page itself still renders and tests still pass since `{% url %}` resolution only fails if the name is genuinely missing; make sure Task 10 lands before manually clicking through.)*
-
-- [ ] **Step 6: Rebuild Tailwind CSS**
-
-```bash
-./tailwindcss -i ./dashboard/static/dashboard/css/input.css -o ./dashboard/static/dashboard/css/output.css --minify
-```
-
-- [ ] **Step 7: Run tests** (implement Task 10's URL first, or temporarily stub `payslip_detail` as a name-only route, since `{% url 'payslip_detail' %}` will raise `NoReverseMatch` at render time otherwise)
-
-Run: `python manage.py test dashboard -v 2`
-Expected: PASS once Task 10's URL exists (recommend doing Task 10 immediately after this one, before committing either)
-
-- [ ] **Step 8: Commit**
-
-```bash
-git add dashboard/views.py dashboard/urls.py dashboard/templates/dashboard/employee_self_service.html dashboard/tests.py dashboard/static/dashboard/css/output.css
-git commit -m "feat: add employee self-service profile and payslip list"
-```
-
----
-
-### Task 10: Payslip Detail View (Itemized Breakdown, Print Layout)
+*(Ordered before the Employee Self-Service task because that task's template links to `payslip_detail` — building this first means every task's own test suite is green in isolation, with no forward references.)*
 
 **Files:**
 - Modify: `dashboard/views.py`
@@ -1446,8 +1297,8 @@ git commit -m "feat: add employee self-service profile and payslip list"
 - Modify: `dashboard/tests.py`
 
 **Interfaces:**
-- Consumes: `PAYSLIPS` from `dashboard/mock_data.py` (Task 6); resolves the `{% url 'payslip_detail' payslip.id %}` reference added in Task 9.
-- Produces: URL name `"payslip_detail"` → `GET /me/payslips/<int:payslip_id>/`. Reusable `empty_state.html` template (block `content`, context var `message`) for future "nothing here" cases.
+- Consumes: `PAYSLIPS` from `dashboard/mock_data.py` (Task 6).
+- Produces: URL name `"payslip_detail"` → `GET /me/payslips/<int:payslip_id>/`. Reusable `empty_state.html` template (block `content`, context var `message`) for future "nothing here" cases. The next task (Employee Self-Service) links to this URL by name.
 
 - [ ] **Step 1: Write the failing tests**
 
@@ -1483,6 +1334,8 @@ Append to `dashboard/views.py`:
 
 ```python
 from django.http import Http404
+
+from .mock_data import PAYSLIPS
 
 
 @login_required
@@ -1558,20 +1411,164 @@ Create `dashboard/templates/dashboard/empty_state.html`:
 ./tailwindcss -i ./dashboard/static/dashboard/css/input.css -o ./dashboard/static/dashboard/css/output.css --minify
 ```
 
-- [ ] **Step 8: Run tests to verify they pass** (this also unblocks Task 9's tests if they were pending on this route)
+- [ ] **Step 8: Run tests to verify they pass**
 
 Run: `python manage.py test dashboard -v 2`
 Expected: PASS
 
 - [ ] **Step 9: Manually verify in browser**
 
-As `amara_okafor`, open a payslip from `/me/`, click "Print", confirm the sidebar/topbar/print button are hidden in the print preview and only the payslip content shows.
+Run: `python manage.py runserver`, log in as `amara_okafor` / `buscom-emp-2026`, visit `http://127.0.0.1:8000/me/payslips/1/` directly, click "Print", confirm the sidebar/topbar/print button are hidden in the print preview and only the payslip content shows.
 
 - [ ] **Step 10: Commit**
 
 ```bash
 git add dashboard/views.py dashboard/urls.py dashboard/templates/dashboard/payslip_detail.html dashboard/templates/dashboard/empty_state.html dashboard/tests.py dashboard/static/dashboard/css/output.css
 git commit -m "feat: add payslip detail view with print layout and empty-state template"
+```
+
+---
+
+### Task 10: Employee Self-Service View
+
+**Files:**
+- Modify: `dashboard/views.py`
+- Modify: `dashboard/urls.py`
+- Create: `dashboard/templates/dashboard/employee_self_service.html`
+- Modify: `dashboard/tests.py`
+
+**Interfaces:**
+- Consumes: `EMPLOYEES` (imported in Task 7) and `PAYSLIPS` (imported in Task 9) from `dashboard/mock_data.py`; `animateCountUp` from `motion.js` (Task 4); URL name `"payslip_detail"` (Task 9), linked to from this task's template.
+- Produces: URL name `"employee_self_service"` → `GET /me/`. View matches the logged-in user by `request.user.email` against `EMPLOYEES[*]["email"]`.
+
+- [ ] **Step 1: Write the failing tests**
+
+Append to `dashboard/tests.py`:
+
+```python
+class EmployeeSelfServiceTests(TestCase):
+    def test_requires_login(self):
+        response = self.client.get("/me/")
+        self.assertEqual(response.status_code, 302)
+
+    def test_employee_sees_own_profile_and_payslips(self):
+        self.client.login(username="amara_okafor", password="buscom-emp-2026")
+        response = self.client.get("/me/")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "dashboard/employee_self_service.html")
+        self.assertContains(response, "Senior Backend Engineer")
+        self.assertContains(response, "June 2026")
+```
+
+- [ ] **Step 2: Run tests to verify they fail**
+
+Run: `python manage.py test dashboard -v 2`
+Expected: FAIL — `/me/` route doesn't exist (404)
+
+- [ ] **Step 3: Implement the view**
+
+Append to `dashboard/views.py`. No new imports are needed — `EMPLOYEES` and `PAYSLIPS` are already imported from Tasks 7 and 9:
+
+```python
+@login_required
+def employee_self_service(request):
+    employee = next(
+        (e for e in EMPLOYEES if e["email"] == request.user.email),
+        EMPLOYEES[0],
+    )
+    payslips = [p for p in PAYSLIPS if p["employee_id"] == employee["id"]]
+    return render(request, "dashboard/employee_self_service.html", {
+        "employee": employee,
+        "payslips": payslips,
+    })
+```
+
+- [ ] **Step 4: Wire up the URL**
+
+In `dashboard/urls.py`, add to `urlpatterns`:
+
+```python
+    path("me/", views.employee_self_service, name="employee_self_service"),
+```
+
+- [ ] **Step 5: Write the template**
+
+Create `dashboard/templates/dashboard/employee_self_service.html`:
+
+```html
+{% extends "dashboard/base.html" %}
+{% block title %}My Profile — BusCom{% endblock %}
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 flex items-center justify-center font-medium">
+        {{ employee.initials }}
+      </span>
+      <div>
+        <p class="font-semibold">{{ employee.name }}</p>
+        <p class="text-sm text-slate-500">{{ employee.designation }}</p>
+      </div>
+    </div>
+    <dl class="text-sm space-y-2">
+      <div class="flex justify-between"><dt class="text-slate-500">Department</dt><dd>{{ employee.department }}</dd></div>
+      <div class="flex justify-between"><dt class="text-slate-500">Experience</dt><dd>{{ employee.experience_years }} yrs</dd></div>
+      <div class="flex justify-between"><dt class="text-slate-500">Email</dt><dd>{{ employee.email }}</dd></div>
+    </dl>
+  </div>
+
+  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6" x-data x-init="animateCountUp($el.querySelector('.stat-value'), {{ employee.salary }}, { prefix: '$' })">
+    <p class="text-sm text-slate-500">Current Annual Salary</p>
+    <p class="stat-value text-3xl font-semibold mt-1">$0</p>
+  </div>
+</div>
+
+<div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6">
+  <h2 class="font-semibold mb-4">Payslips</h2>
+  {% if payslips %}
+  <table class="w-full text-sm">
+    <thead>
+      <tr class="text-left text-slate-500 border-b border-slate-200 dark:border-slate-700">
+        <th class="py-2">Period</th>
+        <th class="py-2 text-right">Net Pay</th>
+        <th class="py-2 text-right">Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for payslip in payslips %}
+      <tr class="border-b border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition">
+        <td class="py-2">{{ payslip.period }}</td>
+        <td class="py-2 text-right">${{ payslip.net }}</td>
+        <td class="py-2 text-right">
+          <a href="{% url 'payslip_detail' payslip.id %}" class="text-indigo-600 hover:underline">View</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p class="text-slate-500 text-sm">No payslips yet.</p>
+  {% endif %}
+</div>
+{% endblock %}
+```
+
+- [ ] **Step 6: Rebuild Tailwind CSS**
+
+```bash
+./tailwindcss -i ./dashboard/static/dashboard/css/input.css -o ./dashboard/static/dashboard/css/output.css --minify
+```
+
+- [ ] **Step 7: Run tests to verify they pass**
+
+Run: `python manage.py test dashboard -v 2`
+Expected: PASS
+
+- [ ] **Step 8: Commit**
+
+```bash
+git add dashboard/views.py dashboard/urls.py dashboard/templates/dashboard/employee_self_service.html dashboard/tests.py dashboard/static/dashboard/css/output.css
+git commit -m "feat: add employee self-service profile and payslip list"
 ```
 
 ---
