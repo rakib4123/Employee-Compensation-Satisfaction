@@ -172,3 +172,84 @@ class DepartmentDerivationTests(TestCase):
         User = get_user_model()
         user = User.objects.create_user(username="derive4", password="x")
         self.assertEqual(user.trainings_count, 0)
+
+    def test_unrecognised_designation_keeps_the_supplied_department(self):
+        User = get_user_model()
+        user = User.objects.create_user(
+            username="derive5", password="x", designation="Astronaut", department="Engineering"
+        )
+        self.assertEqual(user.department, "Engineering")
+
+
+class RegistrationTests(TestCase):
+    def payload(self, **overrides):
+        data = {
+            "username": "newhire",
+            "password1": "buscom-test-2026",
+            "password2": "buscom-test-2026",
+            "first_name": "Nusrat",
+            "last_name": "Islam",
+            "email": "nusrat@buscom.test",
+            "age": 27,
+            "designation": "Software Engineer",
+            "language_proficiency": "Advanced",
+            "experience_years": 4,
+            "education_level": "BSc",
+            "publications_count": 2,
+            "projects_led_count": 3,
+            "trainings_count": 4,
+            "skills_score": 7,
+            "actual_salary": 65000,
+            "satisfaction_score": 4,
+            "fairness_feedback": "",
+        }
+        data.update(overrides)
+        return data
+
+    def test_registration_persists_every_field(self):
+        response = self.client.post(reverse("register"), self.payload())
+        self.assertRedirects(response, reverse("employee_self_service"))
+        User = get_user_model()
+        user = User.objects.get(username="newhire")
+        self.assertEqual(user.role, User.Role.EMPLOYEE)
+        self.assertEqual(user.age, 27)
+        self.assertEqual(user.designation, "Software Engineer")
+        self.assertEqual(user.department, "Engineering")
+        self.assertEqual(user.experience_years, 4)
+        self.assertEqual(user.education_level, "BSc")
+        self.assertEqual(user.language_proficiency, "Advanced")
+        self.assertEqual(user.publications_count, 2)
+        self.assertEqual(user.projects_led_count, 3)
+        self.assertEqual(user.trainings_count, 4)
+        self.assertEqual(user.skills_score, 7)
+        self.assertEqual(user.actual_salary, 65000)
+        self.assertEqual(user.satisfaction_score, 4)
+        self.assertEqual(user.boss_assessment_score, 10)
+
+    def test_other_designation_requires_a_department(self):
+        response = self.client.post(
+            reverse("register"), self.payload(designation="Other", job_role_other="AI Engineer")
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response.context["form"], "department", "Select a department for your role."
+        )
+
+    def test_other_designation_with_department_is_accepted(self):
+        response = self.client.post(
+            reverse("register"),
+            self.payload(designation="Other", job_role_other="AI Engineer", department="Engineering"),
+        )
+        self.assertRedirects(response, reverse("employee_self_service"))
+        user = get_user_model().objects.get(username="newhire")
+        self.assertEqual(user.job_role_other, "AI Engineer")
+        self.assertEqual(user.department, "Engineering")
+
+    def test_validation_error_keeps_submitted_values(self):
+        response = self.client.post(
+            reverse("register"), self.payload(password2="does-not-match")
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'value="Nusrat"')
+        self.assertContains(response, 'value="65000"')
+        self.assertContains(response, 'value="27"')

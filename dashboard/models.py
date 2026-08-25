@@ -60,7 +60,7 @@ class User(AbstractUser):
     publications_count = models.IntegerField(default=0, blank=True, null=True)
     projects_led_count = models.IntegerField(default=0, blank=True, null=True)
     
-    # Performance metrics (out of 10)
+    # Training and self-assessment
     trainings_count = models.IntegerField(default=0, blank=True, null=True)
     skills_score = models.IntegerField(default=0, blank=True, null=True)
     boss_assessment_score = models.IntegerField(default=10, blank=True, null=True) # Hardcoded to 10 for now

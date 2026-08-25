@@ -29,25 +29,25 @@
         <div>
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_first_name">First Name</label>
           <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-                 type="text" name="first_name" id="id_first_name" required>
+                 type="text" name="first_name" id="id_first_name" value="{{ form.first_name.value|default:'' }}" required>
           {% if form.first_name.errors %}<p class="text-red-500 text-xs mt-1">{{ form.first_name.errors.0 }}</p>{% endif %}
         </div>
         <div>
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_last_name">Last Name</label>
           <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-                 type="text" name="last_name" id="id_last_name" required>
+                 type="text" name="last_name" id="id_last_name" value="{{ form.last_name.value|default:'' }}" required>
           {% if form.last_name.errors %}<p class="text-red-500 text-xs mt-1">{{ form.last_name.errors.0 }}</p>{% endif %}
         </div>
         <div>
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_email">Email</label>
           <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-                 type="email" name="email" id="id_email" required>
+                 type="email" name="email" id="id_email" value="{{ form.email.value|default:'' }}" required>
           {% if form.email.errors %}<p class="text-red-500 text-xs mt-1">{{ form.email.errors.0 }}</p>{% endif %}
         </div>
         <div>
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_username">Username</label>
           <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-                 type="text" name="username" id="id_username" required>
+                 type="text" name="username" id="id_username" value="{{ form.username.value|default:'' }}" required>
           {% if form.username.errors %}<p class="text-red-500 text-xs mt-1">{{ form.username.errors.0 }}</p>{% endif %}
         </div>
         <div>
@@ -73,9 +73,9 @@
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_designation">{{ form.designation.label }}</label>
           <select class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
                   name="designation" id="id_designation" x-model="role" required>
-            <option value="" disabled selected>Select title</option>
+            <option value="" disabled {% if not form.designation.value %}selected{% endif %}>Select title</option>
             {% for value, name in form.designation.field.choices %}
-              <option value="{{ value }}">{{ name }}</option>
+              <option value="{{ value }}" {% if form.designation.value|stringformat:"s" == value|stringformat:"s" %}selected{% endif %}>{{ name }}</option>
             {% endfor %}
           </select>
           {% if form.designation.errors %}<p class="text-red-500 text-xs mt-1">{{ form.designation.errors.0 }}</p>{% endif %}
@@ -83,22 +83,27 @@
         <div x-show="role === 'Other'" x-transition style="display: none;">
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_job_role_other">{{ form.job_role_other.label }}</label>
           <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-                 type="text" name="job_role_other" id="id_job_role_other" placeholder="e.g. AI Engineer">
+                 type="text" name="job_role_other" id="id_job_role_other" value="{{ form.job_role_other.value|default:'' }}" placeholder="e.g. AI Engineer">
           {% if form.job_role_other.errors %}<p class="text-red-500 text-xs mt-1">{{ form.job_role_other.errors.0 }}</p>{% endif %}
         </div>
-        <div>
+        <div x-show="role === 'Other'" x-transition style="display: none;">
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_department">{{ form.department.label }}</label>
-          <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-                 type="text" name="department" id="id_department" placeholder="e.g. Engineering" required>
+          <select class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                  name="department" id="id_department">
+            {% for value, name in form.department.field.choices %}
+              <option value="{{ value }}" {% if form.department.value|stringformat:"s" == value|stringformat:"s" %}selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+          </select>
           {% if form.department.errors %}<p class="text-red-500 text-xs mt-1">{{ form.department.errors.0 }}</p>{% endif %}
+          <p class="text-xs text-slate-500 mt-1">Only needed when your job title is "Other" — otherwise we set it from your role.</p>
         </div>
         <div>
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_language_proficiency">{{ form.language_proficiency.label }}</label>
           <select class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
                   name="language_proficiency" id="id_language_proficiency" required>
-            <option value="" disabled selected>Select level</option>
+            <option value="" disabled {% if not form.language_proficiency.value %}selected{% endif %}>Select level</option>
             {% for value, name in form.language_proficiency.field.choices %}
-              <option value="{{ value }}">{{ name }}</option>
+              <option value="{{ value }}" {% if form.language_proficiency.value|stringformat:"s" == value|stringformat:"s" %}selected{% endif %}>{{ name }}</option>
             {% endfor %}
           </select>
           {% if form.language_proficiency.errors %}<p class="text-red-500 text-xs mt-1">{{ form.language_proficiency.errors.0 }}</p>{% endif %}
@@ -113,22 +118,22 @@
         <div>
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_age">{{ form.age.label }}</label>
           <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-                 type="number" name="age" id="id_age" min="18" max="100" required>
+                 type="number" name="age" id="id_age" min="18" max="100" value="{{ form.age.value|default:'' }}" required>
           {% if form.age.errors %}<p class="text-red-500 text-xs mt-1">{{ form.age.errors.0 }}</p>{% endif %}
         </div>
         <div>
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_experience_years">{{ form.experience_years.label }}</label>
           <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-                 type="number" name="experience_years" id="id_experience_years" min="0" max="50" required>
+                 type="number" name="experience_years" id="id_experience_years" min="0" max="50" value="{{ form.experience_years.value|default:'' }}" required>
           {% if form.experience_years.errors %}<p class="text-red-500 text-xs mt-1">{{ form.experience_years.errors.0 }}</p>{% endif %}
         </div>
         <div>
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_education_level">{{ form.education_level.label }}</label>
           <select class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
                   name="education_level" id="id_education_level" required>
-            <option value="" disabled selected>Select level</option>
+            <option value="" disabled {% if not form.education_level.value %}selected{% endif %}>Select level</option>
             {% for value, name in form.education_level.field.choices %}
-              <option value="{{ value }}">{{ name }}</option>
+              <option value="{{ value }}" {% if form.education_level.value|stringformat:"s" == value|stringformat:"s" %}selected{% endif %}>{{ name }}</option>
             {% endfor %}
           </select>
           {% if form.education_level.errors %}<p class="text-red-500 text-xs mt-1">{{ form.education_level.errors.0 }}</p>{% endif %}
@@ -136,13 +141,13 @@
         <div>
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_publications_count">{{ form.publications_count.label }}</label>
           <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-                 type="number" name="publications_count" id="id_publications_count" min="0" required>
+                 type="number" name="publications_count" id="id_publications_count" min="0" value="{{ form.publications_count.value|default:'' }}" required>
           {% if form.publications_count.errors %}<p class="text-red-500 text-xs mt-1">{{ form.publications_count.errors.0 }}</p>{% endif %}
         </div>
         <div>
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_projects_led_count">{{ form.projects_led_count.label }}</label>
           <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-                 type="number" name="projects_led_count" id="id_projects_led_count" min="0" required>
+                 type="number" name="projects_led_count" id="id_projects_led_count" min="0" value="{{ form.projects_led_count.value|default:'' }}" required>
           {% if form.projects_led_count.errors %}<p class="text-red-500 text-xs mt-1">{{ form.projects_led_count.errors.0 }}</p>{% endif %}
         </div>
       </div>
@@ -150,18 +155,18 @@
 
     <!-- Performance Scores -->
     <div>
-      <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 border-b border-slate-200 dark:border-slate-700 pb-2 mb-3">Performance & Self-Assessment (Out of 10)</h3>
+      <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 border-b border-slate-200 dark:border-slate-700 pb-2 mb-3">Training & Self-Assessment</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_training_score">{{ form.training_score.label }}</label>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_trainings_count">{{ form.trainings_count.label }}</label>
           <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-                 type="number" name="training_score" id="id_training_score" min="0" max="10" required>
-          {% if form.training_score.errors %}<p class="text-red-500 text-xs mt-1">{{ form.training_score.errors.0 }}</p>{% endif %}
+                 type="number" name="trainings_count" id="id_trainings_count" min="0" value="{{ form.trainings_count.value|default:'' }}" required>
+          {% if form.trainings_count.errors %}<p class="text-red-500 text-xs mt-1">{{ form.trainings_count.errors.0 }}</p>{% endif %}
         </div>
         <div>
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_skills_score">{{ form.skills_score.label }}</label>
           <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-                 type="number" name="skills_score" id="id_skills_score" min="0" max="10" required>
+                 type="number" name="skills_score" id="id_skills_score" min="0" max="10" value="{{ form.skills_score.value|default:'' }}" required>
           {% if form.skills_score.errors %}<p class="text-red-500 text-xs mt-1">{{ form.skills_score.errors.0 }}</p>{% endif %}
         </div>
       </div>
@@ -174,19 +179,19 @@
         <div>
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_actual_salary">{{ form.actual_salary.label }}</label>
           <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-                 type="number" name="actual_salary" id="id_actual_salary" min="0" required>
+                 type="number" name="actual_salary" id="id_actual_salary" min="0" value="{{ form.actual_salary.value|default:'' }}" required>
           {% if form.actual_salary.errors %}<p class="text-red-500 text-xs mt-1">{{ form.actual_salary.errors.0 }}</p>{% endif %}
         </div>
         <div>
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_satisfaction_score">{{ form.satisfaction_score.label }}</label>
           <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-                 type="number" name="satisfaction_score" id="id_satisfaction_score" min="1" max="5" required>
+                 type="number" name="satisfaction_score" id="id_satisfaction_score" min="1" max="5" value="{{ form.satisfaction_score.value|default:'' }}" required>
           {% if form.satisfaction_score.errors %}<p class="text-red-500 text-xs mt-1">{{ form.satisfaction_score.errors.0 }}</p>{% endif %}
         </div>
         <div>
           <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_fairness_feedback">{{ form.fairness_feedback.label }}</label>
           <textarea class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-                    name="fairness_feedback" id="id_fairness_feedback" rows="3"></textarea>
+                    name="fairness_feedback" id="id_fairness_feedback" rows="3">{{ form.fairness_feedback.value|default:'' }}</textarea>
           {% if form.fairness_feedback.errors %}<p class="text-red-500 text-xs mt-1">{{ form.fairness_feedback.errors.0 }}</p>{% endif %}
         </div>
       </div>

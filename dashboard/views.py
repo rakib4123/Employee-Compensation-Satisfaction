@@ -86,20 +86,6 @@ def register_employee(request):
             user = form.save(commit=False)
             user.role = User.Role.EMPLOYEE
             user.save()
-            
-            # Append to mock data
-            new_id = max(e["id"] for e in EMPLOYEES) + 1 if EMPLOYEES else 1
-            EMPLOYEES.append({
-                "id": new_id,
-                "name": f"{user.first_name} {user.last_name}",
-                "email": user.email,
-                "designation": form.cleaned_data.get("job_role_other") if form.cleaned_data.get("designation") == "Other" else form.cleaned_data.get("designation"),
-                "department": form.cleaned_data.get("department"),
-                "experience_years": form.cleaned_data.get("experience_years", 0),
-                "salary": form.cleaned_data.get("actual_salary", 0),
-                "initials": "".join(part[0] for part in [user.first_name, user.last_name] if part).upper()
-            })
-            
             login(request, user)
             return redirect("employee_self_service")
     else:
