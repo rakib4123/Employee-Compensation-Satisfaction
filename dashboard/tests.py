@@ -297,3 +297,53 @@ class RegistrationTests(TestCase):
         self.assertContains(response, 'value="Nusrat"')
         self.assertContains(response, 'value="65000"')
         self.assertContains(response, 'value="27"')
+
+
+class ExportEmployeesTests(TestCase):
+    def test_export_writes_csv_columns_for_complete_employees(self):
+        import csv
+        import tempfile
+        from pathlib import Path
+
+        from django.core.management import call_command
+
+        from ml.generate_dataset import CSV_COLUMNS
+
+        get_user_model().objects.create_user(
+            username="exportme", password="x", first_name="Tanvir", last_name="Uddin",
+            age=31, designation="Data Analyst", language_proficiency="Fluent",
+            experience_years=7, education_level="MSc", publications_count=2,
+            projects_led_count=3, trainings_count=4, skills_score=8,
+            boss_assessment_score=10, actual_salary=80000, satisfaction_score=5,
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "real_employees.csv"
+            call_command("export_employees", "--out", str(out))
+            rows = list(csv.DictReader(out.open()))
+
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(list(rows[0].keys()), CSV_COLUMNS)
+        self.assertEqual(rows[0]["job_role"], "Data Analyst")
+        self.assertEqual(rows[0]["department"], "Engineering")
+        self.assertEqual(rows[0]["actual_salary"], "80000")
+        self.assertEqual(rows[0]["trainings_count"], "4")
+        self.assertEqual(rows[0]["training_score"], "8")
+        self.assertEqual(rows[0]["satisfaction_label"], "Satisfied")
+        self.assertEqual(rows[0]["expected_salary"], "")
+        self.assertEqual(rows[0]["compensation_ratio"], "")
+
+    def test_incomplete_employees_are_skipped(self):
+        import csv
+        import tempfile
+        from pathlib import Path
+
+        from django.core.management import call_command
+
+        get_user_model().objects.create_user(
+            username="partial2", password="x", first_name="Mim", last_name="Begum",
+            actual_salary=None,
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "real_employees.csv"
+            call_command("export_employees", "--out", str(out))
+            self.assertEqual(list(csv.DictReader(out.open())), [])
