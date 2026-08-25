@@ -143,7 +143,7 @@ class PredictProfileTests(TestCase):
             "education_level": "BSc",
             "publications_count": 0,
             "projects_led_count": 2,
-            "training_score": 7,
+            "trainings_count": 3,
             "skills_score": 7,
             "boss_assessment_score": 6,
             "language_proficiency": "Advanced",

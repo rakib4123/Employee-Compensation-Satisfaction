@@ -12,6 +12,6 @@ import `ml.features` reliably. Keep both definitions in sync by hand.
 CATEGORICAL_FEATURES = ["education_level", "language_proficiency", "job_role", "department"]
 NUMERIC_FEATURES = [
     "age", "experience_years", "publications_count", "projects_led_count",
-    "training_score", "skills_score", "boss_assessment_score",
+    "trainings_count", "skills_score", "boss_assessment_score",
 ]
 CLASSIFICATION_EXTRA_NUMERIC = ["actual_salary", "expected_salary"]
