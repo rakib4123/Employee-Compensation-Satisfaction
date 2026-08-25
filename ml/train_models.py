@@ -49,6 +49,13 @@ REGRESSION_TARGET = "actual_salary"
 CLASSIFICATION_TARGET = "satisfaction_label"
 CLASSIFICATION_EXTRA_NUMERIC = ["actual_salary", "predicted_market_salary"]
 
+# top_factors() in compensation/data.py explains predictions from
+# estimator.coef_, which only linear models expose. Selection for the
+# SERVED artifact is therefore constrained to linear candidates; the
+# comparison table below still reports every model honestly.
+LINEAR_REGRESSION_MODELS = {"LinearRegression"}
+LINEAR_CLASSIFICATION_MODELS = {"LogisticRegression"}
+
 RANDOM_STATE = 42
 
 
@@ -99,12 +106,18 @@ def run_regression(df, out_dir, artifacts_dir):
 
     results = pd.DataFrame(rows).sort_values("RMSE")
     best_name = results.iloc[0]["model"]
+    linear_results = results[results["model"].isin(LINEAR_REGRESSION_MODELS)]
+    served_name = linear_results.iloc[0]["model"]
     print("\n=== Regression: predicting expected_salary ===")
     print(results.to_string(index=False))
-    print(f"Best model: {best_name}")
+    if served_name == best_name:
+        print(f"Best model: {best_name}")
+    else:
+        print(f"Best model overall: {best_name}")
+        print(f"Best linear model (served, explainable): {served_name}")
 
-    explain_model(fitted[best_name], X_train, X_test, feature_names, out_dir, prefix="regression")
-    pipeline = save_pipeline(preprocessor, fitted[best_name], artifacts_dir, "regression_model.joblib")
+    explain_model(fitted[served_name], X_train, X_test, feature_names, out_dir, prefix="regression")
+    pipeline = save_pipeline(preprocessor, fitted[served_name], artifacts_dir, "regression_model.joblib")
     return results, pipeline
 
 
@@ -142,12 +155,18 @@ def run_classification(df, out_dir, artifacts_dir):
 
     results = pd.DataFrame(rows).sort_values("ROC_AUC", ascending=False)
     best_name = results.iloc[0]["model"]
+    linear_results = results[results["model"].isin(LINEAR_CLASSIFICATION_MODELS)]
+    served_name = linear_results.iloc[0]["model"]
     print("\n=== Classification: predicting satisfaction_label ===")
     print(results.to_string(index=False))
-    print(f"Best model: {best_name}")
+    if served_name == best_name:
+        print(f"Best model: {best_name}")
+    else:
+        print(f"Best model overall: {best_name}")
+        print(f"Best linear model (served, explainable): {served_name}")
 
-    explain_model(fitted[best_name], X_train, X_test, feature_names, out_dir, prefix="classification")
-    save_pipeline(preprocessor, fitted[best_name], artifacts_dir, "classification_model.joblib")
+    explain_model(fitted[served_name], X_train, X_test, feature_names, out_dir, prefix="classification")
+    save_pipeline(preprocessor, fitted[served_name], artifacts_dir, "classification_model.joblib")
     return results
 
 
