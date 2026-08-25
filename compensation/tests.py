@@ -194,3 +194,17 @@ class SidebarLinkTests(TestCase):
         self.client.login(username="amara_okafor", password="buscom-emp-2026")
         response = self.client.get(reverse("employee_self_service"))
         self.assertNotContains(response, "Compensation Insights")
+
+
+class FeatureLabelTests(TestCase):
+    def test_top_factor_labels_are_human_readable(self):
+        from compensation.data import predict_profile
+        result = predict_profile({
+            "job_role": "Software Engineer", "age": 30, "experience_years": 5,
+            "education_level": "BSc", "publications_count": 2, "projects_led_count": 2,
+            "trainings_count": 7, "skills_score": 7, "boss_assessment_score": 10,
+            "language_proficiency": "Advanced",
+        })
+        labels = [factor["label"] for factor in result["regression_top_factors"]]
+        for label in labels:
+            self.assertNotIn("_", label, f"raw field name leaked into the UI: {label}")
