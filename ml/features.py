@@ -14,4 +14,4 @@ NUMERIC_FEATURES = [
     "age", "experience_years", "publications_count", "projects_led_count",
     "trainings_count", "skills_score", "boss_assessment_score",
 ]
-CLASSIFICATION_EXTRA_NUMERIC = ["actual_salary", "expected_salary"]
+CLASSIFICATION_EXTRA_NUMERIC = ["actual_salary", "predicted_market_salary"]

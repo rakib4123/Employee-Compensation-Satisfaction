@@ -53,7 +53,7 @@ FEATURE_LABELS = {
     "skills_score": "Skills score",
     "boss_assessment_score": "Boss assessment",
     "actual_salary": "Actual salary",
-    "expected_salary": "Predicted fair salary",
+    "predicted_market_salary": "Predicted market salary",
 }
 
 _roster_cache = None
@@ -183,7 +183,7 @@ def _build_roster():
     predicted_salary = _predict_salary(regression_pipeline, df)
 
     clf_input = df.copy()
-    clf_input["expected_salary"] = predicted_salary
+    clf_input["predicted_market_salary"] = predicted_salary
     satisfaction_probability = _predict_satisfaction(classification_pipeline, clf_input)
 
     roster = []
@@ -225,7 +225,7 @@ def get_employee_detail(employee_id):
     regression_factors = top_factors(regression_pipeline, row_df[CATEGORICAL_FEATURES + NUMERIC_FEATURES])
 
     clf_row = row_df.copy()
-    clf_row["expected_salary"] = employee["predicted_salary"]
+    clf_row["predicted_market_salary"] = employee["predicted_salary"]
     classification_factors = top_factors(
         classification_pipeline, clf_row[CATEGORICAL_FEATURES + NUMERIC_FEATURES + CLASSIFICATION_EXTRA_NUMERIC]
     )
@@ -264,7 +264,7 @@ def predict_profile(profile):
     if profile.get("proposed_salary") is not None:
         clf_row = row_df.copy()
         clf_row["actual_salary"] = profile["proposed_salary"]
-        clf_row["expected_salary"] = predicted_salary
+        clf_row["predicted_market_salary"] = predicted_salary
         probability = round(float(_predict_satisfaction(classification_pipeline, clf_row)[0]), 2)
         result["satisfaction_probability"] = probability
         level = risk_level(probability)

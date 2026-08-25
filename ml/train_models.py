@@ -45,9 +45,9 @@ NUMERIC_FEATURES = [
     "age", "experience_years", "publications_count", "projects_led_count",
     "trainings_count", "skills_score", "boss_assessment_score",
 ]
-REGRESSION_TARGET = "expected_salary"
+REGRESSION_TARGET = "actual_salary"
 CLASSIFICATION_TARGET = "satisfaction_label"
-CLASSIFICATION_EXTRA_NUMERIC = ["actual_salary", "expected_salary"]
+CLASSIFICATION_EXTRA_NUMERIC = ["actual_salary", "predicted_market_salary"]
 
 RANDOM_STATE = 42
 
@@ -104,8 +104,8 @@ def run_regression(df, out_dir, artifacts_dir):
     print(f"Best model: {best_name}")
 
     explain_model(fitted[best_name], X_train, X_test, feature_names, out_dir, prefix="regression")
-    save_pipeline(preprocessor, fitted[best_name], artifacts_dir, "regression_model.joblib")
-    return results
+    pipeline = save_pipeline(preprocessor, fitted[best_name], artifacts_dir, "regression_model.joblib")
+    return results, pipeline
 
 
 def run_classification(df, out_dir, artifacts_dir):
@@ -156,6 +156,7 @@ def save_pipeline(preprocessor, estimator, artifacts_dir, filename):
     path = os.path.join(artifacts_dir, filename)
     joblib.dump(pipeline, path)
     print(f"Saved {path}")
+    return pipeline
 
 
 def explain_model(model, X_train, X_test, feature_names, out_dir, prefix):
@@ -179,16 +180,27 @@ def explain_model(model, X_train, X_test, feature_names, out_dir, prefix):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--data", default="ml/data/synthetic_employee_compensation.csv")
+    parser.add_argument("--data", nargs="+", default=["ml/data/synthetic_employee_compensation.csv"])
     parser.add_argument("--out", default="ml/outputs")
     parser.add_argument("--artifacts", default="ml/artifacts")
     args = parser.parse_args()
 
     os.makedirs(args.out, exist_ok=True)
     os.makedirs(args.artifacts, exist_ok=True)
-    df = pd.read_csv(args.data)
+    frames = [pd.read_csv(path) for path in args.data]
+    df = pd.concat(frames, ignore_index=True)
+    print(f"Loaded {len(df)} rows from {len(frames)} file(s): {', '.join(args.data)}")
 
-    reg_results = run_regression(df, args.out, args.artifacts)
+    reg_results, reg_pipeline = run_regression(df, args.out, args.artifacts)
+
+    # Train the classifier on the SAME signal it will be served at runtime:
+    # the regression model's prediction, not the generator's expected_salary.
+    # For the 80% of rows the regressor trained on this is in-sample, which
+    # flatters the classifier slightly; acceptable for a prototype.
+    df["predicted_market_salary"] = reg_pipeline.predict(
+        df[CATEGORICAL_FEATURES + NUMERIC_FEATURES]
+    )
+
     clf_results = run_classification(df, args.out, args.artifacts)
 
     comparison_path = os.path.join(args.out, "model_comparison.csv")
