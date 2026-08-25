@@ -89,12 +89,14 @@ class BuildRowDropConditionsTests(SimpleTestCase):
     """
 
     def record(self, overrides=None):
-        # Positional columns match survey_raw.tsv: Timestamp, Age, Job
-        # title, Other job title, Department, Language, Experience,
-        # Education, Publications, Projects, Trainings, Skills, Manager
-        # rating, Salary, Satisfaction, Feedback.
+        # Positional columns match survey_raw.tsv: Age, Job title, Other
+        # job title, Department, Language, Experience, Education,
+        # Publications, Projects, Trainings, Skills, Manager rating,
+        # Salary, Satisfaction, Feedback. The Timestamp column the form
+        # exported was stripped before publication (it was quasi-
+        # identifying and build_row never read it).
         values = [
-            "2026-01-01", 30, "Software Engineer", "", "Engineering",
+            30, "Software Engineer", "", "Engineering",
             "Advanced", 5, "BSc", 2, 2, 3, 7, 8, "70000", 4, "",
         ]
         series = pd.Series(values)
@@ -109,7 +111,7 @@ class BuildRowDropConditionsTests(SimpleTestCase):
         self.assertEqual(row["language_proficiency"], "Advanced")
 
     def test_blank_satisfaction_drops_the_row(self):
-        self.assertIsNone(build_row(1, self.record({14: ""})))
+        self.assertIsNone(build_row(1, self.record({13: ""})))
 
     def test_unrecognised_language_drops_the_row(self):
-        self.assertIsNone(build_row(1, self.record({5: "Bengali"})))
+        self.assertIsNone(build_row(1, self.record({4: "Bengali"})))
