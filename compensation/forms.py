@@ -12,7 +12,7 @@ INPUT_CLASS = (
     "focus:ring-indigo-500"
 )
 
-SLIDER_FIELDS = {"training_score", "skills_score", "boss_assessment_score"}
+SLIDER_FIELDS = {"skills_score", "boss_assessment_score"}
 SLIDER_CLASS = "w-full accent-indigo-600 cursor-pointer"
 
 
@@ -27,7 +27,7 @@ class PredictProfileForm(forms.Form):
     education_level = forms.ChoiceField(choices=EDUCATION_CHOICES)
     publications_count = forms.IntegerField(min_value=0, max_value=20)
     projects_led_count = forms.IntegerField(min_value=0, max_value=20)
-    training_score = forms.IntegerField(min_value=0, max_value=10, initial=5, widget=_slider_widget())
+    trainings_count = forms.IntegerField(min_value=0, max_value=20, initial=2, label="Trainings completed")
     skills_score = forms.IntegerField(min_value=0, max_value=10, initial=5, widget=_slider_widget())
     boss_assessment_score = forms.IntegerField(min_value=0, max_value=10, initial=5, widget=_slider_widget())
     language_proficiency = forms.ChoiceField(choices=LANGUAGE_CHOICES)
