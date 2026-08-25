@@ -6,7 +6,7 @@ from django.urls import reverse
 
 from django.contrib.auth import login
 from .forms import EmployeeRegistrationForm
-from .mock_data import EMPLOYEES, PAYSLIPS
+from .payslips import find_payslip, payslips_for
 from .models import User
 
 
@@ -35,11 +35,25 @@ def _is_hr(user):
 @login_required
 @user_passes_test(_is_hr, login_url="employee_self_service")
 def hr_dashboard(request):
-    headcount = len(EMPLOYEES)
-    total_payroll = sum(e["salary"] for e in EMPLOYEES)
+    employees = [
+        {
+            "id": user.id,
+            "name": f"{user.first_name} {user.last_name}".strip() or user.username,
+            "initials": "".join(
+                part[0] for part in f"{user.first_name} {user.last_name}".split()[:2]
+            ).upper(),
+            "designation": user.job_role_other if user.designation == "Other" else (user.designation or "—"),
+            "department": user.department or "—",
+            "experience_years": user.experience_years or 0,
+            "salary": user.actual_salary or 0,
+        }
+        for user in User.objects.filter(role=User.Role.EMPLOYEE).order_by("id")
+    ]
+    headcount = len(employees)
+    total_payroll = sum(e["salary"] for e in employees)
     avg_salary = round(total_payroll / headcount, 2) if headcount else 0
     return render(request, "dashboard/hr_dashboard.html", {
-        "employees": EMPLOYEES,
+        "employees": employees,
         "headcount": headcount,
         "total_payroll": total_payroll,
         "avg_salary": avg_salary,
@@ -48,24 +62,33 @@ def hr_dashboard(request):
 
 @login_required
 def payslip_detail(request, payslip_id):
-    employee = next((e for e in EMPLOYEES if e["email"] == request.user.email), None)
-    payslip = next((p for p in PAYSLIPS if p["id"] == payslip_id), None)
-    if payslip is None or employee is None or payslip["employee_id"] != employee["id"]:
+    payslip = find_payslip(request.user, payslip_id)
+    if payslip is None:
         raise Http404("Payslip not found.")
     return render(request, "dashboard/payslip_detail.html", {"payslip": payslip})
 
 
 @login_required
 def employee_self_service(request):
-    employee = next((e for e in EMPLOYEES if e["email"] == request.user.email), None)
-    if employee is None:
+    user = request.user
+    if user.role != User.Role.EMPLOYEE:
         return render(request, "dashboard/empty_state.html", {
             "message": "No employee record is linked to your account yet.",
         })
-    payslips = [p for p in PAYSLIPS if p["employee_id"] == employee["id"]]
+    employee = {
+        "name": f"{user.first_name} {user.last_name}".strip() or user.username,
+        "initials": "".join(
+            part[0] for part in f"{user.first_name} {user.last_name}".split()[:2]
+        ).upper(),
+        "designation": user.job_role_other if user.designation == "Other" else (user.designation or "—"),
+        "department": user.department or "—",
+        "experience_years": user.experience_years or 0,
+        "email": user.email,
+        "salary": user.actual_salary or 0,
+    }
     return render(request, "dashboard/employee_self_service.html", {
         "employee": employee,
-        "payslips": payslips,
+        "payslips": payslips_for(user),
     })
 
 

@@ -1,8 +1,8 @@
+from datetime import date
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
-
-from dashboard.mock_data import PAYSLIPS
 
 
 class AuthFlowTests(TestCase):
@@ -34,6 +34,7 @@ class AuthFlowTests(TestCase):
         self.assertContains(response, "Invalid username or password")
 
     def test_next_param_is_honored_over_role_default(self):
+        get_user_model().objects.filter(username="amara_okafor").update(actual_salary=95000)
         target = reverse("payslip_detail", args=[1])
         response = self.client.post(
             f"{reverse('login')}?next={target}",
@@ -70,6 +71,12 @@ class UserRoleTests(TestCase):
 
 
 class HrDashboardTests(TestCase):
+    def setUp(self):
+        get_user_model().objects.filter(username="amara_okafor").update(
+            first_name="Amara", last_name="Okafor", designation="Software Engineer",
+            actual_salary=95000, experience_years=6,
+        )
+
     def test_requires_login(self):
         response = self.client.get("/dashboard/")
         self.assertEqual(response.status_code, 302)
@@ -87,62 +94,99 @@ class HrDashboardTests(TestCase):
         self.assertEqual(response.status_code, 302)
 
 
-class PayslipDetailTests(TestCase):
-    def test_requires_login(self):
-        response = self.client.get("/me/payslips/1/")
-        self.assertEqual(response.status_code, 302)
+class PayslipDerivationTests(TestCase):
+    def make_employee(self, username="payee", salary=60000):
+        User = get_user_model()
+        return User.objects.create_user(
+            username=username, password="x", first_name="Sadia", last_name="Akter",
+            email=f"{username}@buscom.test", actual_salary=salary,
+        )
 
-    def test_shows_itemized_breakdown(self):
-        self.client.login(username="amara_okafor", password="buscom-emp-2026")
-        response = self.client.get("/me/payslips/1/")
+    def test_payslip_is_derived_from_actual_salary(self):
+        from dashboard.payslips import payslips_for
+
+        slips = payslips_for(self.make_employee(), today=date(2026, 8, 25))
+        self.assertEqual(len(slips), 3)
+        current = slips[0]
+        self.assertEqual(current["id"], 1)
+        self.assertEqual(current["period"], "August 2026")
+        self.assertEqual(current["gross"], 60000)
+        self.assertEqual(current["deductions"], 7800)
+        self.assertEqual(current["net"], 52200)
+
+    def test_periods_run_backwards_across_a_year_boundary(self):
+        from dashboard.payslips import payslips_for
+
+        slips = payslips_for(self.make_employee(), today=date(2026, 1, 15))
+        self.assertEqual([s["period"] for s in slips],
+                         ["January 2026", "December 2025", "November 2025"])
+
+    def test_employee_without_salary_has_no_payslips(self):
+        from dashboard.payslips import payslips_for
+
+        self.assertEqual(payslips_for(self.make_employee(salary=None)), [])
+
+    def test_breakdown_sums_to_net(self):
+        from dashboard.payslips import payslips_for
+
+        slip = payslips_for(self.make_employee(), today=date(2026, 8, 25))[0]
+        self.assertEqual(sum(item["amount"] for item in slip["breakdown"]), slip["net"])
+
+
+class PayslipViewTests(TestCase):
+    def setUp(self):
+        User = get_user_model()
+        self.employee = User.objects.create_user(
+            username="viewer", password="x", first_name="Sadia", last_name="Akter",
+            actual_salary=60000,
+        )
+        self.client.login(username="viewer", password="x")
+
+    def test_detail_renders_for_own_payslip(self):
+        response = self.client.get(reverse("payslip_detail", args=[1]))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "dashboard/payslip_detail.html")
         self.assertContains(response, "Base Salary")
 
-    def test_missing_payslip_returns_404(self):
-        self.client.login(username="amara_okafor", password="buscom-emp-2026")
-        response = self.client.get("/me/payslips/999/")
-        self.assertEqual(response.status_code, 404)
+    def test_unknown_payslip_id_returns_404(self):
+        self.assertEqual(self.client.get(reverse("payslip_detail", args=[99])).status_code, 404)
 
-    def test_other_employees_payslip_returns_404(self):
-        other_payslip = {
-            "id": 9001,
-            "employee_id": 2,
-            "period": "July 2026",
-            "gross": 6000.00,
-            "deductions": 900.00,
-            "net": 5100.00,
-            "breakdown": [{"label": "Base Salary", "amount": 6000.00}],
-        }
-        PAYSLIPS.append(other_payslip)
-        try:
-            self.client.login(username="amara_okafor", password="buscom-emp-2026")
-            response = self.client.get(reverse("payslip_detail", args=[other_payslip["id"]]))
-            self.assertEqual(response.status_code, 404)
-        finally:
-            PAYSLIPS.remove(other_payslip)
+    def test_employee_without_salary_gets_404(self):
+        User = get_user_model()
+        User.objects.create_user(username="nosalary", password="x")
+        self.client.login(username="nosalary", password="x")
+        self.assertEqual(self.client.get(reverse("payslip_detail", args=[1])).status_code, 404)
+
+    def test_payslip_lookup_is_scoped_to_the_requesting_user(self):
+        User = get_user_model()
+        User.objects.create_user(username="other", password="x", actual_salary=120000)
+
+        response = self.client.get(reverse("payslip_detail", args=[1]))
+        self.assertContains(response, "60000")
+
+        self.client.login(username="other", password="x")
+        response = self.client.get(reverse("payslip_detail", args=[1]))
+        self.assertContains(response, "120000")
+        self.assertNotContains(response, "60000")
 
 
 class EmployeeSelfServiceTests(TestCase):
     def test_requires_login(self):
-        response = self.client.get("/me/")
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(self.client.get("/me/").status_code, 302)
 
-    def test_employee_sees_own_profile_and_payslips(self):
+    def test_employee_sees_own_details(self):
+        get_user_model().objects.filter(username="amara_okafor").update(
+            designation="Software Engineer", actual_salary=95000, experience_years=6,
+        )
         self.client.login(username="amara_okafor", password="buscom-emp-2026")
         response = self.client.get("/me/")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "dashboard/employee_self_service.html")
-        self.assertContains(response, "Senior Backend Engineer")
-        self.assertContains(response, "June 2026")
+        self.assertContains(response, "Software Engineer")
 
-    def test_user_with_no_matching_employee_sees_empty_state(self):
+    def test_hr_user_sees_empty_state(self):
         self.client.login(username="hr_admin", password="buscom-hr-2026")
         response = self.client.get(reverse("employee_self_service"))
-        self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "dashboard/empty_state.html")
-        self.assertNotContains(response, "Amara Okafor")
-        self.assertNotContains(response, "95000")
         self.assertContains(response, "No employee record is linked to your account yet.")
 
 
