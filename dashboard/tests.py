@@ -144,3 +144,31 @@ class EmployeeSelfServiceTests(TestCase):
         self.assertNotContains(response, "Amara Okafor")
         self.assertNotContains(response, "95000")
         self.assertContains(response, "No employee record is linked to your account yet.")
+
+
+class DepartmentDerivationTests(TestCase):
+    def test_department_is_derived_from_designation_on_save(self):
+        User = get_user_model()
+        user = User.objects.create_user(
+            username="derive1", password="x", designation="Accountant"
+        )
+        self.assertEqual(user.department, "Finance")
+
+    def test_department_is_derived_for_engineering_roles(self):
+        User = get_user_model()
+        user = User.objects.create_user(
+            username="derive2", password="x", designation="Software Engineer"
+        )
+        self.assertEqual(user.department, "Engineering")
+
+    def test_other_designation_keeps_the_supplied_department(self):
+        User = get_user_model()
+        user = User.objects.create_user(
+            username="derive3", password="x", designation="Other", department="Design"
+        )
+        self.assertEqual(user.department, "Design")
+
+    def test_trainings_count_defaults_to_zero(self):
+        User = get_user_model()
+        user = User.objects.create_user(username="derive4", password="x")
+        self.assertEqual(user.trainings_count, 0)
