@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
@@ -64,6 +65,96 @@ class ScorecardTests(TestCase):
         self.assertEqual(training_score(6), 10)
 
 
+class RosterFromDatabaseTests(TestCase):
+    def create_employee(self, username, **overrides):
+        User = get_user_model()
+        fields = {
+            "first_name": "Rafiq",
+            "last_name": "Hossain",
+            "age": 30,
+            "designation": "Software Engineer",
+            "language_proficiency": "Advanced",
+            "experience_years": 6,
+            "education_level": "BSc",
+            "publications_count": 1,
+            "projects_led_count": 2,
+            "trainings_count": 3,
+            "skills_score": 7,
+            "boss_assessment_score": 10,
+            "actual_salary": 70000,
+            "satisfaction_score": 4,
+        }
+        fields.update(overrides)
+        return User.objects.create_user(username=username, password="x", **fields)
+
+    def test_roster_contains_registered_employees(self):
+        self.create_employee("rafiq")
+        roster = data.get_roster()
+        self.assertEqual([row["name"] for row in roster], ["Rafiq Hossain"])
+        row = roster[0]
+        self.assertEqual(row["job_role"], "Software Engineer")
+        self.assertEqual(row["department"], "Engineering")
+        self.assertEqual(row["initials"], "RH")
+        self.assertEqual(row["actual_salary"], 70000)
+        self.assertEqual(row["satisfaction_label"], "Satisfied")
+        self.assertIn("predicted_salary", row)
+        self.assertIn("gap_pct", row)
+        self.assertIn("scorecard", row)
+
+    def test_roster_reflects_a_newly_created_employee(self):
+        self.create_employee("rafiq")
+        self.assertEqual(len(data.get_roster()), 1)
+        self.create_employee("nabila", first_name="Nabila", last_name="Khan")
+        self.assertEqual(len(data.get_roster()), 2)
+
+    def test_hr_users_are_not_in_the_roster(self):
+        User = get_user_model()
+        User.objects.create_user(username="hr2", password="x", role=User.Role.HR)
+        self.assertEqual(data.get_roster(), [])
+
+    def test_other_designation_uses_the_free_text_role(self):
+        self.create_employee("ai", designation="Other", job_role_other="AI Engineer",
+                             department="Engineering")
+        self.assertEqual(data.get_roster()[0]["job_role"], "AI Engineer")
+
+    def test_incomplete_employee_is_flagged_not_dropped(self):
+        # migration 0002 seeds amara_okafor with no ML fields, so she is
+        # always incomplete. Remove her so this test counts only its own row.
+        get_user_model().objects.filter(username="amara_okafor").delete()
+        self.create_employee("partial", actual_salary=None)
+        self.assertEqual(data.get_roster(), [])
+        incomplete = data.get_incomplete_employees()
+        self.assertEqual(len(incomplete), 1)
+        self.assertEqual(incomplete[0]["name"], "Rafiq Hossain")
+        self.assertIn("actual_salary", incomplete[0]["missing"])
+
+    def test_satisfaction_label_is_dissatisfied_below_four(self):
+        self.create_employee("low", satisfaction_score=2)
+        self.assertEqual(data.get_roster()[0]["satisfaction_label"], "Dissatisfied")
+
+
+class IncompleteEmployeeBannerTests(TestCase):
+    def setUp(self):
+        # migration 0002's amara_okafor has no ML fields and is therefore
+        # always incomplete; drop her so the count below is unambiguous.
+        get_user_model().objects.filter(username="amara_okafor").delete()
+        get_user_model().objects.create_user(
+            username="halfdone", password="x", first_name="Mim", last_name="Begum",
+            designation="QA Engineer",
+        )
+        self.client.login(username="hr_admin", password="buscom-hr-2026")
+
+    def test_dashboard_warns_about_incomplete_records(self):
+        response = self.client.get(reverse("compensation:audit_dashboard"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "1 employee record is incomplete")
+
+    def test_no_banner_when_every_record_is_complete(self):
+        get_user_model().objects.filter(username="halfdone").delete()
+        response = self.client.get(reverse("compensation:audit_dashboard"))
+        self.assertNotContains(response, "incomplete")
+
+
 class AuditDashboardAccessTests(TestCase):
     def test_requires_login(self):
         response = self.client.get(reverse("compensation:audit_dashboard"))
@@ -83,6 +174,16 @@ class AuditDashboardAccessTests(TestCase):
 
 class AuditDashboardContentTests(TestCase):
     def setUp(self):
+        User = get_user_model()
+        for index in range(30):
+            User.objects.create_user(
+                username=f"emp{index}", password="x",
+                first_name="Emp", last_name=f"Number{index}",
+                age=30, designation="Software Engineer", language_proficiency="Advanced",
+                experience_years=5, education_level="BSc", publications_count=1,
+                projects_led_count=2, trainings_count=3, skills_score=7,
+                boss_assessment_score=10, actual_salary=70000, satisfaction_score=4,
+            )
         self.client.login(username="hr_admin", password="buscom-hr-2026")
 
     def test_shows_stat_cards_and_table(self):
@@ -110,6 +211,16 @@ class AuditDashboardContentTests(TestCase):
 
 class EmployeeDetailTests(TestCase):
     def setUp(self):
+        User = get_user_model()
+        for index in range(3):
+            User.objects.create_user(
+                username=f"emp{index}", password="x",
+                first_name="Emp", last_name=f"Number{index}",
+                age=30, designation="Software Engineer", language_proficiency="Advanced",
+                experience_years=5, education_level="BSc", publications_count=1,
+                projects_led_count=2, trainings_count=3, skills_score=7,
+                boss_assessment_score=10, actual_salary=70000, satisfaction_score=4,
+            )
         self.client.login(username="hr_admin", password="buscom-hr-2026")
 
     def test_shows_employee_profile_and_prediction(self):

@@ -1,9 +1,8 @@
-"""In-memory data layer for Compensation Insights.
+"""Data layer for Compensation Insights.
 
-Loads the synthetic roster once per process and enriches it with each
-trained model's own predictions and a human-readable explanation of what
-drove them. Mirrors dashboard/mock_data.py's "plain Python data, no
-database yet" approach — see
+Queries the registered employees (User rows with role=employee) fresh on
+every call and enriches them with each trained model's own predictions and
+a human-readable explanation of what drove them. See
 docs/superpowers/specs/2026-08-16-compensation-insights-design.md.
 
 Both winning models are linear (LinearRegression, LogisticRegression),
@@ -11,8 +10,6 @@ so top_factors() below computes exact closed-form contributions from
 model coefficients. If a future retrain picks a non-linear model this
 will break — that's a known, accepted limitation for this prototype.
 """
-
-import csv
 
 import joblib
 import numpy as np
@@ -30,16 +27,6 @@ from ml.generate_dataset import (
 )
 from ml.features import CATEGORICAL_FEATURES, CLASSIFICATION_EXTRA_NUMERIC, NUMERIC_FEATURES
 
-INT_FIELDS = [
-    "employee_id", "age", "experience_years", "publications_count",
-    "projects_led_count", "trainings_count", "training_score", "skills_score",
-    "boss_assessment_score", "experience_score", "education_score",
-    "publication_score", "project_score", "compensation_score",
-    "market_min_salary", "market_max_salary", "expected_salary",
-    "actual_salary",
-]
-FLOAT_FIELDS = ["compensation_ratio"]
-
 FEATURE_LABELS = {
     "job_role": "Job role",
     "department": "Department",
@@ -56,27 +43,20 @@ FEATURE_LABELS = {
     "predicted_market_salary": "Predicted market salary",
 }
 
-_roster_cache = None
 _pipeline_cache = None
 
+REQUIRED_EMPLOYEE_FIELDS = (
+    "designation", "education_level", "language_proficiency", "age",
+    "experience_years", "publications_count", "projects_led_count",
+    "trainings_count", "skills_score", "boss_assessment_score",
+    "actual_salary", "satisfaction_score",
+)
 
-def _dataset_path():
-    return settings.BASE_DIR / "ml" / "data" / "synthetic_employee_compensation.csv"
+MARKET_BANDS = {role: (low, high) for role, _department, low, high in JOB_ROLES}
 
 
 def _artifacts_dir():
     return settings.BASE_DIR / "ml" / "artifacts"
-
-
-def _load_dataset():
-    with open(_dataset_path(), newline="") as f:
-        rows = list(csv.DictReader(f))
-    for row in rows:
-        for field in INT_FIELDS:
-            row[field] = int(row[field])
-        for field in FLOAT_FIELDS:
-            row[field] = float(row[field])
-    return rows
 
 
 def _get_pipelines():
@@ -87,6 +67,68 @@ def _get_pipelines():
         classification_pipeline = joblib.load(artifacts_dir / "classification_model.joblib")
         _pipeline_cache = (regression_pipeline, classification_pipeline)
     return _pipeline_cache
+
+
+def _employee_role(user):
+    if user.designation == "Other":
+        return user.job_role_other or "Other"
+    return user.designation
+
+
+def _missing_fields(user):
+    return [name for name in REQUIRED_EMPLOYEE_FIELDS if getattr(user, name) in (None, "")]
+
+
+def _display_name(user):
+    name = f"{user.first_name} {user.last_name}".strip()
+    return name or user.username
+
+
+def _employee_row(user):
+    role = _employee_role(user)
+    market_min, market_max = MARKET_BANDS.get(role, (30000, 100000))
+    name = _display_name(user)
+    return {
+        "employee_id": user.id,
+        "name": name,
+        "initials": "".join(part[0] for part in name.split()[:2]).upper(),
+        "age": user.age,
+        "job_role": role,
+        "department": user.department or "",
+        "experience_years": user.experience_years,
+        "education_level": user.education_level,
+        "publications_count": user.publications_count,
+        "projects_led_count": user.projects_led_count,
+        "trainings_count": user.trainings_count,
+        "training_score": training_score(user.trainings_count),
+        "skills_score": user.skills_score,
+        "boss_assessment_score": user.boss_assessment_score,
+        "language_proficiency": user.language_proficiency,
+        "market_min_salary": market_min,
+        "market_max_salary": market_max,
+        "actual_salary": user.actual_salary,
+        "satisfaction_score": user.satisfaction_score,
+        "satisfaction_label": "Satisfied" if user.satisfaction_score >= 4 else "Dissatisfied",
+    }
+
+
+def _employees():
+    from dashboard.models import User
+
+    return User.objects.filter(role=User.Role.EMPLOYEE).order_by("id")
+
+
+def get_incomplete_employees():
+    incomplete = []
+    for user in _employees():
+        missing = _missing_fields(user)
+        if missing:
+            incomplete.append({"id": user.id, "name": _display_name(user), "missing": missing})
+    return incomplete
+
+
+def _load_employees():
+    return [_employee_row(user) for user in _employees() if not _missing_fields(user)]
 
 
 def risk_level(probability):
@@ -176,7 +218,9 @@ def _predict_satisfaction(pipeline, df):
 
 
 def _build_roster():
-    rows = _load_dataset()
+    rows = _load_employees()
+    if not rows:
+        return []
     regression_pipeline, classification_pipeline = _get_pipelines()
     df = pd.DataFrame(rows)
 
@@ -205,10 +249,7 @@ def _build_roster():
 
 
 def get_roster():
-    global _roster_cache
-    if _roster_cache is None:
-        _roster_cache = _build_roster()
-    return _roster_cache
+    return _build_roster()
 
 
 def get_employee(employee_id):
