@@ -3,8 +3,6 @@ document.addEventListener("alpine:init", () => {
     employees: initialEmployees,
     query: "",
     loading: true,
-    formError: "",
-    showModal: false,
     get filtered() {
       const q = this.query.trim().toLowerCase();
       if (!q) return this.employees;
@@ -20,46 +18,6 @@ document.addEventListener("alpine:init", () => {
         this.loading = false;
         this.$nextTick(() => staggerRows(this.$refs.tbody));
       }, 400);
-    },
-    openModal() {
-      this.formError = "";
-      this.showModal = true;
-      this.$nextTick(() => animateModalIn(this.$refs.modalPanel));
-    },
-    closeModal() {
-      animateModalOut(this.$refs.modalPanel, () => {
-        this.showModal = false;
-      });
-    },
-    addEmployee(form) {
-      if (!form.name || !form.designation || !form.department || !form.salary) {
-        this.formError = "Please fill in all fields.";
-        this.$nextTick(() => shakeElement(this.$refs.modalPanel));
-        return;
-      }
-      const nextId = Math.max(0, ...this.employees.map((e) => e.id)) + 1;
-      const initials = form.name
-        .split(" ")
-        .map((p) => p[0])
-        .join("")
-        .slice(0, 2)
-        .toUpperCase();
-      this.employees.push({
-        id: nextId,
-        name: form.name,
-        designation: form.designation,
-        department: form.department,
-        experience_years: Number(form.experience_years) || 0,
-        salary: Number(form.salary),
-        initials,
-      });
-      this.formError = "";
-      this.$nextTick(() => {
-        const rows = this.$refs.tbody.querySelectorAll("tr");
-        animateRowIn(rows[rows.length - 1]);
-      });
-      window.dispatchEvent(new CustomEvent("toast", { detail: { message: `${form.name} added.` } }));
-      this.closeModal();
     },
   }));
 

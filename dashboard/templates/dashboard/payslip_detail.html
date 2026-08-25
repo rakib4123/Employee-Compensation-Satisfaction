@@ -6,6 +6,7 @@
     <div>
       <h1 class="text-xl font-semibold">Payslip &mdash; {{ payslip.period }}</h1>
       <p class="text-slate-500 text-sm">DRIKON TECH Payroll</p>
+      <p class="text-xs text-slate-400 mt-1">Estimated — derived from your recorded salary, not payroll.</p>
     </div>
     <button onclick="window.print()" type="button"
             class="print:hidden rounded-lg border border-slate-300 dark:border-slate-600 px-3 py-1.5 text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">
@@ -24,7 +25,7 @@
   </table>
   <div class="flex justify-between text-base font-semibold border-t border-slate-200 dark:border-slate-700 pt-4">
     <span>Net Pay</span>
-    <span>${{ payslip.net }}</span>
+    <span>৳{{ payslip.net }}</span>
   </div>
 </div>
 {% endblock %}
