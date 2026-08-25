@@ -34,6 +34,7 @@ class Command(BaseCommand):
                 "education_score": by_key["education"],
                 "publication_score": by_key["publications"],
                 "project_score": by_key["projects"],
+                "training_score": by_key["training"],
                 "compensation_score": scorecard["total"],
                 "expected_salary": "",
                 "compensation_ratio": "",

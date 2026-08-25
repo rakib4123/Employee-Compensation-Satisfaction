@@ -64,3 +64,32 @@ Artifacts land in `artifacts/`; the Django app loads them and never trains.
   feature importances, which cannot explain an individual prediction.
   Revisit if the gap ever becomes large — that would mean switching the
   explanation method too, not just the model.
+- The classifier has the same circularity problem as the regressor
+  above, and it is worse there because the classifier's only working
+  input is a proxy for the regressor's own output:
+  - `ml/generate_dataset.py` derives `satisfaction_label` from
+    `compensation_ratio = actual_salary / expected_salary`. The
+    classifier's inputs include `actual_salary` and
+    `predicted_market_salary` (the served regressor's own prediction),
+    whose ratio is a near-exact stand-in for `compensation_ratio` on the
+    993 of 1,007 training rows that came from the synthetic generator.
+    The classifier is largely rediscovering the generator's own rule.
+    Without a salary feature it performs at chance (ROC-AUC 0.485). Its
+    "Predicted Satisfaction" output is close to a restatement of the
+    `gap_pct` already shown on the same card, not independent evidence.
+  - `predicted_market_salary` is provably redundant as a feature:
+    regressing it on the classifier's other inputs gives R² = 1.0,
+    because the served regressor is linear over those same columns. The
+    ~0.028 AUC it appears to add over `actual_salary` alone is an L2
+    regularisation artifact spread across two collinear columns, not
+    signal.
+  - ROC-AUC 0.668 is nonetheless an honest number for what the task
+    allows: scoring synthetic rows with the generator's own probability
+    (rather than the thresholded label) gives 0.7222, the Bayes ceiling
+    for this generator. The served model achieves roughly 93% of what is
+    achievable.
+  - `satisfaction_label` itself means two different things depending on
+    where the row came from: a coin flip weighted by
+    `compensation_ratio` in synthetic rows, versus a real 1–5 self-report
+    thresholded at `>= 4` in survey/registration rows. Two different
+    measurement instruments are pooled into one training target column.

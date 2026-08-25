@@ -76,7 +76,17 @@ def _employee_role(user):
 
 
 def _missing_fields(user):
-    return [name for name in REQUIRED_EMPLOYEE_FIELDS if getattr(user, name) in (None, "")]
+    missing = [name for name in REQUIRED_EMPLOYEE_FIELDS if getattr(user, name) in (None, "")]
+    # "designation" already covers the case where no job title was chosen at
+    # all; this catches the case where one was chosen (including a
+    # free-text "Other" role) but it doesn't match any known market band.
+    # An unrecognised role has no market band to compare against and no
+    # model coefficients to react to it (the one-hot encoder zeroes it
+    # out), so treating it as incomplete keeps it out of the roster, the
+    # models, and the export rather than showing a fabricated number.
+    if "designation" not in missing and _employee_role(user) not in MARKET_BANDS:
+        missing.append("recognised job role")
+    return missing
 
 
 def _display_name(user):
@@ -86,7 +96,10 @@ def _display_name(user):
 
 def _employee_row(user):
     role = _employee_role(user)
-    market_min, market_max = MARKET_BANDS.get(role, (30000, 100000))
+    # _missing_fields() already excludes any user whose resolved role isn't
+    # a recognised market band, so every caller of _employee_row() (via
+    # _load_employees()) has a guaranteed hit here.
+    market_min, market_max = MARKET_BANDS[role]
     name = _display_name(user)
     return {
         "employee_id": user.id,
@@ -100,7 +113,6 @@ def _employee_row(user):
         "publications_count": user.publications_count,
         "projects_led_count": user.projects_led_count,
         "trainings_count": user.trainings_count,
-        "training_score": training_score(user.trainings_count),
         "skills_score": user.skills_score,
         "boss_assessment_score": user.boss_assessment_score,
         "language_proficiency": user.language_proficiency,

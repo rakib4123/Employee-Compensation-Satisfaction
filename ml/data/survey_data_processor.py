@@ -7,8 +7,12 @@ dataset: that file is an immutable training base, and appending model
 predictions back into it would train the model on its own output.
 
 Rows are dropped when the job role is not one the models know (the
-encoder would silently zero it out) or when the reported salary falls
-outside a plausible range for that role.
+encoder would silently zero it out), when the reported salary falls
+outside a plausible range for that role, when the language proficiency
+answer is not one the models know (same silent-zero problem as an
+unknown role), or when the satisfaction answer is missing or
+unparseable (a blank answer is not evidence of dissatisfaction, and
+must not silently become the "Dissatisfied" training label).
 """
 
 import csv
@@ -24,6 +28,7 @@ from ml.generate_dataset import (  # noqa: E402
     CSV_COLUMNS,
     EDUCATION_POINTS,
     JOB_ROLES,
+    LANGUAGE_LEVELS,
     experience_score,
     project_score,
     publication_score,
@@ -89,6 +94,26 @@ def resolve_education(raw):
     return raw if raw in EDUCATION_POINTS else None
 
 
+def resolve_language(raw):
+    raw = str(raw).strip()
+    return raw if raw in LANGUAGE_LEVELS else None
+
+
+def parse_satisfaction(value):
+    """Unlike parse_int(), this has no default: a missing or unparseable
+    answer must drop the row rather than silently becoming a rating of 0,
+    which reads as "Dissatisfied" (0 >= 4 is False) and fabricates a
+    training label for a question nobody answered.
+    """
+    text = str(value).strip()
+    if not text or text.lower() in {"n/a", "nan"}:
+        return None
+    try:
+        return int(float(text))
+    except ValueError:
+        return None
+
+
 def salary_in_band(salary, role):
     low, high = MARKET_BANDS[role]
     return low * SALARY_BAND_LOW <= salary <= high * SALARY_BAND_HIGH
@@ -107,12 +132,19 @@ def build_row(employee_id, record):
     if education is None:
         return None
 
+    language = resolve_language(record.iloc[5])
+    if language is None:
+        return None
+
+    satisfaction = parse_satisfaction(record.iloc[14])
+    if satisfaction is None:
+        return None
+
     publications = parse_int(record.iloc[8])
     projects = parse_int(record.iloc[9])
     trainings = parse_int(record.iloc[10])
     skills = parse_int(record.iloc[11])
     experience = parse_int(record.iloc[6])
-    satisfaction = parse_int(record.iloc[14])
 
     scores = {
         "experience_score": experience_score(experience),
@@ -137,7 +169,7 @@ def build_row(employee_id, record):
         "trainings_count": trainings,
         "skills_score": skills,
         "boss_assessment_score": BOSS_ASSESSMENT_SCORE,
-        "language_proficiency": str(record.iloc[5]).strip(),
+        "language_proficiency": language,
         **scores,
         "compensation_score": sum(scores.values()) + skills + BOSS_ASSESSMENT_SCORE,
         "market_min_salary": market_min,

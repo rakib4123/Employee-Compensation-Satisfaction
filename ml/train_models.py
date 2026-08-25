@@ -4,7 +4,13 @@ models on the synthetic BusCom compensation dataset, with SHAP-based
 explainability for the best model in each task.
 
 Usage:
-    python ml/train_models.py [--data ml/data/synthetic_employee_compensation.csv] [--out ml/outputs]
+    python ml/train_models.py [--data ml/data/synthetic_employee_compensation.csv ...] [--out ml/outputs]
+
+--data accepts one or more paths (nargs="+") and concatenates them, e.g.:
+    python ml/train_models.py --data \
+        ml/data/synthetic_employee_compensation.csv \
+        ml/data/real_employees.csv \
+        ml/data/survey_employees.csv
 """
 
 import argparse
@@ -108,7 +114,7 @@ def run_regression(df, out_dir, artifacts_dir):
     best_name = results.iloc[0]["model"]
     linear_results = results[results["model"].isin(LINEAR_REGRESSION_MODELS)]
     served_name = linear_results.iloc[0]["model"]
-    print("\n=== Regression: predicting expected_salary ===")
+    print("\n=== Regression: predicting actual_salary ===")
     print(results.to_string(index=False))
     if served_name == best_name:
         print(f"Best model: {best_name}")
