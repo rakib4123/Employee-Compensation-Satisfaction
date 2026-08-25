@@ -93,6 +93,21 @@ class HrDashboardTests(TestCase):
         response = self.client.get("/dashboard/")
         self.assertEqual(response.status_code, 302)
 
+    def test_average_salary_ignores_employees_with_no_recorded_salary(self):
+        # amara_okafor (from setUp) has actual_salary=95000. Add a second
+        # employee with no salary on file at all; without the fix, the
+        # `or 0` in the average divides by headcount and pulls the
+        # average down toward zero instead of excluding them.
+        get_user_model().objects.create_user(
+            username="nosalary_hr_test", password="x",
+            first_name="No", last_name="Salary", actual_salary=None,
+        )
+        self.client.login(username="hr_admin", password="buscom-hr-2026")
+        response = self.client.get(reverse("hr_dashboard"))
+        self.assertEqual(response.context["headcount"], 2)
+        self.assertEqual(response.context["total_payroll"], 95000)
+        self.assertEqual(response.context["avg_salary"], 95000)
+
 
 class PayslipDerivationTests(TestCase):
     def make_employee(self, username="payee", salary=60000):
@@ -297,6 +312,100 @@ class RegistrationTests(TestCase):
         self.assertContains(response, 'value="Nusrat"')
         self.assertContains(response, 'value="65000"')
         self.assertContains(response, 'value="27"')
+
+    def test_malicious_designation_cannot_break_out_of_the_alpine_string(self):
+        # designation is an invalid choice, so the form re-renders (200)
+        # with form.designation.value() echoing the raw submitted text
+        # into the x-data attribute. Django's autoescape turns the
+        # payload's `'` into `&#x27;`, but browsers HTML-decode attribute
+        # values BEFORE Alpine evaluates x-data as JS, so an unescaped
+        # `&#x27;` still lets the payload break out of the Alpine string
+        # and execute. A raw substring check on the response body can't
+        # tell escaped from unescaped quotes apart (both render "+alert("
+        # as plain text either way) so this decodes HTML entities first,
+        # the way a browser would, before checking for the break-out.
+        import html
+        import re
+
+        payload = self.payload(designation="Other', role: ''+alert(document.cookie)+'")
+        response = self.client.post(reverse("register"), payload)
+        self.assertEqual(response.status_code, 200)
+        body = response.content.decode()
+        match = re.search(r'x-data="(\{ role: .*? \})"', body)
+        self.assertIsNotNone(match, "could not find the Alpine x-data attribute on the register page")
+        decoded = html.unescape(match.group(1))
+        self.assertNotIn("''+alert(", decoded)
+
+
+class RegistrationNumericBoundsTests(TestCase):
+    """publications_count/projects_led_count/trainings_count/actual_salary
+    had a min_value but no max_value, letting a public registration flood
+    the model with an outlier (e.g. publications_count=999999 produced a
+    predicted market salary over a billion BDT). These fields must be
+    bounded the same way compensation/forms.py bounds the HR what-if form.
+    """
+
+    def payload(self, **overrides):
+        data = {
+            "username": "boundhire",
+            "password1": "buscom-test-2026",
+            "password2": "buscom-test-2026",
+            "first_name": "Bound",
+            "last_name": "Check",
+            "email": "bound@buscom.test",
+            "age": 27,
+            "designation": "Software Engineer",
+            "language_proficiency": "Advanced",
+            "experience_years": 4,
+            "education_level": "BSc",
+            "publications_count": 2,
+            "projects_led_count": 3,
+            "trainings_count": 4,
+            "skills_score": 7,
+            "actual_salary": 65000,
+            "satisfaction_score": 4,
+            "fairness_feedback": "",
+        }
+        data.update(overrides)
+        return data
+
+    def test_publications_count_over_twenty_is_rejected(self):
+        response = self.client.post(reverse("register"), self.payload(publications_count=999999))
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response.context["form"], "publications_count",
+            "Ensure this value is less than or equal to 20.",
+        )
+
+    def test_projects_led_count_over_twenty_is_rejected(self):
+        response = self.client.post(reverse("register"), self.payload(projects_led_count=999999))
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response.context["form"], "projects_led_count",
+            "Ensure this value is less than or equal to 20.",
+        )
+
+    def test_trainings_count_over_twenty_is_rejected(self):
+        response = self.client.post(reverse("register"), self.payload(trainings_count=999999))
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response.context["form"], "trainings_count",
+            "Ensure this value is less than or equal to 20.",
+        )
+
+    def test_actual_salary_over_one_million_is_rejected(self):
+        response = self.client.post(reverse("register"), self.payload(actual_salary=999999999))
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response.context["form"], "actual_salary",
+            "Ensure this value is less than or equal to 1000000.",
+        )
+
+    def test_in_range_values_are_accepted(self):
+        response = self.client.post(reverse("register"), self.payload(
+            publications_count=20, projects_led_count=20, trainings_count=20, actual_salary=1000000,
+        ))
+        self.assertRedirects(response, reverse("employee_self_service"))
 
 
 class ExportEmployeesTests(TestCase):

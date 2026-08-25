@@ -21,14 +21,21 @@ class EmployeeRegistrationForm(UserCreationForm):
     experience_years = forms.IntegerField(min_value=0, max_value=50, required=True, label="How many years of professional experience do you have?")
     education_level = forms.ChoiceField(choices=User.EDUCATION_CHOICES, required=True, label="What is your highest completed education level?")
 
-    publications_count = forms.IntegerField(min_value=0, required=True, label="How many professional publications, papers, or articles have you authored?")
-    projects_led_count = forms.IntegerField(min_value=0, required=True, label="How many projects have you led or managed?")
+    # max_value=20 matches compensation/forms.py's PredictProfileForm, which
+    # bounds these same fields for the HR what-if tool. Registration should
+    # not be a looser gate than the internal tool onto the same model.
+    publications_count = forms.IntegerField(min_value=0, max_value=20, required=True, label="How many professional publications, papers, or articles have you authored?")
+    projects_led_count = forms.IntegerField(min_value=0, max_value=20, required=True, label="How many projects have you led or managed?")
 
-    trainings_count = forms.IntegerField(min_value=0, required=True, label="How many trainings or courses have you completed?")
+    trainings_count = forms.IntegerField(min_value=0, max_value=20, required=True, label="How many trainings or courses have you completed?")
     skills_score = forms.IntegerField(min_value=0, max_value=10, required=True, label="Rate your current skill level for your role")
 
     # Compensation and Satisfaction
-    actual_salary = forms.IntegerField(min_value=0, required=True, label="What is your current monthly salary (BDT)?")
+    # 1,000,000 BDT/month: generous headroom above the highest market band
+    # max (Project Manager, 200,000/month in ml/generate_dataset.py's
+    # JOB_ROLES) while still bounding how far a self-registering employee
+    # can skew the HR dashboard's total payroll or the regression model.
+    actual_salary = forms.IntegerField(min_value=0, max_value=1000000, required=True, label="What is your current monthly salary (BDT)?")
     satisfaction_score = forms.IntegerField(min_value=1, max_value=5, required=True, label="How satisfied are you with your current compensation?")
     fairness_feedback = forms.CharField(widget=forms.Textarea(attrs={'rows': 3}), required=False, label="Anything that would make your compensation feel more fair?")
 

@@ -113,9 +113,20 @@ class RosterFromDatabaseTests(TestCase):
         self.assertEqual(data.get_roster(), [])
 
     def test_other_designation_uses_the_free_text_role(self):
-        self.create_employee("ai", designation="Other", job_role_other="AI Engineer",
+        self.create_employee("ai", designation="Other", job_role_other="Software Engineer",
                              department="Engineering")
-        self.assertEqual(data.get_roster()[0]["job_role"], "AI Engineer")
+        self.assertEqual(data.get_roster()[0]["job_role"], "Software Engineer")
+
+    def test_other_designation_with_unrecognised_role_is_excluded_from_roster(self):
+        # migration 0002 seeds amara_okafor with no ML fields, so she is
+        # always incomplete too; drop her so this test counts only its own row.
+        get_user_model().objects.filter(username="amara_okafor").delete()
+        self.create_employee("vibes", designation="Other", job_role_other="Chief Vibes Officer",
+                              department="Engineering")
+        self.assertEqual(data.get_roster(), [])
+        incomplete = data.get_incomplete_employees()
+        self.assertEqual(len(incomplete), 1)
+        self.assertIn("recognised job role", incomplete[0]["missing"])
 
     def test_incomplete_employee_is_flagged_not_dropped(self):
         # migration 0002 seeds amara_okafor with no ML fields, so she is

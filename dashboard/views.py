@@ -35,6 +35,7 @@ def _is_hr(user):
 @login_required
 @user_passes_test(_is_hr, login_url="employee_self_service")
 def hr_dashboard(request):
+    users = list(User.objects.filter(role=User.Role.EMPLOYEE).order_by("id"))
     employees = [
         {
             "id": user.id,
@@ -47,11 +48,16 @@ def hr_dashboard(request):
             "experience_years": user.experience_years or 0,
             "salary": user.actual_salary or 0,
         }
-        for user in User.objects.filter(role=User.Role.EMPLOYEE).order_by("id")
+        for user in users
     ]
     headcount = len(employees)
     total_payroll = sum(e["salary"] for e in employees)
-    avg_salary = round(total_payroll / headcount, 2) if headcount else 0
+    # Average only over employees who actually have a recorded salary, so
+    # one with no salary on file (e.g. a freshly seeded/incomplete record)
+    # doesn't silently drag the average toward zero. total_payroll and
+    # headcount stay true totals across every employee.
+    salaried_count = sum(1 for user in users if user.actual_salary is not None)
+    avg_salary = round(total_payroll / salaried_count, 2) if salaried_count else 0
     return render(request, "dashboard/hr_dashboard.html", {
         "employees": employees,
         "headcount": headcount,
