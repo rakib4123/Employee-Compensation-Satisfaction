@@ -228,7 +228,7 @@ class EmployeeDetailTests(TestCase):
         response = self.client.get(reverse("compensation:employee_detail", args=[target["employee_id"]]))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, target["name"])
-        self.assertContains(response, "Predicted Fair Salary")
+        self.assertContains(response, "Predicted Market Salary")
 
     def test_unknown_employee_returns_404(self):
         response = self.client.get(reverse("compensation:employee_detail", args=[999999]))
@@ -265,12 +265,12 @@ class PredictProfileTests(TestCase):
     def test_get_shows_empty_form(self):
         response = self.client.get(reverse("compensation:predict_profile"))
         self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, "Predicted Fair Salary")
+        self.assertNotContains(response, "Predicted Market Salary")
 
     def test_post_valid_profile_shows_prediction_without_satisfaction(self):
         response = self.client.post(reverse("compensation:predict_profile"), self.valid_payload())
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Predicted Fair Salary")
+        self.assertContains(response, "Predicted Market Salary")
         self.assertNotContains(response, "Predicted Satisfaction")
 
     def test_post_with_proposed_salary_shows_satisfaction(self):
