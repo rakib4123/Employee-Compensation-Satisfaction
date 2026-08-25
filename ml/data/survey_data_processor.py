@@ -1,172 +1,173 @@
-import csv
-import re
-import pandas as pd
-import joblib
+#!/usr/bin/env python3
+"""Turn raw survey responses into a training-ready CSV.
 
+Writes ml/data/survey_employees.csv from scratch on every run, so
+re-running never duplicates rows. It never touches the synthetic
+dataset: that file is an immutable training base, and appending model
+predictions back into it would train the model on its own output.
+
+Rows are dropped when the job role is not one the models know (the
+encoder would silently zero it out) or when the reported salary falls
+outside a plausible range for that role.
+"""
+
+import csv
 import sys
 from pathlib import Path
+
+import pandas as pd
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.append(str(BASE_DIR))
 
-from ml.generate_dataset import (
+from ml.generate_dataset import (  # noqa: E402
     CSV_COLUMNS,
     EDUCATION_POINTS,
-    experience_score,
-    publication_score,
-    project_score,
     JOB_ROLES,
+    experience_score,
+    project_score,
+    publication_score,
+    training_score,
 )
 
-def parse_salary(val):
-    val = str(val).lower().replace(",", "").strip()
-    if "lakh" in val:
-        val = val.replace("lakh", "").strip()
-        try:
-            return int(float(val) * 100000)
-        except:
-            return 0
-    try:
-        return int(float(val))
-    except:
-        return 0
+ROLE_DEPARTMENTS = {role: department for role, department, _min, _max in JOB_ROLES}
+MARKET_BANDS = {role: (low, high) for role, _department, low, high in JOB_ROLES}
+KNOWN_DEPARTMENTS = set(ROLE_DEPARTMENTS.values())
 
-def parse_int(val, default=0):
-    val = str(val).strip()
-    if val.lower() == "n/a" or val == "":
+BOSS_ASSESSMENT_SCORE = 10  # flat for every employee, by design
+SALARY_BAND_LOW = 0.3
+SALARY_BAND_HIGH = 3.0
+
+
+def parse_salary(value):
+    text = str(value).lower().replace(",", "").strip()
+    if not text or text == "nan":
+        return None
+    multiplier = 1
+    if "lakh" in text:
+        multiplier = 100000
+        text = text.replace("lakh", "").strip()
+    try:
+        amount = int(float(text) * multiplier)
+    except ValueError:
+        return None
+    return amount or None
+
+
+def parse_int(value, default=0):
+    text = str(value).strip()
+    if not text or text.lower() in {"n/a", "nan"}:
         return default
-    if "-" in val:
-        parts = val.split("-")
+    if "-" in text:
+        low, _, high = text.partition("-")
         try:
-            return (int(parts[0].strip()) + int(parts[1].strip())) // 2
-        except:
+            return (int(low.strip()) + int(high.strip())) // 2
+        except ValueError:
             return default
     try:
-        return int(float(val))
-    except:
+        return int(float(text))
+    except ValueError:
         return default
+
+
+def resolve_role(title, other):
+    title = str(title).strip()
+    if title == "Other":
+        title = str(other).strip()
+    return title if title in MARKET_BANDS else None
+
+
+def resolve_department(raw, role):
+    raw = str(raw).strip()
+    if raw in KNOWN_DEPARTMENTS:
+        return raw
+    return ROLE_DEPARTMENTS[role]
+
+
+def resolve_education(raw):
+    raw = str(raw).strip()
+    return raw if raw in EDUCATION_POINTS else None
+
+
+def salary_in_band(salary, role):
+    low, high = MARKET_BANDS[role]
+    return low * SALARY_BAND_LOW <= salary <= high * SALARY_BAND_HIGH
+
+
+def build_row(employee_id, record):
+    role = resolve_role(record.iloc[2], record.iloc[3])
+    if role is None:
+        return None
+
+    salary = parse_salary(record.iloc[13])
+    if salary is None or not salary_in_band(salary, role):
+        return None
+
+    education = resolve_education(record.iloc[7])
+    if education is None:
+        return None
+
+    publications = parse_int(record.iloc[8])
+    projects = parse_int(record.iloc[9])
+    trainings = parse_int(record.iloc[10])
+    skills = parse_int(record.iloc[11])
+    experience = parse_int(record.iloc[6])
+    satisfaction = parse_int(record.iloc[14])
+
+    scores = {
+        "experience_score": experience_score(experience),
+        "education_score": EDUCATION_POINTS[education],
+        "publication_score": publication_score(publications),
+        "project_score": project_score(projects),
+        "training_score": training_score(trainings),
+    }
+    market_min, market_max = MARKET_BANDS[role]
+
+    return {
+        "employee_id": employee_id,
+        "name": f"Survey Participant {employee_id}",
+        "initials": "SP",
+        "age": parse_int(record.iloc[1], 25),
+        "job_role": role,
+        "department": resolve_department(record.iloc[4], role),
+        "experience_years": experience,
+        "education_level": education,
+        "publications_count": publications,
+        "projects_led_count": projects,
+        "trainings_count": trainings,
+        "skills_score": skills,
+        "boss_assessment_score": BOSS_ASSESSMENT_SCORE,
+        "language_proficiency": str(record.iloc[5]).strip(),
+        **scores,
+        "compensation_score": sum(scores.values()) + skills + BOSS_ASSESSMENT_SCORE,
+        "market_min_salary": market_min,
+        "market_max_salary": market_max,
+        "expected_salary": "",
+        "actual_salary": salary,
+        "compensation_ratio": "",
+        "satisfaction_label": "Satisfied" if satisfaction >= 4 else "Dissatisfied",
+    }
+
 
 def main():
     raw_file = BASE_DIR / "ml" / "data" / "survey_raw.tsv"
-    dataset_file = BASE_DIR / "ml" / "data" / "synthetic_employee_compensation.csv"
-    model_file = BASE_DIR / "ml" / "artifacts" / "regression_model.joblib"
-    
-    # Load model
-    try:
-        pipeline = joblib.load(model_file)
-    except Exception as e:
-        print(f"Error loading model: {e}")
-        pipeline = None
+    out_file = BASE_DIR / "ml" / "data" / "survey_employees.csv"
 
-    df = pd.read_csv(raw_file, sep="\t")
-    
-    try:
-        df_existing = pd.read_csv(dataset_file)
-        max_id = df_existing["employee_id"].max()
-        if pd.isna(max_id):
-            max_id = 0
-    except Exception:
-        df_existing = pd.DataFrame()
-        max_id = 0
-        
+    responses = pd.read_csv(raw_file, sep="\t")
     rows = []
-    
-    for idx, row in df.iterrows():
-        emp_id = max_id + idx + 1
-        name = f"Survey Participant {emp_id}"
-        initials = "SP"
-        
-        age = parse_int(row.iloc[1], 25)
-        
-        job_role = str(row.iloc[2]).strip()
-        if job_role.lower() == "other":
-            other_role = str(row.iloc[3]).strip()
-            if other_role and other_role.lower() != "nan":
-                job_role = other_role
-        
-        dept = str(row.iloc[4]).strip()
-        lang = str(row.iloc[5]).strip()
-        
-        exp_years = parse_int(row.iloc[6])
-        
-        edu = str(row.iloc[7]).strip()
-        if edu not in EDUCATION_POINTS:
-            edu = "High School"
-            
-        pub = parse_int(row.iloc[8])
-        proj = parse_int(row.iloc[9])
-        train_score = parse_int(row.iloc[10])
-        skill_score = parse_int(row.iloc[11])
-        boss_score = 10  # Hardcoded as requested
-        
-        actual_sal = parse_salary(row.iloc[13])
-        
-        sat_val = parse_int(row.iloc[14])
-        sat_label = "Satisfied" if sat_val >= 4 else "Dissatisfied"
-        
-        exp_score = experience_score(exp_years)
-        edu_score = EDUCATION_POINTS[edu]
-        pub_score = publication_score(pub)
-        proj_score = project_score(proj)
-        comp_score = exp_score + edu_score + pub_score + proj_score + train_score + skill_score + boss_score
-        
-        # Market min/max
-        market_min = 30000
-        market_max = 100000
-        for jr, d, mmin, mmax in JOB_ROLES:
-            if jr.lower() in job_role.lower():
-                market_min = mmin
-                market_max = mmax
-                break
-                
-        out_row = {
-            "employee_id": emp_id,
-            "name": name,
-            "initials": initials,
-            "age": age,
-            "job_role": job_role,
-            "department": dept,
-            "experience_years": exp_years,
-            "education_level": edu,
-            "publications_count": pub,
-            "projects_led_count": proj,
-            "training_score": train_score,
-            "skills_score": skill_score,
-            "boss_assessment_score": boss_score,
-            "language_proficiency": lang,
-            "experience_score": exp_score,
-            "education_score": edu_score,
-            "publication_score": pub_score,
-            "project_score": proj_score,
-            "compensation_score": comp_score,
-            "market_min_salary": market_min,
-            "market_max_salary": market_max,
-            "actual_salary": actual_sal,
-            "satisfaction_label": sat_label,
-        }
-        rows.append(out_row)
-        
-    out_df = pd.DataFrame(rows)
-    
-    if pipeline:
-        from ml.features import CATEGORICAL_FEATURES, NUMERIC_FEATURES
-        expected_salary_preds = pipeline.predict(out_df[CATEGORICAL_FEATURES + NUMERIC_FEATURES])
-        out_df["expected_salary"] = [int(round(x)) for x in expected_salary_preds]
-    else:
-        out_df["expected_salary"] = out_df["actual_salary"]
-        
-    out_df["compensation_ratio"] = out_df.apply(lambda r: round(r["actual_salary"] / r["expected_salary"], 2) if r["expected_salary"] > 0 else 0, axis=1)
-    
-    # Reorder columns to match original exactly
-    out_df = out_df[CSV_COLUMNS]
-    
-    if not df_existing.empty:
-        combined_df = pd.concat([df_existing, out_df], ignore_index=True)
-    else:
-        combined_df = out_df
-        
-    combined_df.to_csv(dataset_file, index=False)
-    print(f"Successfully processed {len(out_df)} survey rows and appended to {dataset_file}. Total rows: {len(combined_df)}")
+    for position in range(len(responses)):
+        row = build_row(len(rows) + 1, responses.iloc[position])
+        if row is not None:
+            rows.append(row)
+
+    with open(out_file, "w", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=CSV_COLUMNS, extrasaction="ignore")
+        writer.writeheader()
+        writer.writerows(rows)
+
+    dropped = len(responses) - len(rows)
+    print(f"Wrote {len(rows)} usable rows to {out_file} ({dropped} of {len(responses)} dropped)")
+
 
 if __name__ == "__main__":
     main()
