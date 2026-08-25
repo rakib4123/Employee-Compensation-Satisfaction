@@ -93,10 +93,10 @@ def register_employee(request):
                 "id": new_id,
                 "name": f"{user.first_name} {user.last_name}",
                 "email": user.email,
-                "designation": form.cleaned_data.get("designation"),
+                "designation": form.cleaned_data.get("job_role_other") if form.cleaned_data.get("designation") == "Other" else form.cleaned_data.get("designation"),
                 "department": form.cleaned_data.get("department"),
-                "experience_years": 0,
-                "salary": 50000,
+                "experience_years": form.cleaned_data.get("experience_years", 0),
+                "salary": form.cleaned_data.get("actual_salary", 0),
                 "initials": "".join(part[0] for part in [user.first_name, user.last_name] if part).upper()
             })
             

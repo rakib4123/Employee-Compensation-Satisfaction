@@ -1,8 +1,8 @@
 {% extends "dashboard/base.html" %}
 {% block title %}Sign up — BusCom{% endblock %}
 {% block guest_content %}
-<div class="w-full max-w-md bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl border border-white/40 border-t-white/80 dark:border-slate-700/40 dark:border-t-slate-500/50 shadow-2xl p-8 rounded-3xl"
-     x-data x-init="fadeInPage($el); {% if form.errors %}shakeElement($el){% endif %}">
+<div class="w-full max-w-4xl bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl border border-white/40 border-t-white/80 dark:border-slate-700/40 dark:border-t-slate-500/50 shadow-2xl p-8 rounded-3xl my-8"
+     x-data="{ role: '{{ form.designation.value|default:"" }}' }" x-init="fadeInPage($el); {% if form.errors %}shakeElement($el){% endif %}">
   <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-fuchsia-600 dark:from-indigo-400 dark:to-fuchsia-400 mb-1 tracking-tight">BusCom</h1>
   <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Register a new employee account.</p>
   
@@ -19,69 +19,181 @@
     </div>
   {% endif %}
   
-  <form method="post" class="space-y-4">
+  <form method="post" class="space-y-6">
     {% csrf_token %}
     
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_first_name">First Name</label>
-        <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-               type="text" name="first_name" id="id_first_name" required>
-        {% if form.first_name.errors %}<p class="text-red-500 text-xs mt-1">{{ form.first_name.errors.0 }}</p>{% endif %}
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_last_name">Last Name</label>
-        <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-               type="text" name="last_name" id="id_last_name" required>
-        {% if form.last_name.errors %}<p class="text-red-500 text-xs mt-1">{{ form.last_name.errors.0 }}</p>{% endif %}
-      </div>
-    </div>
-    
+    <!-- Account Info -->
     <div>
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_email">Email</label>
-      <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-             type="email" name="email" id="id_email" required>
-      {% if form.email.errors %}<p class="text-red-500 text-xs mt-1">{{ form.email.errors.0 }}</p>{% endif %}
+      <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 border-b border-slate-200 dark:border-slate-700 pb-2 mb-3">Account Details</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_first_name">First Name</label>
+          <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                 type="text" name="first_name" id="id_first_name" required>
+          {% if form.first_name.errors %}<p class="text-red-500 text-xs mt-1">{{ form.first_name.errors.0 }}</p>{% endif %}
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_last_name">Last Name</label>
+          <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                 type="text" name="last_name" id="id_last_name" required>
+          {% if form.last_name.errors %}<p class="text-red-500 text-xs mt-1">{{ form.last_name.errors.0 }}</p>{% endif %}
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_email">Email</label>
+          <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                 type="email" name="email" id="id_email" required>
+          {% if form.email.errors %}<p class="text-red-500 text-xs mt-1">{{ form.email.errors.0 }}</p>{% endif %}
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_username">Username</label>
+          <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                 type="text" name="username" id="id_username" required>
+          {% if form.username.errors %}<p class="text-red-500 text-xs mt-1">{{ form.username.errors.0 }}</p>{% endif %}
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_password1">Password</label>
+          <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                 type="password" name="password1" id="id_password1" required>
+          {% if form.password1.errors %}<p class="text-red-500 text-xs mt-1">{{ form.password1.errors.0 }}</p>{% endif %}
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_password2">Confirm Password</label>
+          <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                 type="password" name="password2" id="id_password2" required>
+          {% if form.password2.errors %}<p class="text-red-500 text-xs mt-1">{{ form.password2.errors.0 }}</p>{% endif %}
+        </div>
+      </div>
     </div>
 
+    <!-- Professional Details -->
     <div>
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_username">Username</label>
-      <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-             type="text" name="username" id="id_username" required>
-      {% if form.username.errors %}<p class="text-red-500 text-xs mt-1">{{ form.username.errors.0 }}</p>{% endif %}
-    </div>
-    
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_designation">Job Role</label>
-        <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-               type="text" name="designation" id="id_designation" placeholder="e.g. Engineer" required>
-        {% if form.designation.errors %}<p class="text-red-500 text-xs mt-1">{{ form.designation.errors.0 }}</p>{% endif %}
+      <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 border-b border-slate-200 dark:border-slate-700 pb-2 mb-3">Professional & Role</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_designation">{{ form.designation.label }}</label>
+          <select class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                  name="designation" id="id_designation" x-model="role" required>
+            <option value="" disabled selected>Select title</option>
+            {% for value, name in form.designation.field.choices %}
+              <option value="{{ value }}">{{ name }}</option>
+            {% endfor %}
+          </select>
+          {% if form.designation.errors %}<p class="text-red-500 text-xs mt-1">{{ form.designation.errors.0 }}</p>{% endif %}
+        </div>
+        <div x-show="role === 'Other'" x-transition style="display: none;">
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_job_role_other">{{ form.job_role_other.label }}</label>
+          <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                 type="text" name="job_role_other" id="id_job_role_other" placeholder="e.g. AI Engineer">
+          {% if form.job_role_other.errors %}<p class="text-red-500 text-xs mt-1">{{ form.job_role_other.errors.0 }}</p>{% endif %}
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_department">{{ form.department.label }}</label>
+          <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                 type="text" name="department" id="id_department" placeholder="e.g. Engineering" required>
+          {% if form.department.errors %}<p class="text-red-500 text-xs mt-1">{{ form.department.errors.0 }}</p>{% endif %}
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_language_proficiency">{{ form.language_proficiency.label }}</label>
+          <select class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                  name="language_proficiency" id="id_language_proficiency" required>
+            <option value="" disabled selected>Select level</option>
+            {% for value, name in form.language_proficiency.field.choices %}
+              <option value="{{ value }}">{{ name }}</option>
+            {% endfor %}
+          </select>
+          {% if form.language_proficiency.errors %}<p class="text-red-500 text-xs mt-1">{{ form.language_proficiency.errors.0 }}</p>{% endif %}
+        </div>
       </div>
-      <div>
-        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_department">Department</label>
-        <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-               type="text" name="department" id="id_department" placeholder="e.g. Engineering" required>
-        {% if form.department.errors %}<p class="text-red-500 text-xs mt-1">{{ form.department.errors.0 }}</p>{% endif %}
+    </div>
+
+    <!-- Background & Experience -->
+    <div>
+      <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 border-b border-slate-200 dark:border-slate-700 pb-2 mb-3">Background & Experience</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_age">{{ form.age.label }}</label>
+          <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                 type="number" name="age" id="id_age" min="18" max="100" required>
+          {% if form.age.errors %}<p class="text-red-500 text-xs mt-1">{{ form.age.errors.0 }}</p>{% endif %}
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_experience_years">{{ form.experience_years.label }}</label>
+          <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                 type="number" name="experience_years" id="id_experience_years" min="0" max="50" required>
+          {% if form.experience_years.errors %}<p class="text-red-500 text-xs mt-1">{{ form.experience_years.errors.0 }}</p>{% endif %}
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_education_level">{{ form.education_level.label }}</label>
+          <select class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                  name="education_level" id="id_education_level" required>
+            <option value="" disabled selected>Select level</option>
+            {% for value, name in form.education_level.field.choices %}
+              <option value="{{ value }}">{{ name }}</option>
+            {% endfor %}
+          </select>
+          {% if form.education_level.errors %}<p class="text-red-500 text-xs mt-1">{{ form.education_level.errors.0 }}</p>{% endif %}
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_publications_count">{{ form.publications_count.label }}</label>
+          <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                 type="number" name="publications_count" id="id_publications_count" min="0" required>
+          {% if form.publications_count.errors %}<p class="text-red-500 text-xs mt-1">{{ form.publications_count.errors.0 }}</p>{% endif %}
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_projects_led_count">{{ form.projects_led_count.label }}</label>
+          <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                 type="number" name="projects_led_count" id="id_projects_led_count" min="0" required>
+          {% if form.projects_led_count.errors %}<p class="text-red-500 text-xs mt-1">{{ form.projects_led_count.errors.0 }}</p>{% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Performance Scores -->
+    <div>
+      <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 border-b border-slate-200 dark:border-slate-700 pb-2 mb-3">Performance & Self-Assessment (Out of 10)</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_training_score">{{ form.training_score.label }}</label>
+          <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                 type="number" name="training_score" id="id_training_score" min="0" max="10" required>
+          {% if form.training_score.errors %}<p class="text-red-500 text-xs mt-1">{{ form.training_score.errors.0 }}</p>{% endif %}
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_skills_score">{{ form.skills_score.label }}</label>
+          <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                 type="number" name="skills_score" id="id_skills_score" min="0" max="10" required>
+          {% if form.skills_score.errors %}<p class="text-red-500 text-xs mt-1">{{ form.skills_score.errors.0 }}</p>{% endif %}
+        </div>
       </div>
     </div>
     
+    <!-- Compensation & Satisfaction -->
     <div>
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_password1">Password</label>
-      <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-             type="password" name="password1" id="id_password1" required>
-      {% if form.password1.errors %}<p class="text-red-500 text-xs mt-1">{{ form.password1.errors.0 }}</p>{% endif %}
+      <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-200 border-b border-slate-200 dark:border-slate-700 pb-2 mb-3">Compensation</h3>
+      <div class="grid grid-cols-1 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_actual_salary">{{ form.actual_salary.label }}</label>
+          <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                 type="number" name="actual_salary" id="id_actual_salary" min="0" required>
+          {% if form.actual_salary.errors %}<p class="text-red-500 text-xs mt-1">{{ form.actual_salary.errors.0 }}</p>{% endif %}
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_satisfaction_score">{{ form.satisfaction_score.label }}</label>
+          <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                 type="number" name="satisfaction_score" id="id_satisfaction_score" min="1" max="5" required>
+          {% if form.satisfaction_score.errors %}<p class="text-red-500 text-xs mt-1">{{ form.satisfaction_score.errors.0 }}</p>{% endif %}
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_fairness_feedback">{{ form.fairness_feedback.label }}</label>
+          <textarea class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+                    name="fairness_feedback" id="id_fairness_feedback" rows="3"></textarea>
+          {% if form.fairness_feedback.errors %}<p class="text-red-500 text-xs mt-1">{{ form.fairness_feedback.errors.0 }}</p>{% endif %}
+        </div>
+      </div>
     </div>
     
-    <div>
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="id_password2">Password (again)</label>
-      <input class="w-full rounded-xl border border-white/40 dark:border-slate-600/50 bg-white/50 dark:bg-slate-800/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm mb-4"
-             type="password" name="password2" id="id_password2" required>
-      {% if form.password2.errors %}<p class="text-red-500 text-xs mt-1">{{ form.password2.errors.0 }}</p>{% endif %}
-    </div>
-    
-    <button class="w-full rounded-xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-500 hover:to-fuchsia-500 active:scale-[0.98] transition-all text-white font-medium py-2.5 shadow-lg shadow-indigo-500/25" type="submit">
-      Sign up
+    <button class="w-full rounded-xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-500 hover:to-fuchsia-500 active:scale-[0.98] transition-all text-white font-medium py-3 mt-4 shadow-lg shadow-indigo-500/25" type="submit">
+      Complete Registration
     </button>
     
     <p class="text-center text-sm text-slate-500 dark:text-slate-400 mt-4">
