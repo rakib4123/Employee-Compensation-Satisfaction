@@ -21,6 +21,7 @@ SORT_FIELDS = {
 @user_passes_test(_is_hr, login_url="employee_self_service")
 def audit_dashboard(request):
     roster = data.get_roster()
+    incomplete = data.get_incomplete_employees()
 
     query = request.GET.get("q", "").strip()
     department = request.GET.get("department", "all")
@@ -79,6 +80,8 @@ def audit_dashboard(request):
         "base_query": base_query,
         "base_query_no_sort": base_query_no_sort,
         "base_query_no_gap": base_query_no_gap,
+        "incomplete": incomplete,
+        "incomplete_count": len(incomplete),
     })
 
 

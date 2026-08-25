@@ -2,6 +2,16 @@
 {% load humanize %}
 {% block title %}Compensation Insights — DRIKON TECH{% endblock %}
 {% block content %}
+{% if incomplete_count %}
+<div class="rounded-xl border border-amber-300 bg-amber-50 dark:border-amber-700/50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-200 px-4 py-3 mb-6 text-sm">
+  <p class="font-medium">{{ incomplete_count }} employee record{{ incomplete_count|pluralize }} {{ incomplete_count|pluralize:"is,are" }} incomplete and excluded from these figures.</p>
+  <ul class="mt-1 list-disc list-inside text-xs">
+    {% for employee in incomplete %}
+    <li>{{ employee.name }} — missing {{ employee.missing|join:", " }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
 <div x-data x-init="$nextTick(() => staggerRows($refs.tbody))">
   <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8" x-data x-init="$nextTick(() => staggerCards($el))">
     <a href="{% url 'compensation:audit_dashboard' %}" class="block rounded-3xl bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl border border-white/40 border-t-white/80 dark:border-slate-700/40 dark:border-t-slate-500/50 shadow-2xl p-6 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-indigo-500/10 hover:bg-white/50 dark:hover:bg-slate-800/50 relative z-10" x-data x-init="animateCountUp($el.querySelector('.stat-value'), {{ headcount }})">
