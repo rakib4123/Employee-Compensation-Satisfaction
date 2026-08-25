@@ -55,10 +55,10 @@ LAST_NAMES = [
 CSV_COLUMNS = [
     "employee_id", "name", "initials", "age", "job_role", "department",
     "experience_years", "education_level", "publications_count",
-    "projects_led_count", "training_score", "skills_score",
+    "projects_led_count", "trainings_count", "skills_score",
     "boss_assessment_score", "language_proficiency",
     "experience_score", "education_score", "publication_score",
-    "project_score", "compensation_score",
+    "project_score", "training_score", "compensation_score",
     "market_min_salary", "market_max_salary",
     "expected_salary", "actual_salary", "compensation_ratio",
     "satisfaction_label",
@@ -74,7 +74,11 @@ def experience_score(years):
 
 
 def publication_score(count):
-    return 20 if count >= 4 else count * 5
+    return min(20, count * 2)
+
+
+def training_score(count):
+    return min(10, count * 2)
 
 
 def project_score(count):
@@ -104,12 +108,15 @@ def generate_row(employee_id, rng):
     projects_led_count = rng.choices(
         [0, 1, 2, 3, 4, 5], weights=[15, 20, 20, 20, 15, 10], k=1
     )[0]
-    training_score = round(rng.betavariate(2, 2) * 10)
+    trainings_count = rng.choices(
+        [0, 1, 2, 3, 4, 5, 6, 7], weights=[12, 18, 20, 18, 14, 9, 6, 3], k=1
+    )[0]
+    train_score = training_score(trainings_count)
     skills_score = round(rng.betavariate(2.5, 2) * 10)
 
     # Boss assessment: loosely tracks demonstrated skill/training but carries
     # substantial independent noise, so it is not a flat 10 for everyone.
-    performance_signal = (training_score + skills_score) / 2
+    performance_signal = (train_score + skills_score) / 2
     boss_assessment_score = clip(
         round(rng.gauss(0.5 * performance_signal + 3.0, 1.8)), 0, 10
     )
@@ -125,7 +132,7 @@ def generate_row(employee_id, rng):
 
     compensation_score = (
         exp_score + edu_score + pub_score + proj_score
-        + training_score + skills_score + boss_assessment_score
+        + train_score + skills_score + boss_assessment_score
     )
 
     percentile = clip(compensation_score / 100 + rng.gauss(0, 0.03), 0, 1)
@@ -152,7 +159,8 @@ def generate_row(employee_id, rng):
         "education_level": education_level,
         "publications_count": publications_count,
         "projects_led_count": projects_led_count,
-        "training_score": training_score,
+        "trainings_count": trainings_count,
+        "training_score": train_score,
         "skills_score": skills_score,
         "boss_assessment_score": boss_assessment_score,
         "language_proficiency": language_proficiency,

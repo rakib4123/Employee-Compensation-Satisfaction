@@ -3,6 +3,7 @@ from django.urls import reverse
 
 from compensation import data
 from compensation.data import compute_scorecard
+from ml.generate_dataset import publication_score, training_score
 
 
 class ScorecardTests(TestCase):
@@ -12,14 +13,15 @@ class ScorecardTests(TestCase):
             "education_level": "MSc",
             "publications_count": 5,
             "projects_led_count": 3,
-            "training_score": 7,
+            "trainings_count": 7,
             "skills_score": 8,
             "boss_assessment_score": 6,
         }
         scorecard = compute_scorecard(row)
-        # experience: min(20, 12*2)=20, education: MSc=15, publications: 5>=4 -> 20,
-        # projects: min(10, 3*2)=6, training=7, skills=8, boss_assessment=6
-        self.assertEqual(scorecard["total"], 20 + 15 + 20 + 6 + 7 + 8 + 6)
+        # experience: min(20, 12*2)=20, education: MSc=15,
+        # publications: min(20, 5*2)=10, projects: min(10, 3*2)=6,
+        # training: min(10, 7*2)=10, skills=8, boss_assessment=6
+        self.assertEqual(scorecard["total"], 20 + 15 + 10 + 6 + 10 + 8 + 6)
         self.assertEqual(scorecard["max_total"], 100)
 
     def test_scorecard_zero_profile_scores_zero(self):
@@ -28,12 +30,38 @@ class ScorecardTests(TestCase):
             "education_level": "High School",
             "publications_count": 0,
             "projects_led_count": 0,
-            "training_score": 0,
+            "trainings_count": 0,
             "skills_score": 0,
             "boss_assessment_score": 0,
         }
+        self.assertEqual(compute_scorecard(row)["total"], 0)
+
+    def test_scorecard_components_cap_at_their_maximum(self):
+        row = {
+            "experience_years": 40,
+            "education_level": "PhD",
+            "publications_count": 50,
+            "projects_led_count": 50,
+            "trainings_count": 50,
+            "skills_score": 10,
+            "boss_assessment_score": 10,
+        }
         scorecard = compute_scorecard(row)
-        self.assertEqual(scorecard["total"], 0)
+        self.assertEqual(scorecard["total"], 100)
+        for category in scorecard["categories"]:
+            self.assertEqual(category["score"], category["max"])
+
+    def test_publication_score_is_two_marks_each_capped_at_twenty(self):
+        self.assertEqual(publication_score(0), 0)
+        self.assertEqual(publication_score(3), 6)
+        self.assertEqual(publication_score(10), 20)
+        self.assertEqual(publication_score(11), 20)
+
+    def test_training_score_is_two_marks_each_capped_at_ten(self):
+        self.assertEqual(training_score(0), 0)
+        self.assertEqual(training_score(3), 6)
+        self.assertEqual(training_score(5), 10)
+        self.assertEqual(training_score(6), 10)
 
 
 class AuditDashboardAccessTests(TestCase):

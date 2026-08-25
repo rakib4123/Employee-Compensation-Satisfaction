@@ -26,12 +26,13 @@ from ml.generate_dataset import (
     experience_score,
     project_score,
     publication_score,
+    training_score,
 )
 from ml.features import CATEGORICAL_FEATURES, CLASSIFICATION_EXTRA_NUMERIC, NUMERIC_FEATURES
 
 INT_FIELDS = [
     "employee_id", "age", "experience_years", "publications_count",
-    "projects_led_count", "training_score", "skills_score",
+    "projects_led_count", "trainings_count", "training_score", "skills_score",
     "boss_assessment_score", "experience_score", "education_score",
     "publication_score", "project_score", "compensation_score",
     "market_min_salary", "market_max_salary", "expected_salary",
@@ -106,11 +107,11 @@ def satisfaction_label(level):
 SCORECARD_DESCRIPTIONS = {
     "experience": "2 points per year of experience, capped at 20 (10+ years)",
     "education": "PhD = 20, MSc = 15, BSc = 10, Diploma = 5, High School = 0",
-    "publications": "5 points per publication, capped at 20 (4+ publications)",
+    "publications": "2 points per publication, capped at 20 (10+ publications)",
     "projects": "2 points per project led, capped at 10 (5+ projects)",
-    "training": "Training/professional development score out of 10",
+    "training": "2 points per training completed, capped at 10 (5+ trainings)",
     "skills": "Current skill-level score out of 10",
-    "boss_assessment": "Most recent manager performance rating out of 10",
+    "boss_assessment": "Fixed at 10 for all employees",
 }
 
 
@@ -120,7 +121,7 @@ def compute_scorecard(row):
         {"key": "education", "label": "Education", "score": EDUCATION_POINTS[row["education_level"]], "max": 20},
         {"key": "publications", "label": "Publications", "score": publication_score(row["publications_count"]), "max": 20},
         {"key": "projects", "label": "Project management", "score": project_score(row["projects_led_count"]), "max": 10},
-        {"key": "training", "label": "Training", "score": row["training_score"], "max": 10},
+        {"key": "training", "label": "Training", "score": training_score(row["trainings_count"]), "max": 10},
         {"key": "skills", "label": "Skills", "score": row["skills_score"], "max": 10},
         {"key": "boss_assessment", "label": "Boss assessment", "score": row["boss_assessment_score"], "max": 10},
     ]
