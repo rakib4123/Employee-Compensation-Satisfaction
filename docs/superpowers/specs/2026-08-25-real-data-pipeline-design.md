@@ -61,11 +61,10 @@ directly. The rest are derived:
 | `compensation_ratio` | `actual_salary / expected_salary` |
 | `satisfaction_label` | `Satisfied` when `satisfaction_score >= 4` |
 
-Nothing is missing, so no new model and no data migration are required.
-Two schema migrations are still needed: one for the pending
-`designation` choices drift that `makemigrations --check` already
-reports, and one changing the `boss_assessment_score` default from `10`
-to null.
+Nothing is missing, so no new model is required. Two schema migrations
+are needed: one for the pending `designation` choices drift that
+`makemigrations --check` already reports, and one replacing
+`training_score` with `trainings_count` (see Marking logic).
 
 ## Storage
 
@@ -75,9 +74,61 @@ the auth and HR domains more cleanly, and remains a contained refactor
 later precisely because `data.py` hides storage from every consumer. It
 is not worth a fifteen-field data migration now.
 
+## Marking logic
+
+The 100-point scorecard is redefined. Counted components score two
+marks per item up to their cap; rated components score their rating
+directly.
+
+| Component | Rule | Max | Maxes out at |
+|---|---|---|---|
+| Experience | `min(20, years × 2)` | 20 | 10 years |
+| Education | PhD 20 · MSc 15 · BSc 10 · Diploma 5 · High School 0 | 20 | — |
+| Publications | `min(20, count × 2)` | 20 | 10 publications |
+| Projects led | `min(10, count × 2)` | 10 | 5 projects |
+| Training | `min(10, count × 2)` | 10 | 5 trainings |
+| Skills | self-rated 0–10, used as-is | 10 | — |
+| Boss assessment | flat `10` for everyone | 10 | — |
+| **Total** | | **100** | |
+
+Three changes from the current implementation:
+
+**Publications** move from `20 if count >= 4 else count × 5` to
+`min(20, count × 2)`. Reaching the cap now takes ten publications rather
+than four.
+
+**Training becomes a count, not a rating.** Today `training_score` is a
+0–10 self-assessment of development received. It becomes
+`trainings_count` — how many trainings or courses the employee has
+completed — scored at two marks each. The stored field changes name and
+meaning, and the registration question changes with it.
+
+`trainings_count` replaces `training_score` in `NUMERIC_FEATURES`, so
+the model consumes the raw count alongside `publications_count` and
+`projects_led_count`, and the derived score stays a display concern.
+This makes every counted component consistent: raw count stored and fed
+to the model, score derived for the scorecard.
+
+**Boss assessment is a flat 10 for everyone.** See below.
+
+Because `publication_score` and the training component feed
+`compensation_score`, which drives `expected_salary` and therefore
+`actual_salary`, **the synthetic dataset must be regenerated** and both
+models retrained. `generate_dataset.py` gains a `trainings_count` column
+drawn from a plausible distribution, with `training_score` derived from
+it.
+
+`SCORECARD_DESCRIPTIONS` and `compute_scorecard()` in
+`compensation/data.py` are updated to match, so the explanation HR reads
+on the detail page states the real rule.
+
 ## Registration
 
-The form keeps its current fields with three changes.
+The form keeps its current fields with four changes.
+
+**Training asks for a count.** "Rate the training/professional
+development you have received" becomes "How many trainings or courses
+have you completed?", storing `trainings_count`.
 
 **Department is removed as a question.** It is derived from the selected
 job role via `JOB_ROLES`, so it is always a category the models were
@@ -94,27 +145,30 @@ inputs with no value binding and hardcodes `selected` on the placeholder
 `<option>`, so any validation error clears the entire seventeen-field
 form. Selects must mark the submitted value as selected.
 
-**`boss_assessment_score` is not on the form.** See below.
+**`boss_assessment_score` is not on the form.** It is a flat 10.
 
 ## Boss assessment rating
 
-`boss_assessment_score` is a model feature. Its model default changes
-from `10` to null, and HR sets it from the HR dashboard. Employees do
-not self-report the rating their manager gave them.
+Every employee scores a flat `10`. The field keeps its default of `10`,
+nothing sets it, and it contributes a constant ten marks to every
+scorecard. No HR rating screen, no unrated state, no gate on
+predictions.
 
-An employee with no rating **receives no prediction**. The roster shows
-them with a "Set rating" action in place of a gap and a risk level, and
-they are excluded from the aggregate statistics, which display their
-coverage (for example, "12 of 15 rated"). A provisional prediction that
-silently changes once HR fills in a rating is worse than no prediction
-in a tool whose purpose is auditing fairness.
+It stays in `NUMERIC_FEATURES` and is still fed to both models.
 
-The thirteen existing survey rows keep their **self-reported** ratings,
-which are real values with genuine spread (`9, 6, 7, 1, 6, 8, 7, 8, 10,
-5, 6, 5, 8`) and are far better training signal than the hardcoded `10`
-that the current processor substitutes. This does mean the feature mixes
-self-reported and HR-set values across sources; that caveat belongs in
-any write-up of model results.
+**Known caveat, deliberately accepted.** The synthetic dataset generates
+boss assessments across a realistic 0–10 spread, so the models learn a
+positive association between the rating and pay. Every real employee
+then arrives holding the maximum value, which biases their predictions
+upward relative to the synthetic rows the models mostly learned from.
+The size of the effect is whatever coefficient training assigns the
+feature.
+
+This is a conscious trade for not asking employees to self-report their
+manager's rating and not building an HR screen to enter it. When real
+ratings become available the fix is to store them and retrain; nothing
+else in the design has to change. Any write-up of model results should
+state that boss assessment is constant in real data.
 
 ## Roster
 
@@ -129,8 +183,11 @@ the moment the roster is live — a newly registered employee would appear
 for some workers and not others. The roster is built per request.
 `_pipeline_cache` stays: model artifacts do not change mid-process.
 
-Employees missing any required field are surfaced as unrated rather than
-silently dropped, so HR can see who needs completing.
+Every registered employee gets a prediction, since registration makes
+all model inputs required and boss assessment is constant. An employee
+whose record predates this change, or is otherwise incomplete, is shown
+in the roster flagged as incomplete rather than silently dropped, so HR
+can see who needs attention.
 
 ## HR dashboard and payslips
 
@@ -207,17 +264,16 @@ Consequences:
 ## Survey processor
 
 `ml/data/survey_data_processor.py` is rewritten to emit
-`survey_employees.csv` from scratch, with four correctness fixes:
+`survey_employees.csv` from scratch, with three correctness fixes:
 
-1. **Manager rating** read from column 12 instead of hardcoded to `10`.
-2. **Department** mapped to a known category; rows whose department
+1. **Department** mapped to a known category; rows whose department
    cannot be resolved fall back to the department implied by their job
    role.
-3. **Job-role matching** by exact match. The current
+2. **Job-role matching** by exact match. The current
    `if jr.lower() in job_role.lower()` substring test matches
    `Senior Software Engineer` against `Software Engineer` first,
    assigning the junior market band (35k–120k instead of 70k–180k).
-4. **Salary sanity bounds**, relative to the role's own market band: a
+3. **Salary sanity bounds**, relative to the role's own market band: a
    row is kept when `actual_salary` falls within
    `[0.3 × market_min, 3 × market_max]`. A role-relative rule is used
    rather than one global range because the bands span 18k to 200k.
@@ -229,6 +285,17 @@ nothing; keeping such rows adds noise without signal.
 
 An `Other` education level maps to unknown rather than being silently
 downgraded to `High School`, which currently scores it zero points.
+
+Boss assessment stays hardcoded at `10`, matching the rule applied to
+registered employees. The survey's real self-reported ratings (`9, 6, 7,
+1, 6, 8, 7, 8, 10, 5, 6, 5, 8`) are therefore discarded. They are kept
+in `survey_raw.tsv` should the decision be revisited.
+
+The survey's training answers were collected as 0–10 ratings, before
+training became a count. They are read as counts, which is
+approximately but not exactly what respondents meant. With seven usable
+rows against a 1,000-row synthetic base the distortion is immaterial;
+future surveys should ask for a count.
 
 Applying these rules to the thirteen responses keeps **seven**: two are
 dropped for unrecognised roles (`Student`, `AI Engineer`) and four for
@@ -251,16 +318,21 @@ redirects, HR-only access, payslip ownership, empty states.
 
 New coverage:
 
+- Each scorecard component scores by its new rule, at zero, mid-range,
+  at its cap, and beyond its cap; the seven components total 100.
 - Registration persists every collected field to `User`.
 - Department is derived from job role, including the `Other` path.
 - A validation error re-renders the form with submitted values intact.
 - The roster reflects the database, including newly registered users.
-- Unrated employees get no prediction and are excluded from aggregates.
+- An incomplete employee record is flagged, not silently dropped.
 - Payslips derive from `actual_salary`; one user cannot fetch another's.
-- `export_employees` output matches `CSV_COLUMNS` and excludes unrated
-  employees.
-- The survey processor is idempotent, reads real ratings, resolves
-  departments, matches roles exactly, and drops out-of-range salaries.
+- `export_employees` output matches `CSV_COLUMNS`.
+- The survey processor is idempotent, resolves departments, matches
+  roles exactly, and drops out-of-range salaries and unknown roles.
+
+`compensation/tests.py` already asserts the old scorecard formula in
+`test_scorecard_matches_generator_formula_for_known_inputs`. That test
+is rewritten against the new rules, not deleted.
 
 ## Out of scope
 
