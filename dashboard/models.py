@@ -1,6 +1,11 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from ml.generate_dataset import JOB_ROLES
+
+ROLE_DEPARTMENTS = {role: department for role, department, _min, _max in JOB_ROLES}
+DEPARTMENT_CHOICES = [(name, name) for name in sorted(set(ROLE_DEPARTMENTS.values()))]
+
 
 class User(AbstractUser):
     class Role(models.TextChoices):
@@ -56,7 +61,7 @@ class User(AbstractUser):
     projects_led_count = models.IntegerField(default=0, blank=True, null=True)
     
     # Performance metrics (out of 10)
-    training_score = models.IntegerField(default=0, blank=True, null=True)
+    trainings_count = models.IntegerField(default=0, blank=True, null=True)
     skills_score = models.IntegerField(default=0, blank=True, null=True)
     boss_assessment_score = models.IntegerField(default=10, blank=True, null=True) # Hardcoded to 10 for now
     
@@ -64,3 +69,8 @@ class User(AbstractUser):
     actual_salary = models.IntegerField(blank=True, null=True)
     satisfaction_score = models.IntegerField(blank=True, null=True)
     fairness_feedback = models.TextField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if self.designation and self.designation != "Other":
+            self.department = ROLE_DEPARTMENTS.get(self.designation, self.department)
+        super().save(*args, **kwargs)
