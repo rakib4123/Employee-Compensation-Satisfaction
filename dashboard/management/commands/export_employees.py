@@ -11,8 +11,7 @@ import csv
 
 from django.core.management.base import BaseCommand
 
-from compensation.data import compute_scorecard
-from compensation import data as compensation_data
+from compensation.data import compute_scorecard, get_complete_employees
 from ml.generate_dataset import CSV_COLUMNS
 
 DEFAULT_OUT = "ml/data/real_employees.csv"
@@ -26,7 +25,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         rows = []
-        for row in compensation_data._load_employees():
+        for row in get_complete_employees():
             scorecard = compute_scorecard(row)
             by_key = {category["key"]: category["score"] for category in scorecard["categories"]}
             rows.append({
@@ -35,7 +34,6 @@ class Command(BaseCommand):
                 "education_score": by_key["education"],
                 "publication_score": by_key["publications"],
                 "project_score": by_key["projects"],
-                "training_score": by_key["training"],
                 "compensation_score": scorecard["total"],
                 "expected_salary": "",
                 "compensation_ratio": "",

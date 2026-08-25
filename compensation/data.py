@@ -131,6 +131,11 @@ def _load_employees():
     return [_employee_row(user) for user in _employees() if not _missing_fields(user)]
 
 
+def get_complete_employees():
+    """Employee rows with every model input present, in CSV_COLUMNS-compatible shape."""
+    return _load_employees()
+
+
 def risk_level(probability):
     if probability >= 0.6:
         return "low"
