@@ -49,7 +49,7 @@ FEATURE_LABELS = {
     "experience_years": "Experience",
     "publications_count": "Publications",
     "projects_led_count": "Projects led",
-    "training_score": "Training score",
+    "trainings_count": "Trainings completed",
     "skills_score": "Skills score",
     "boss_assessment_score": "Boss assessment",
     "actual_salary": "Actual salary",
