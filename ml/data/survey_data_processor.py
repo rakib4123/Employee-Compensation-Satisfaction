@@ -120,31 +120,31 @@ def salary_in_band(salary, role):
 
 
 def build_row(employee_id, record):
-    role = resolve_role(record.iloc[2], record.iloc[3])
+    role = resolve_role(record.iloc[1], record.iloc[2])
     if role is None:
         return None
 
-    salary = parse_salary(record.iloc[13])
+    salary = parse_salary(record.iloc[12])
     if salary is None or not salary_in_band(salary, role):
         return None
 
-    education = resolve_education(record.iloc[7])
+    education = resolve_education(record.iloc[6])
     if education is None:
         return None
 
-    language = resolve_language(record.iloc[5])
+    language = resolve_language(record.iloc[4])
     if language is None:
         return None
 
-    satisfaction = parse_satisfaction(record.iloc[14])
+    satisfaction = parse_satisfaction(record.iloc[13])
     if satisfaction is None:
         return None
 
-    publications = parse_int(record.iloc[8])
-    projects = parse_int(record.iloc[9])
-    trainings = parse_int(record.iloc[10])
-    skills = parse_int(record.iloc[11])
-    experience = parse_int(record.iloc[6])
+    publications = parse_int(record.iloc[7])
+    projects = parse_int(record.iloc[8])
+    trainings = parse_int(record.iloc[9])
+    skills = parse_int(record.iloc[10])
+    experience = parse_int(record.iloc[5])
 
     scores = {
         "experience_score": experience_score(experience),
@@ -159,9 +159,9 @@ def build_row(employee_id, record):
         "employee_id": employee_id,
         "name": f"Survey Participant {employee_id}",
         "initials": "SP",
-        "age": parse_int(record.iloc[1], 25),
+        "age": parse_int(record.iloc[0], 25),
         "job_role": role,
-        "department": resolve_department(record.iloc[4], role),
+        "department": resolve_department(record.iloc[3], role),
         "experience_years": experience,
         "education_level": education,
         "publications_count": publications,
