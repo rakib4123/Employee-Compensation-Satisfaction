@@ -51,7 +51,7 @@ Artifacts land in `artifacts/`; the Django app loads them and never trains.
   break the circularity on synthetic data. `ml/generate_dataset.py`
   defines `actual_salary = expected_salary * gauss(1.0, 0.12)`, so on
   synthetic rows the new target is still only about 12% noise away from
-  the old formula-derived one. That is why R2 stays high (~0.92) rather
+  the old formula-derived one. That is why R2 stays high (~0.91) rather
   than collapsing. The circularity is genuinely broken only for real
   rows, where `actual_salary` is an observed fact rather than a derived
   number. Any write-up of model results must say this — the target
