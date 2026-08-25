@@ -470,7 +470,7 @@ Expected: `feature lists OK`.
 - [ ] **Step 10: Run the full suite**
 
 Run: `venv/bin/python manage.py test`
-Expected: PASS. If `compensation.tests` fails on the string `Predicted Fair Salary`, leave it — Task 11 renames the copy. Note the failure and move on only if it is that specific assertion.
+Expected: PASS, no exceptions. The UI still says "Predicted Fair Salary" and its assertions still pass — Task 11 renames both together. If anything fails here it is a real defect in this task; fix it before committing.
 
 - [ ] **Step 11: Commit**
 
@@ -2014,7 +2014,7 @@ Expected: PASS.
 grep -rn "Fair Salary\|fair salary\|Predicted Fair\|training_score" --include=*.html --include=*.py . | grep -v "^./venv" | grep -v "^./docs" | grep -v migrations
 ```
 
-Expected: only `ml/generate_dataset.py`, `ml/data/survey_data_processor.py`, `dashboard/management/commands/export_employees.py` and `compensation/data.py` — all referring to the derived `training_score` mark, which is correct. No UI copy should match.
+Expected matches for `training_score` only in: `ml/generate_dataset.py`, `ml/data/survey_data_processor.py`, `ml/tests.py`, `dashboard/management/commands/export_employees.py`, `compensation/data.py` and `compensation/tests.py` — all referring to the derived `training_score` mark, which is correct and stays. Zero matches for any "Fair Salary" variant, and zero `training_score` matches in `.html` files.
 
 - [ ] **Step 6: Commit**
 
