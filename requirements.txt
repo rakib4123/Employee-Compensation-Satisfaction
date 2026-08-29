@@ -3,6 +3,7 @@ Django==5.2.17
 sqlparse==0.5.5
 
 # ML prototype (salary prediction / compensation satisfaction)
+joblib==1.5.3
 pandas==3.0.5
 numpy==2.5.2
 scikit-learn==1.9.0
@@ -13,3 +14,6 @@ shap==0.52.0
 gunicorn==21.2.0
 whitenoise==6.6.0
 dj-database-url==2.1.0
+# Required by dj-database-url whenever DATABASE_URL points at Postgres.
+# Without it Django raises ImproperlyConfigured at startup.
+psycopg2-binary==2.9.12

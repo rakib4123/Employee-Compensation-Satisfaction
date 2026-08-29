@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+import sys
+
+from django.core.exceptions import ImproperlyConfigured
+
 # pyrefly: ignore [missing-import]
 import dj_database_url
 
@@ -19,19 +23,52 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+#
+# DEBUG defaults OFF. It is opted into explicitly with DJANGO_DEBUG=1, rather
+# than inferred from the absence of a hosting provider's env var — the previous
+# rule (`DEBUG = RENDER env is unset`) meant every host that was not Render ran
+# with DEBUG on, which leaks tracebacks and settings to any visitor.
+DEBUG = os.environ.get('DJANGO_DEBUG', '') == '1'
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-n-#w@i^^2z63l2-(ygbpi-7vk=vdw*+2tc)c=na^#qmkar*v$a')
+# The test runner forces DEBUG off, so tests would otherwise trip the
+# production SECRET_KEY requirement below on a machine that has no reason to
+# set one. Detecting the runner keeps `manage.py test` working out of the box
+# without weakening the check for real deployments.
+RUNNING_TESTS = 'test' in sys.argv
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('RENDER', '') == '' # True if not on Render
 
-ALLOWED_HOSTS = []
+def _secret_key():
+    """Fail loudly rather than silently ship a public key.
+
+    The development fallback below is committed to a public repository, so
+    anything signed with it — session cookies, password-reset tokens, CSRF
+    tokens — is forgeable by anyone who can read the source. It is therefore
+    allowed only in development and under the test runner.
+    """
+    key = os.environ.get('SECRET_KEY')
+    if key:
+        return key
+    if DEBUG or RUNNING_TESTS:
+        return 'django-insecure-dev-only-key-not-for-deployment'
+    raise ImproperlyConfigured(
+        "SECRET_KEY environment variable is required when DEBUG is off. "
+        "Generate one with:\n"
+        "  python -c \"from django.core.management.utils import "
+        "get_random_secret_key; print(get_random_secret_key())\""
+    )
+
+
+SECRET_KEY = _secret_key()
+
+# Hosts. Render supplies its own hostname; anything else is configured through
+# ALLOWED_HOSTS as a comma-separated list.
+ALLOWED_HOSTS = [h.strip() for h in os.environ.get('ALLOWED_HOSTS', '').split(',') if h.strip()]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+if (DEBUG or RUNNING_TESTS) and not ALLOWED_HOSTS:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
 
 
 # Application definition
@@ -90,9 +127,23 @@ DATABASES = {
 }
 
 if 'DATABASE_URL' in os.environ:
+    # Requires a driver: psycopg2-binary is pinned in requirements.txt for this.
     DATABASES['default'] = dj_database_url.config(
         conn_max_age=600,
         conn_health_checks=True,
+    )
+elif os.environ.get('RENDER'):
+    # SQLite on Render lives on an ephemeral disk: every deploy and every
+    # restart wipes it, taking all registered employees with it. Provision a
+    # Postgres instance and set DATABASE_URL.
+    import warnings
+
+    warnings.warn(
+        "Running on Render with SQLite. The database is on ephemeral storage "
+        "and will be erased on the next deploy or restart. Set DATABASE_URL to "
+        "a managed Postgres instance before collecting real data.",
+        RuntimeWarning,
+        stacklevel=2,
     )
 
 
@@ -134,8 +185,27 @@ STATIC_URL = 'static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-if not DEBUG:
+if not DEBUG and not RUNNING_TESTS:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+    # Transport security. Excluded under the test runner as well as in
+    # development: the runner forces DEBUG off, and SECURE_SSL_REDIRECT would
+    # turn every test-client request into a 301 to https before it reached a
+    # view. Deploy-time coverage comes from `manage.py check --deploy`.
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000          # one year
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_REFERRER_POLICY = 'same-origin'
+    # Render terminates TLS at its proxy; without this Django sees plain HTTP
+    # and SECURE_SSL_REDIRECT would loop forever.
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+    if RENDER_EXTERNAL_HOSTNAME:
+        CSRF_TRUSTED_ORIGINS = [f'https://{RENDER_EXTERNAL_HOSTNAME}']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
