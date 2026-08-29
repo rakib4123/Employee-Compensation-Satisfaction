@@ -253,6 +253,25 @@ class EmployeeDetailTests(TestCase):
         self.assertContains(response, target["name"])
         self.assertContains(response, "Predicted Market Salary")
 
+    def test_detail_shows_what_the_employee_reported(self):
+        target = data.get_roster()[0]
+        get_user_model().objects.filter(pk=target["employee_id"]).update(
+            fairness_feedback="A salary that reflects my responsibilities."
+        )
+        response = self.client.get(
+            reverse("compensation:employee_detail", args=[target["employee_id"]])
+        )
+        self.assertContains(response, "Reported by the employee")
+        self.assertContains(response, "A salary that reflects my responsibilities.")
+        self.assertContains(response, "Their own answers at registration")
+
+    def test_detail_handles_an_employee_who_left_feedback_blank(self):
+        target = data.get_roster()[0]
+        response = self.client.get(
+            reverse("compensation:employee_detail", args=[target["employee_id"]])
+        )
+        self.assertContains(response, "No comment given.")
+
     def test_unknown_employee_returns_404(self):
         response = self.client.get(reverse("compensation:employee_detail", args=[999999]))
         self.assertEqual(response.status_code, 404)

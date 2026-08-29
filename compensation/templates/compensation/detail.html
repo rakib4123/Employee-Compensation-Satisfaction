@@ -24,6 +24,26 @@
     </dl>
   </div>
 
+  <div class="rounded-xl bg-white dark:bg-slate-800 shadow p-6 mb-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+    <h2 class="font-semibold mb-1">Reported by the employee</h2>
+    <p class="text-xs text-slate-500 mb-4">Their own answers at registration — not a model output.</p>
+    <div class="flex items-center gap-3 mb-4">
+      <span class="text-sm text-slate-500">Compensation satisfaction</span>
+      <span class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs
+        {% if employee.satisfaction_score >= 4 %}bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300
+        {% elif employee.satisfaction_score == 3 %}bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300
+        {% else %}bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300{% endif %}">
+        {{ employee.satisfaction_score }} / 5 &middot; {{ employee.satisfaction_label }}
+      </span>
+    </div>
+    <p class="text-sm text-slate-500 mb-1">What would make their compensation feel more fair</p>
+    {% if employee.fairness_feedback %}
+      <blockquote class="text-sm border-l-2 border-indigo-400 pl-3 italic">{{ employee.fairness_feedback }}</blockquote>
+    {% else %}
+      <p class="text-sm text-slate-400 italic">No comment given.</p>
+    {% endif %}
+  </div>
+
   {% include "compensation/partials/prediction_cards.html" %}
 </div>
 {% endblock %}
