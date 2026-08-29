@@ -456,3 +456,59 @@ class ExportEmployeesTests(TestCase):
             out = Path(tmp) / "real_employees.csv"
             call_command("export_employees", "--out", str(out))
             self.assertEqual(list(csv.DictReader(out.open())), [])
+
+
+class SelfServicePredictionTests(TestCase):
+    """The employee types their salary at registration; showing it back to them
+    tells them nothing. These cover the predicted market figure and the gap."""
+
+    def make(self, username, salary, **overrides):
+        User = get_user_model()
+        fields = {
+            "first_name": "Rafiq", "last_name": "Hossain", "age": 28,
+            "designation": "Software Engineer", "language_proficiency": "Advanced",
+            "experience_years": 5, "education_level": "BSc", "publications_count": 1,
+            "projects_led_count": 2, "trainings_count": 3, "skills_score": 7,
+            "boss_assessment_score": 10, "actual_salary": salary,
+            "satisfaction_score": 3,
+        }
+        fields.update(overrides)
+        user = User.objects.create_user(username=username, password="x", **fields)
+        self.client.login(username=username, password="x")
+        return user
+
+    def test_prediction_is_independent_of_the_entered_salary(self):
+        self.make("low", 40000)
+        low = self.client.get("/me/").context["prediction"]["predicted_salary"]
+        self.client.logout()
+        self.make("high", 150000)
+        high = self.client.get("/me/").context["prediction"]["predicted_salary"]
+        # Same profile, salaries nearly 4x apart: the prediction must not move.
+        self.assertEqual(low, high)
+
+    def test_underpaid_employee_sees_a_below_market_gap(self):
+        self.make("under", 40000)
+        response = self.client.get("/me/")
+        self.assertContains(response, "Predicted market salary for your profile")
+        self.assertContains(response, "below the prediction")
+        self.assertLess(response.context["prediction"]["gap_pct"], -10)
+
+    def test_overpaid_employee_sees_an_above_market_gap(self):
+        self.make("over", 150000)
+        response = self.client.get("/me/")
+        self.assertContains(response, "above the prediction")
+        self.assertGreater(response.context["prediction"]["gap_pct"], 10)
+
+    def test_incomplete_record_gets_a_message_not_a_crash(self):
+        User = get_user_model()
+        User.objects.create_user(username="partial", password="x", first_name="Mim")
+        self.client.login(username="partial", password="x")
+        response = self.client.get("/me/")
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNone(response.context["prediction"])
+        self.assertContains(response, "missing some details")
+
+    def test_the_estimate_is_labelled_as_an_estimate(self):
+        self.make("caveat", 70000)
+        response = self.client.get("/me/")
+        self.assertContains(response, "not a salary")

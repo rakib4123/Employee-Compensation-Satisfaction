@@ -255,22 +255,46 @@ def _build_roster():
     clf_input["predicted_market_salary"] = predicted_salary
     satisfaction_probability = _predict_satisfaction(classification_pipeline, clf_input)
 
-    roster = []
-    for row, salary, probability in zip(rows, predicted_salary, satisfaction_probability):
-        predicted = round(float(salary))
-        probability = round(float(probability), 2)
-        level = risk_level(probability)
-        roster.append({
-            **row,
-            "predicted_salary": predicted,
-            "gap_pct": round((row["actual_salary"] - predicted) / predicted * 100, 1),
-            "market_position_pct": market_position_pct(predicted, row["market_min_salary"], row["market_max_salary"]),
-            "satisfaction_probability": probability,
-            "predicted_satisfaction": satisfaction_label(level),
-            "risk_level": level,
-            "scorecard": compute_scorecard(row),
-        })
-    return roster
+    return [
+        _enrich(row, salary, probability)
+        for row, salary, probability in zip(rows, predicted_salary, satisfaction_probability)
+    ]
+
+
+def _enrich(row, salary, probability):
+    """Attach the model outputs to one roster row."""
+    predicted = round(float(salary))
+    probability = round(float(probability), 2)
+    level = risk_level(probability)
+    return {
+        **row,
+        "predicted_salary": predicted,
+        "gap_pct": round((row["actual_salary"] - predicted) / predicted * 100, 1),
+        "market_position_pct": market_position_pct(predicted, row["market_min_salary"], row["market_max_salary"]),
+        "satisfaction_probability": probability,
+        "predicted_satisfaction": satisfaction_label(level),
+        "risk_level": level,
+        "scorecard": compute_scorecard(row),
+    }
+
+
+def predict_for_user(user):
+    """Prediction for a single employee, or None when their record is
+    incomplete. Used by employee self-service, which needs one row and should
+    not pay for building and scoring the whole roster to get it.
+    """
+    if _missing_fields(user):
+        return None
+    row = _employee_row(user)
+    regression_pipeline, classification_pipeline = _get_pipelines()
+    df = pd.DataFrame([row])
+    predicted_salary = _predict_salary(regression_pipeline, df)
+
+    clf_input = df.copy()
+    clf_input["predicted_market_salary"] = predicted_salary
+    probability = _predict_satisfaction(classification_pipeline, clf_input)
+
+    return _enrich(row, predicted_salary[0], probability[0])
 
 
 def get_roster():
