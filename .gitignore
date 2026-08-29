@@ -5,3 +5,7 @@ db.sqlite3
 ml/data/real_employees.csv
 /tailwindcss
 .superpowers/
+
+# Generated paper archives
+*.zip
+staticfiles/

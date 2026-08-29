@@ -54,6 +54,10 @@ REQUIRED_EMPLOYEE_FIELDS = (
 
 MARKET_BANDS = {role: (low, high) for role, _department, low, high in JOB_ROLES}
 
+# Every real employee carries this value; the what-if predictor uses it too so
+# its output is comparable with roster rows. See ml/README.md for the caveat.
+BOSS_ASSESSMENT_SCORE = 10
+
 
 def _artifacts_dir():
     return settings.BASE_DIR / "ml" / "artifacts"
@@ -300,6 +304,7 @@ def get_employee_detail(employee_id):
 
 
 def predict_profile(profile):
+    profile = {**profile, "boss_assessment_score": BOSS_ASSESSMENT_SCORE}
     job_role = profile["job_role"]
     department, market_min, market_max = next(
         (dept, mn, mx) for role, dept, mn, mx in JOB_ROLES if role == job_role

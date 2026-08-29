@@ -305,9 +305,16 @@ class PredictProfileTests(TestCase):
         return payload
 
     def test_get_shows_empty_form(self):
+        # The old assertion (assertNotContains "Predicted Market Salary") could
+        # not fail: prediction_cards.html is only included when `result` is
+        # truthy, so a GET never renders that string whatever the copy says.
+        # Assert on the context instead, which is what actually distinguishes
+        # an empty form from a rendered prediction.
         response = self.client.get(reverse("compensation:predict_profile"))
         self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, "Predicted Market Salary")
+        self.assertIsNone(response.context["result"])
+        self.assertFalse(response.context["form"].is_bound)
+        self.assertContains(response, "Predict for a Profile")
 
     def test_post_valid_profile_shows_prediction_without_satisfaction(self):
         response = self.client.post(reverse("compensation:predict_profile"), self.valid_payload())
