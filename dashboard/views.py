@@ -92,9 +92,15 @@ def employee_self_service(request):
         "email": user.email,
         "salary": user.actual_salary or 0,
     }
+    # Imported here rather than at module scope: dashboard is loaded during
+    # app registry setup and compensation.data pulls in pandas and the model
+    # artifacts, which self-service is the only view in this app to need.
+    from compensation.data import predict_for_user
+
     return render(request, "dashboard/employee_self_service.html", {
         "employee": employee,
         "payslips": payslips_for(user),
+        "prediction": predict_for_user(user),
     })
 
 
