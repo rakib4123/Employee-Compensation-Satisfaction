@@ -121,6 +121,10 @@ def _employee_row(user):
         "actual_salary": user.actual_salary,
         "satisfaction_score": user.satisfaction_score,
         "satisfaction_label": "Satisfied" if user.satisfaction_score >= 4 else "Dissatisfied",
+        # Collected at registration and, until now, read by nobody. The
+        # detail page shows both so HR sees what the employee actually
+        # reported next to what the model predicts.
+        "fairness_feedback": (user.fairness_feedback or "").strip(),
     }
 
 
