@@ -139,6 +139,18 @@ class RosterFromDatabaseTests(TestCase):
         self.assertEqual(incomplete[0]["name"], "Rafiq Hossain")
         self.assertIn("actual_salary", incomplete[0]["missing"])
 
+    def test_employee_without_a_department_is_incomplete(self):
+        # department is a model feature. .update() and bulk_create bypass
+        # User.save(), so its derivation can be skipped; a blank department
+        # becomes an all-zero one-hot the encoder ignores silently.
+        get_user_model().objects.filter(username="amara_okafor").delete()
+        user = self.create_employee("nodept")
+        get_user_model().objects.filter(pk=user.pk).update(department=None)
+        self.assertEqual(data.get_roster(), [])
+        incomplete = data.get_incomplete_employees()
+        self.assertEqual(len(incomplete), 1)
+        self.assertIn("department", incomplete[0]["missing"])
+
     def test_satisfaction_label_is_dissatisfied_below_four(self):
         self.create_employee("low", satisfaction_score=2)
         self.assertEqual(data.get_roster()[0]["satisfaction_label"], "Dissatisfied")
