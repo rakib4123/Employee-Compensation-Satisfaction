@@ -46,8 +46,8 @@ FEATURE_LABELS = {
 _pipeline_cache = None
 
 REQUIRED_EMPLOYEE_FIELDS = (
-    "designation", "education_level", "language_proficiency", "age",
-    "experience_years", "publications_count", "projects_led_count",
+    "designation", "department", "education_level", "language_proficiency",
+    "age", "experience_years", "publications_count", "projects_led_count",
     "trainings_count", "skills_score", "boss_assessment_score",
     "actual_salary", "satisfaction_score",
 )

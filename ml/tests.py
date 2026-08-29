@@ -3,6 +3,7 @@ from django.test import SimpleTestCase
 
 from ml.data.survey_data_processor import (
     build_row,
+    parse_int,
     parse_salary,
     parse_satisfaction,
     resolve_department,
@@ -25,6 +26,33 @@ class SalaryParsingTests(SimpleTestCase):
         self.assertIsNone(parse_salary("0000"))
         self.assertIsNone(parse_salary("n/a"))
         self.assertIsNone(parse_salary(""))
+
+    def test_negative_salary_is_none(self):
+        # A negative is a non-answer, not earnings. Returning it would leave
+        # the row's rejection dependent on every market band minimum being
+        # positive, which is an invariant this function should not rely on.
+        self.assertIsNone(parse_salary("-5000"))
+        self.assertIsNone(parse_salary("-1"))
+
+
+class IntParsingTests(SimpleTestCase):
+    def test_plain_integer(self):
+        self.assertEqual(parse_int("5"), 5)
+
+    def test_range_is_averaged(self):
+        self.assertEqual(parse_int("3-5"), 4)
+        self.assertEqual(parse_int("15 -20"), 17)
+
+    def test_negative_is_not_read_as_a_range(self):
+        # "-5" partitions to ("", "-", "5"); the old code fell into the range
+        # branch, raised, and silently returned the field default instead.
+        self.assertEqual(parse_int("-5"), -5)
+
+    def test_blank_and_junk_fall_back_to_the_default(self):
+        self.assertEqual(parse_int(""), 0)
+        self.assertEqual(parse_int("n/a"), 0)
+        self.assertEqual(parse_int("abc"), 0)
+        self.assertEqual(parse_int("", default=25), 25)
 
 
 class RoleResolutionTests(SimpleTestCase):

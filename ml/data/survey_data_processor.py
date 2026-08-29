@@ -56,17 +56,23 @@ def parse_salary(value):
         amount = int(float(text) * multiplier)
     except ValueError:
         return None
-    return amount or None
+    # Zero and negatives are both non-answers, not earnings. Returning a
+    # negative here would depend on every market band minimum being positive
+    # for the band check downstream to catch it.
+    return amount if amount > 0 else None
 
 
 def parse_int(value, default=0):
     text = str(value).strip()
     if not text or text.lower() in {"n/a", "nan"}:
         return default
-    if "-" in text:
-        low, _, high = text.partition("-")
+    # A range like "3-5" is averaged. A leading minus is a negative number,
+    # not a range — partitioning it yields an empty left side, so it must be
+    # excluded here rather than silently falling through to the default.
+    if "-" in text[1:]:
+        low, _, high = text[1:].partition("-")
         try:
-            return (int(low.strip()) + int(high.strip())) // 2
+            return (int((text[0] + low).strip()) + int(high.strip())) // 2
         except ValueError:
             return default
     try:
