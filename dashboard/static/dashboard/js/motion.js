@@ -34,14 +34,6 @@ function staggerRows(container) {
   gsap.fromTo(rows, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.05, ease: "power2.out" });
 }
 
-function animateRowIn(row) {
-  if (!row) return;
-  gsap.fromTo(
-    row,
-    { opacity: 0, backgroundColor: "rgba(99,102,241,0.15)" },
-    { opacity: 1, backgroundColor: "rgba(0,0,0,0)", duration: 0.6, ease: "power2.out" }
-  );
-}
 
 function animateCountUp(el, target, options = {}) {
   if (!el) return;
@@ -60,15 +52,7 @@ function animateCountUp(el, target, options = {}) {
   });
 }
 
-function animateModalIn(el) {
-  if (!el) return;
-  gsap.fromTo(el, { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.2, ease: "power2.out" });
-}
 
-function animateModalOut(el, onComplete) {
-  if (!el) return onComplete && onComplete();
-  gsap.to(el, { opacity: 0, scale: 0.95, duration: 0.15, ease: "power1.in", onComplete });
-}
 
 function animateToastIn(el) {
   if (!el) return;

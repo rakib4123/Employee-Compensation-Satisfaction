@@ -12,7 +12,7 @@ INPUT_CLASS = (
     "focus:ring-indigo-500"
 )
 
-SLIDER_FIELDS = {"skills_score", "boss_assessment_score"}
+SLIDER_FIELDS = {"skills_score"}
 SLIDER_CLASS = "w-full accent-indigo-600 cursor-pointer"
 
 
@@ -29,7 +29,10 @@ class PredictProfileForm(forms.Form):
     projects_led_count = forms.IntegerField(min_value=0, max_value=20)
     trainings_count = forms.IntegerField(min_value=0, max_value=20, initial=2, label="Trainings completed")
     skills_score = forms.IntegerField(min_value=0, max_value=10, initial=5, widget=_slider_widget())
-    boss_assessment_score = forms.IntegerField(min_value=0, max_value=10, initial=5, widget=_slider_widget())
+    # boss_assessment_score is deliberately absent. It is a flat 10 for every
+    # real employee, so a what-if run at any other value would model a profile
+    # that cannot appear in the roster and could not be compared against it.
+    # compensation.data.predict_profile injects the constant.
     language_proficiency = forms.ChoiceField(choices=LANGUAGE_CHOICES)
     proposed_salary = forms.IntegerField(min_value=0, required=False)
 
