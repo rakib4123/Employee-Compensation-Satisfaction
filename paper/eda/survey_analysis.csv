@@ -1,0 +1,16 @@
+age,job_title,job_title_other,department,language,experience_years,education,publications,projects_led,trainings,skills_self,manager_rating,salary_raw,satisfaction,feedback,salary,role,dept_norm,has_feedback
+22.0,Data Analyst,,CSE,Basic,2.0,BSc,2.0,2.0,9.0,9.0,9.0,30000,4.0,nothing to say,30000.0,Data Analyst,CSE,True
+24.0,Other,Student ,Cse,Fluent,2.0,Other,2.0,4.0,5.0,7.0,6.0,0000,3.0,"
+No",,Student,CSE,True
+25.0,Software Engineer,,CSE,Intermediate,5.0,MSc,10.0,5.0,5.0,5.0,7.0,100000,5.0,No,100000.0,Software Engineer,CSE,True
+23.0,Data Analyst,,Bsc,Basic,5.0,MSc,30.0,9.0,3.0,0.0,1.0,400000,2.0,Yes,400000.0,Data Analyst,CSE,True
+22.0,Graphic Designer,,Cse,Intermediate,5.0,BSc,2.0,3.0,4.0,2.0,6.0,3 lakh,3.0,no ,300000.0,Graphic Designer,CSE,True
+22.0,Software Engineer,,cse,Intermediate,4.0,BSc,26.0,5.0,4.0,3.0,8.0,70000,3.0,"I would feel that my compensation is more fair with a salary that reflects my responsibilities, workload, performance, and opportunities for growth. Regular performance-based reviews and adjustments would also help.
+",70000.0,Software Engineer,CSE,True
+26.0,Software Engineer,,CSE,Intermediate,1.0,BSc,2.0,6.0,3.0,7.0,7.0,15000,5.0,Fair evaluation ,15000.0,Software Engineer,CSE,True
+25.0,Other,AI Engineer ,CS,Intermediate,3.0,BSc,4.0,3.0,2.0,10.0,8.0,120000,4.0,Nothing,120000.0,AI Engineer,CSE,True
+21.0,Software Engineer,Executive head ,CSE ,Advanced,3.0,BSc,1.0,3.0,10.0,10.0,10.0,50000,5.0,No,50000.0,Software Engineer,CSE,True
+25.0,Software Engineer,,Cse,Intermediate,1.0,BSc,2.0,3.0,2.0,2.0,5.0,"50,000",3.0,More 10k salary,50000.0,Software Engineer,CSE,True
+22.0,Data Analyst,,CSE,Basic,2.0,BSc,2.0,10.0,5.0,10.0,6.0,500000,3.0,"A fair salary based on the role, responsibilities, workload, and market standards, along with opportunities for performance-based increases and growth.",500000.0,Data Analyst,CSE,True
+23.0,Data Analyst,N/a,CSE,Fluent,,BSc,1.0,,5.0,5.0,5.0,0,1.0,More skills,,Data Analyst,CSE,True
+25.0,Software Engineer,,CSE,Intermediate,3.0,BSc,3.0,5.0,9.0,8.0,8.0,50000,3.0,A fair salary increase based on my responsibilities and performance,50000.0,Software Engineer,CSE,True
