@@ -2,8 +2,7 @@
 
 Queries the registered employees (User rows with role=employee) fresh on
 every call and enriches them with each trained model's own predictions and
-a human-readable explanation of what drove them. See
-docs/superpowers/specs/2026-08-16-compensation-insights-design.md.
+a human-readable explanation of what drove them.
 
 Both winning models are linear (LinearRegression, LogisticRegression),
 so top_factors() below computes exact closed-form contributions from

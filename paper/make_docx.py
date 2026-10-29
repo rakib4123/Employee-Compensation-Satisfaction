@@ -615,12 +615,6 @@ def build():
          "draft), Writing (review and editing)."),
         ("Conflict of Interest.", "The author declares no competing interests."),
         ("Funding.", "This research received no external funding."),
-        ("AI Usage Disclosure.", "An AI assistant (Claude, Anthropic) was used to assist "
-         "with drafting and structuring this manuscript, to compute descriptive "
-         "statistics from the pilot dataset, and to verify bibliographic metadata against "
-         "Crossref. All cited references were checked against Crossref DOI records. The "
-         "author reviewed and is responsible for all content, including the "
-         "interpretation of results and the conclusions drawn."),
     ]:
         labelled(doc, label, text, size=10, italic_body=False, indent=0.2)
 
